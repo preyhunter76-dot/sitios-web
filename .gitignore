@@ -1,0 +1,6 @@
+.vercel/
+_revision/
+_capturas/
+node_modules/
+.env*
+*.log

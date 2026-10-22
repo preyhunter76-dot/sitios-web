@@ -1,0 +1,5 @@
+build.mjs
+package.json
+images.json
+img/cover-*.jpg
+img/logo.png

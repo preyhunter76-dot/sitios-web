@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="img/logo-salsafro-records.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Salsafro · Afro House con salsa y tambor del Pacífico</title>
+<meta name="description" content="Salsafro: la fusión de Afro House, ritmos afrocolombianos, salsa y percusión del Pacífico creada en Cali. Tienda oficial, Salsafro Records y booking.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="solicitud.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="nav" id="nav">
+  <a href="#inicio" class="brand"><img src="img/logo-salsafro-white.webp" alt="Salsafro"></a>
+  <nav class="links" id="links"><a href="#raices">Raíces</a><a href="#tienda">Tienda</a><a href="#set">El set</a><a href="#records">Records</a><a href="#booking">Booking</a></nav>
+  <a class="nav-cta" id="bcTop" target="_blank" rel="noopener">Bandcamp ↗</a>
+  <button class="burger" id="burger" aria-label="Menú"><span></span><span></span></button>
+</header>
+
+<main>
+<section class="hero" id="inicio">
+  <div class="hero-img"><img src="img/live-04.webp" alt="Pista llena en un show de Salsafro"></div>
+  <svg class="hero-wave" viewBox="0 0 1440 200" preserveAspectRatio="none" aria-hidden="true"><path d="M0 120 C 240 40, 480 200, 720 120 S 1200 40, 1440 120 L1440 200 L0 200 Z"/></svg>
+  <div class="hero-copy">
+    <p class="kicker reveal">Cali · Pacífico colombiano · Desde 2026</p>
+    <h1 class="reveal">Afro House<br>con <em>salsa</em><br>y tambor</h1>
+    <p class="lead reveal">Salsafro es la fusión creada por Prey Hunter: el club se encuentra con la marimba, el piano montuno y los cununos del Pacífico.</p>
+    <div class="cta reveal"><a class="btn btn-fire" href="#tienda">Ir a la tienda</a><a class="btn btn-ghost" href="#booking">Llevar Salsafro a tu evento</a></div>
+  </div>
+  <div class="badge" aria-hidden="true">
+    <svg viewBox="0 0 200 200"><defs><path id="c" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs><text><textPath href="#c">SALSAFRO RECORDS · CALI · PACÍFICO · AFRO HOUSE · </textPath></text></svg>
+    <img src="img/logo-salsafro-records.png" alt="">
+  </div>
+</section>
+
+<section class="roots" id="raices">
+  <div class="head"><p class="kicker">Las cuatro raíces</p><h2>Un sonido que<br>tiene <em>origen</em></h2></div>
+  <div class="roots-grid" id="roots"></div>
+  <p class="roots-note">Los ritmos son identidad, nunca adorno: Salsafro nombra a los músicos y a las raíces cuando las usa.</p>
+</section>
+
+<section class="store" id="tienda">
+  <div class="head row"><div><p class="kicker">Tienda oficial</p><h2>Música para<br><em>llevarte</em></h2></div>
+    <div class="store-side"><p>16 canciones en descarga de alta calidad. Pagas en Bandcamp con tarjeta o PayPal; el precio es el mínimo en dólares.</p><a class="btn btn-ghost" id="bcAll" target="_blank" rel="noopener">Ver toda la tienda ↗</a></div></div>
+  <div class="vinyls" id="store"></div>
+</section>
+
+<section class="set" id="set">
+  <div class="set-cover"><img src="img/cover-salsafro-pa-las-babys.webp" alt="Portada del live set Salsafro pa las babys" loading="lazy"></div>
+  <div class="set-copy">
+    <p class="kicker">Set insignia</p>
+    <h2>SALSAFRO <em>2.0</em></h2>
+    <div class="set-stat"><b>154 K</b><span>reproducciones del set insignia</span></div>
+    <div class="set-stat"><b>17</b><span>lanzamientos con crédito Salsafro</span></div>
+    <p>Del currulao al drop: un viaje continuo de Afro House con metales, marimba y percusión del Pacífico, pensado para la pista.</p>
+  </div>
+</section>
+
+<section class="records" id="records">
+  <div class="rec-card">
+    <img src="img/logo-salsafro-records.png" alt="Salsafro Records" class="rec-logo">
+    <div>
+      <p class="kicker">El sello</p>
+      <h2>Salsafro <em>Records</em></h2>
+      <p>¿Haces Afro House con raíz latina o del Pacífico? Envía tu demo: un enlace privado de escucha, tu nombre artístico, ciudad y redes. Escuchamos todo lo que llega.</p>
+      <a class="btn btn-fire" id="demo">Enviar mi demo</a>
+    </div>
+  </div>
+  <div class="rel">
+    <p class="kicker">Lanzamientos Salsafro</p>
+    <ul id="releases"></ul>
+  </div>
+</section>
+
+<section class="booking" id="booking">
+  <div class="book-img"><img src="img/portrait-salsafro.webp" alt="Prey Hunter, creador de Salsafro" loading="lazy"></div>
+  <div class="book-copy">
+    <p class="kicker">Booking</p>
+    <h2>Salsafro<br><em>en vivo</em></h2>
+    <p>Elige el formato y agrégalo a tu solicitud. Con percusión en vivo sumamos tarima para el percusionista y 3 canales extra en consola.</p>
+    <div class="formats" id="formats"></div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <img src="img/logo-salsafro.webp" alt="Salsafro" class="f-logo">
+  <p>Una marca de Prey Hunter · Cali, Colombia</p>
+  <p class="f-links"><a id="fbc" target="_blank" rel="noopener">Bandcamp</a><a id="fmail"></a></p>
+  <p class="f-eco" id="feco"></p>
+  <p class="f-copy">© <span id="year"></span> Salsafro · Salsafro Records. Las compras se procesan en Bandcamp.</p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="solicitud.js"></script>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="img/logo-cartel-music.webp">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cartel Music · Sello discográfico independiente</title>
+<meta name="description" content="Cartel Music: sello independiente de Afro House desde Cali, Colombia. Catálogo, tienda, envío de demos y showcases del sello.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="solicitud.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="grid-bg" aria-hidden="true"></div>
+<header class="nav" id="nav">
+  <a href="#inicio" class="brand"><img src="img/logo-cartel-music.webp" alt=""><span>CARTEL<b>MUSIC</b></span></a>
+  <nav class="links" id="links"><a href="#catalogo">Catálogo</a><a href="#tienda">Tienda</a><a href="#artistas">Artistas</a><a href="#demos">Demos</a><a href="#eventos">Eventos</a></nav>
+  <span class="status"><i></i>Sello activo</span>
+  <button class="burger" id="burger" aria-label="Menú"><span></span><span></span></button>
+</header>
+
+<main>
+<section class="hero" id="inicio">
+  <div class="hero-copy">
+    <p class="tag reveal">// sello discográfico independiente · Cali, CO</p>
+    <h1 class="reveal">Música de club<br>con <span class="g">visión</span><br>internacional.</h1>
+    <p class="lead reveal">Cartel Music es el sello de Diego Gasca (Prey Hunter), activo desde octubre de 2022. Lanzamos Afro House con créditos completos y cifras verificadas.</p>
+    <div class="cta reveal"><a class="btn btn-g" href="#demos">Enviar demo</a><a class="btn btn-o" href="#tienda">Tienda del sello</a></div>
+  </div>
+  <div class="hero-visual reveal">
+    <div class="frame"><img src="img/portrait-cartel-music.webp" alt="Diego Gasca, fundador de Cartel Music"><span class="corner tl"></span><span class="corner br"></span></div>
+    <div class="logo-chip"><img src="img/logo-cartel-music.webp" alt="Logo de Cartel Music"></div>
+    <pre class="readout" id="readout"></pre>
+  </div>
+</section>
+
+<section class="stats" id="stats"></section>
+
+<section class="catalog" id="catalogo">
+  <div class="head"><p class="tag">01 / catálogo</p><h2>Obras del sello<br>en el <span class="g">top</span></h2></div>
+  <div class="table" role="table" aria-label="Obras del sello">
+    <div class="tr th" role="row"><span>#</span><span>Obra</span><span>Artista</span><span>Reproducciones</span></div>
+    <div id="catalog"></div>
+  </div>
+  <p class="note">Reproducciones verificadas en todas las plataformas (MUSO.AI · sep 2026).</p>
+</section>
+
+<section class="store" id="tienda">
+  <div class="head row"><div><p class="tag">02 / tienda</p><h2>Lanzamientos<br><span class="g">a la venta</span></h2></div><p class="note">Descargas oficiales en Bandcamp. Precio mínimo en USD.</p></div>
+  <div class="store-grid" id="store"></div>
+</section>
+
+<section class="artists" id="artistas">
+  <div class="head"><p class="tag">03 / artistas y colaboradores</p><h2>Créditos que<br><span class="g">suenan</span></h2></div>
+  <div class="artists-grid">
+    <a class="founder" data-eco="prey"><img src="img/press-18.webp" alt="Prey Hunter" loading="lazy"><div><small>Fundador · director</small><b>Prey Hunter</b><span>Ver sitio oficial →</span></div></a>
+    <ul class="collab" id="collab"></ul>
+  </div>
+</section>
+
+<section class="demos" id="demos">
+  <div class="demo-copy">
+    <p class="tag">04 / demos</p>
+    <h2>¿Tienes el<br>próximo <span class="g">hit</span>?</h2>
+    <p>Envíanos un enlace privado de escucha con tu nombre artístico, ciudad y redes. Si avanzamos, esto es lo que el sello pide para cada lanzamiento:</p>
+    <a class="btn btn-g" id="demoBtn">Enviar demo por correo</a>
+    <img src="img/campaign-demos-chile.webp" alt="Pieza: productores y artistas de Chile, envía tu demo" class="demo-piece" loading="lazy">
+  </div>
+  <dl class="spec" id="spec"></dl>
+</section>
+
+<section class="events" id="eventos">
+  <div class="ev-media"><img src="img/live-06.webp" alt="Noche de Cartel Music" loading="lazy"></div>
+  <div class="ev-copy">
+    <p class="tag">05 / eventos</p>
+    <h2>Noches<br><span class="g">Cartel Music</span></h2>
+    <p>Showcases del sello con cabina compartida, cambios sin silencios y USB de respaldo. Elige el formato y agrégalo a tu solicitud; la tarifa se cotiza por evento.</p>
+    <div class="formats" id="formats"></div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="f-row">
+    <a href="#inicio" class="brand"><img src="img/logo-cartel-music.webp" alt=""><span>CARTEL<b>MUSIC</b></span></a>
+    <div class="f-cols">
+      <div><small>Contacto</small><a id="fmail"></a></div>
+      <div><small>Distribución</small><span>ONErpm · DistroKid</span></div>
+      <div><small>Ecosistema</small><span id="feco">Prey Hunter · Salsafro</span></div>
+    </div>
+  </div>
+  <p class="f-copy">© <span id="year"></span> Cartel Music · Cali, Colombia. Las compras se procesan en Bandcamp.</p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="solicitud.js"></script>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

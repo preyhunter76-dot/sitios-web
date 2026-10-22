@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="img/clover-diamond.webp">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diego Gasca · Empresario musical</title>
+<meta name="description" content="Diego Alexander Gasca Martínez: empresario musical de Cali, Colombia. Fundador de Prey Hunter, Cartel Music y Salsafro. Charlas, consultoría, modelaje y fotografía.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="solicitud.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="nav" id="nav">
+  <a href="#inicio" class="brand"><img src="img/clover-diamond.webp" alt=""><span>Diego Gasca</span></a>
+  <nav class="links" id="links"><a href="#ecosistema">Ecosistema</a><a href="#servicios">Servicios</a><a href="#historia">Historia</a><a href="#prensa">Prensa</a></nav>
+  <a href="#servicios" class="nav-cta">Trabajemos juntos</a>
+  <button class="burger" id="burger" aria-label="Menú"><span></span><span></span></button>
+</header>
+
+<main>
+<section class="hero" id="inicio">
+  <div class="hero-copy">
+    <p class="eyebrow reveal">Empresario musical · Cali, Colombia</p>
+    <h1 class="reveal">Diego<br>Gasca<span>.</span></h1>
+    <p class="lead reveal">Construyo desde 2014 un ecosistema musical propio: un artista con 62,2 millones de reproducciones, un sello independiente y una fusión cultural del Pacífico colombiano.</p>
+    <div class="cta reveal"><a class="btn btn-dark" href="#servicios">Ver servicios</a><a class="btn btn-soft" href="#ecosistema">Conocer el ecosistema</a></div>
+  </div>
+  <div class="hero-art reveal">
+    <div class="blob" aria-hidden="true"></div>
+    <img src="img/portrait-diego.webp" alt="Retrato oficial de Diego Gasca" class="portrait">
+    <div class="card-float"><small>Fundador de</small><b>Prey Hunter · Cartel Music · Salsafro</b></div>
+    <img src="img/mark-1111.webp" alt="" class="mark">
+  </div>
+</section>
+
+<section class="numbers" id="numbers"></section>
+
+<section class="eco" id="ecosistema">
+  <div class="head"><p class="eyebrow">El ecosistema</p><h2>Tres marcas,<br>una <em>visión</em>.</h2><p class="sub">La persona, el artista, el sello y la cultura. Cada una tiene su propia tienda oficial.</p></div>
+  <div class="eco-grid" id="brands"></div>
+</section>
+
+<section class="services" id="servicios">
+  <div class="head row">
+    <div><p class="eyebrow">Servicios</p><h2>Trabajemos<br><em>juntos</em>.</h2></div>
+    <p class="sub">Elige uno o varios servicios, agrégalos a tu solicitud y cuéntame fecha y ciudad. Cada propuesta se cotiza a la medida.</p>
+  </div>
+  <div class="svc-grid" id="services"></div>
+  <div class="topics"><span>Temas de charla</span><div id="topics"></div></div>
+</section>
+
+<section class="story" id="historia">
+  <div class="story-img"><img src="img/press-14.webp" alt="Diego Gasca en sesión de estudio" loading="lazy"></div>
+  <div class="story-copy">
+    <p class="eyebrow">Historia</p>
+    <h2>Datos y<br><em>calle</em>.</h2>
+    <p>Diego Alexander Gasca Martínez es DJ, productor, compositor, fotógrafo y modelo. Como <b>Prey Hunter</b> llegó al top 2% del ranking global de artistas; como dueño de <b>Cartel Music</b> distribuye por ONErpm y DistroKid; y con <b>Salsafro</b> llevó la salsa y la percusión del Pacífico al Afro House.</p>
+    <p>Habla con datos y con calle: cada cifra que publica está verificada. En 2026 dirige toda su operación desde el <b>Cerebro Central</b>, un sistema propio que reúne finanzas, catálogo, fans y agentes de inteligencia artificial.</p>
+    <blockquote>Una regla de la casa: en los negocios, la persona y el artista van por separado.</blockquote>
+  </div>
+</section>
+
+<section class="press" id="prensa">
+  <div class="press-card">
+    <div>
+      <p class="eyebrow">Prensa y alianzas</p>
+      <h2>Press kit<br><em>ejecutivo</em>.</h2>
+      <p>Biografía corta y larga, cifras verificadas, retrato oficial y riders para charlas, paneles y sesiones.</p>
+      <div class="cta"><a class="btn btn-dark" id="pressBtn">Pedir el press kit</a><a class="btn btn-soft" href="img/portrait-diego.webp" download>Descargar retrato</a></div>
+    </div>
+    <div class="press-imgs"><img src="img/press-05.webp" alt="" loading="lazy"><img src="img/press-07.webp" alt="" loading="lazy"><img src="img/press-18.webp" alt="" loading="lazy"></div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="f-top">
+    <h3>Hablemos.</h3>
+    <a class="f-mail" id="fmail"></a>
+  </div>
+  <div class="f-bottom">
+    <span>Diego Alexander Gasca Martínez · Cali, Colombia</span>
+    <span id="feco"></span>
+    <span><a href="privacidad.html">Política de privacidad</a></span>
+    <span>© <span id="year"></span></span>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="solicitud.js"></script>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

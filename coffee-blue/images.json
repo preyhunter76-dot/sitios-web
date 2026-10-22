@@ -1,0 +1,13 @@
+[
+ {"out":"img/hero.jpg","url":"https://d8j0ntlcm91z4.cloudfront.net/user_3I3aKu6F00Or2wYrP4OrAe7nDvr/hf_20261021_224823_d3722bf9-42de-40d2-a71d-0b7ad6085c36.png"},
+ {"out":"img/interior.jpg","url":"https://d8j0ntlcm91z4.cloudfront.net/user_3I3aKu6F00Or2wYrP4OrAe7nDvr/hf_20261021_224823_fb2a319d-ec40-4c22-b00f-a232af94db59.png"},
+ {"out":"img/iced.jpg","url":"https://d8j0ntlcm91z4.cloudfront.net/user_3I3aKu6F00Or2wYrP4OrAe7nDvr/hf_20261021_224823_c4cdceb9-8c89-4980-b8c0-4b792e0a54c0.png","w":1000},
+ {"out":"img/latte.jpg","url":"https://d8j0ntlcm91z4.cloudfront.net/user_3I3aKu6F00Or2wYrP4OrAe7nDvr/hf_20261021_224823_0358cfe7-d1df-455f-a021-9cd1fac287b4.png","crop":[0.1,0,0.8,0.8],"w":1000},
+ {"out":"img/mocha.jpg","url":"https://d8j0ntlcm91z4.cloudfront.net/user_3I3aKu6F00Or2wYrP4OrAe7nDvr/hf_20261021_224823_c3859f7e-dd67-4dcf-a539-ecfadf9105bd.png","w":1000},
+ {"out":"img/tinto.jpg","url":"https://d8j0ntlcm91z4.cloudfront.net/user_3I3aKu6F00Or2wYrP4OrAe7nDvr/hf_20261021_224823_f962060a-ad98-4845-9c63-eb70b8c4937a.png","crop":[0.2,0.04,0.61,0.46],"w":1000},
+ {"out":"img/v60.jpg","url":"https://d8j0ntlcm91z4.cloudfront.net/user_3I3aKu6F00Or2wYrP4OrAe7nDvr/hf_20261021_224823_dfe6ee42-b5ab-42df-88d6-b4382e560d20.png","w":1200},
+ {"out":"img/beans.jpg","url":"https://d8j0ntlcm91z4.cloudfront.net/user_3I3aKu6F00Or2wYrP4OrAe7nDvr/hf_20261021_224823_d7e783c4-d0dd-4e5b-9ea9-0c562bc452dd.png"},
+ {"out":"img/espresso.jpg","url":"https://d8j0ntlcm91z4.cloudfront.net/user_3I3aKu6F00Or2wYrP4OrAe7nDvr/hf_20261021_224912_6254bc7e-481d-4677-b728-2c3d5f82a6d5.png","w":1000},
+ {"out":"img/cappuccino.jpg","url":"https://d8j0ntlcm91z4.cloudfront.net/user_3I3aKu6F00Or2wYrP4OrAe7nDvr/hf_20261021_224941_4d0d50af-d682-4200-8880-0360cf822057.png","w":1000},
+ {"out":"img/bag.jpg","url":"https://d8j0ntlcm91z4.cloudfront.net/user_3I3aKu6F00Or2wYrP4OrAe7nDvr/hf_20261021_224941_02f8b357-a75a-4f17-baf2-5f17dc8cb83a.png","w":900}
+]

@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Coffee Blue · Café de origen en Cali</title>
+<meta name="description" content="Coffee Blue: café colombiano de origen Cauca, Huila, Nariño y Valle, tostado en pequeños lotes en Cali.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Allura&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <a href="#inicio" class="logo"><span class="logo-mark">CB</span><span>Coffee <em>Blue</em></span></a>
+  <nav class="nav-links">
+    <a href="#inicio">Inicio</a><a href="#historia">Historia</a><a href="#menu">Menú</a><a href="#origenes">Orígenes</a><a href="#metodos">Métodos</a><a href="#contacto">Contacto</a>
+  </nav>
+  <button class="cart-btn" id="cartOpen" aria-label="Abrir carrito">
+    <svg viewBox="0 0 24 24"><path d="M6 7h12l-1 13H7L6 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+    <span class="cart-count" id="cartCount">0</span>
+  </button>
+  <button class="burger" id="burger" aria-label="Menú"><span></span><span></span></button>
+</header>
+
+<main>
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-bg"><img src="img/hero.jpg" alt="Taza de cappuccino con arte latte sobre madera y granos de café"></div>
+  <div class="steam" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="hero-inner">
+    <p class="script reveal">Rico. Suave. Perfecto.</p>
+    <h1 class="reveal">Vive el café<br>como nunca<br><span class="gold">antes</span></h1>
+    <p class="lead reveal">Café de origen colombiano del Cauca, Huila, Nariño y el Valle, tostado en pequeños lotes y servido en azul, desde Cali.</p>
+    <div class="cta reveal">
+      <a class="btn btn-gold" href="#menu">Ver el menú <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="btn btn-ghost" href="#historia">Nuestra historia <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m10 8.5 5 3.5-5 3.5z"/></svg></a>
+    </div>
+    <ul class="badges reveal">
+      <li><span class="ico"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="5" ry="8" transform="rotate(30 12 12)"/><path d="M9 6c2 3 2 9 6 12"/></svg></span>Granos<br>de origen</li>
+      <li><span class="ico"><svg viewBox="0 0 24 24"><path d="M12 3c3 4-2 5 1 9 1 1 3 0 3-2 2 2 2 5 0 7a6 6 0 0 1-9-1c-2-3 0-6 2-7-1 3 1 4 2 3-1-3 0-6 1-9Z"/></svg></span>Tostado<br>por lote</li>
+      <li><span class="ico"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10Z"/></svg></span>Hecho con<br>cariño caleño</li>
+    </ul>
+  </div>
+  <a href="#historia" class="scroll-cue" aria-label="Bajar"><span></span></a>
+</section>
+
+<!-- HISTORIA -->
+<section class="about" id="historia">
+  <div class="about-photo reveal-img"><img src="img/interior.jpg" alt="Barra de Coffee Blue con bolsa de café y granos" loading="lazy"></div>
+  <div class="about-text">
+    <p class="script reveal">Sobre nosotros</p>
+    <h2 class="reveal">Más que solo<br>un <span class="gold">café</span></h2>
+    <p class="reveal">En Coffee Blue creemos que el café es más que una bebida: es un origen, una finca y una mañana. Cada taza dice de dónde viene, con trazabilidad del productor a tu mesa.</p>
+    <ul class="checks reveal">
+      <li><span>✦</span>Granos de origen colombiano</li>
+      <li><span>✦</span>Trazabilidad por finca y lote</li>
+      <li><span>✦</span>Tostión fresca con fecha visible</li>
+      <li><span>✦</span>Preparado por baristas</li>
+    </ul>
+    <a class="btn btn-gold reveal" href="#origenes">Conoce los orígenes <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+  </div>
+  <svg class="leaf" viewBox="0 0 200 300" aria-hidden="true"><path d="M100 290C40 220 30 120 100 10c70 110 60 210 0 280Z"/><path d="M100 290V20M100 80l-30-20M100 120l35-25M100 160l-40-25M100 200l40-25M100 240l-35-20"/></svg>
+</section>
+
+<!-- MENÚ -->
+<section class="menu" id="menu">
+  <div class="section-head">
+    <p class="script reveal">Nuestra firma</p>
+    <h2 class="reveal">Favoritos de la barra</h2>
+    <div class="divider reveal"><span></span><b>✦</b><span></span></div>
+  </div>
+  <div class="carousel">
+    <button class="car-arrow prev" aria-label="Anterior">‹</button>
+    <div class="car-track" id="drinks"></div>
+    <button class="car-arrow next" aria-label="Siguiente">›</button>
+  </div>
+</section>
+
+<!-- ORÍGENES -->
+<section class="origins" id="origenes">
+  <div class="origins-bg"><img src="img/beans.jpg" alt="" loading="lazy"></div>
+  <div class="section-head">
+    <p class="script reveal">Café en bolsa</p>
+    <h2 class="reveal">Cuatro regiones,<br><span class="gold">una taza azul</span></h2>
+    <p class="sub reveal">Elige tu origen en grano o molido. Cada bolsa trae lote y fecha de tostión.</p>
+  </div>
+  <div class="origin-grid" id="origins"></div>
+</section>
+
+<!-- MÉTODOS -->
+<section class="method" id="metodos">
+  <div class="method-text">
+    <p class="script reveal">En casa</p>
+    <h2 class="reveal">El ritual del<br><span class="gold">filtrado</span></h2>
+    <ol class="steps reveal">
+      <li><b>01</b><div><h4>Elige tu origen</h4><p>En grano o molido según tu método.</p></div></li>
+      <li><b>02</b><div><h4>Tostamos por lote</h4><p>Cada bolsa indica lote y fecha de tostión.</p></div></li>
+      <li><b>03</b><div><h4>Lo despachamos</h4><p>Empacado con válvula para conservar el aroma.</p></div></li>
+      <li><b>04</b><div><h4>En tu taza</h4><p>Con guía de preparación para cada método.</p></div></li>
+    </ol>
+    <div class="kit reveal" id="kit"></div>
+  </div>
+  <div class="method-photo reveal-img"><img src="img/v60.jpg" alt="Método de filtrado V60" loading="lazy"></div>
+</section>
+
+<!-- FRANJA -->
+<section class="perks">
+  <div><span class="ico"><svg viewBox="0 0 24 24"><path d="M4 8h11v8H4zM15 11h3l2 3v2h-5"/><circle cx="7" cy="17" r="1.5"/><circle cx="17" cy="17" r="1.5"/></svg></span><p><b>Envíos en Colombia</b><small>Al activar la tienda</small></p></div>
+  <div><span class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="7"/><path d="M12 9v4l3 2M9 3h6"/></svg></span><p><b>Fresco y rápido</b><small>Preparado con cuidado</small></p></div>
+  <div><span class="ico"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16M9 15l2 2 4-4"/></svg></span><p><b>Fecha de tostión</b><small>Visible en cada bolsa</small></p></div>
+  <div><span class="ico"><svg viewBox="0 0 24 24"><path d="m12 3 2.6 5.6 6 .7-4.5 4.1 1.2 6-5.3-3-5.3 3 1.2-6L3.4 9.3l6-.7Z"/></svg></span><p><b>Club Blue</b><small>Muy pronto</small></p></div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="section-head"><p class="script reveal">Dudas</p><h2 class="reveal">Preguntas frecuentes</h2></div>
+  <div class="faq-list">
+    <details class="reveal"><summary>¿El café es en grano o molido?</summary><p>Ambos: elige grano para moler en casa o molido según tu cafetera.</p></details>
+    <details class="reveal"><summary>¿Puedo devolverlo?</summary><p>Por ser alimento no admite retracto una vez abierto; si llega dañado o vencido, lo reponemos.</p></details>
+    <details class="reveal"><summary>¿Tiene registro sanitario?</summary><p>Se publica en cada bolsa al obtenerlo; hoy está en trámite.</p></details>
+    <details class="reveal"><summary>¿Hacen envíos?</summary><p>En Colombia, en cuanto conectemos la tienda y las transportadoras.</p></details>
+  </div>
+</section>
+</main>
+
+<footer class="footer" id="contacto">
+  <div class="f-col f-news">
+    <h4>Mantente al día</h4>
+    <p>Suscríbete para recibir lanzamientos, orígenes nuevos y recetas de Coffee Blue.</p>
+    <form class="news" id="newsForm"><input type="email" required placeholder="Tu correo"><button aria-label="Suscribirme">→</button></form>
+    <p class="news-msg" id="newsMsg"></p>
+  </div>
+  <div class="f-col"><h4>Explora</h4><a href="#inicio">Inicio</a><a href="#menu">Menú</a><a href="#origenes">Orígenes</a><a href="#historia">Historia</a></div>
+  <div class="f-col"><h4>Atención</h4><a href="#faq" id="faqLink">Preguntas frecuentes</a><a href="#contacto">Envíos y entregas</a><a href="#contacto">Cambios y reposiciones</a></div>
+  <div class="f-col"><h4>Contacto</h4><p id="contactInfo"></p></div>
+  <div class="f-bottom"><span>© <span id="year"></span> Coffee Blue · Cali</span><span class="notice" id="notice"></span></div>
+</footer>
+
+<!-- CARRITO -->
+<aside class="drawer" id="drawer" aria-hidden="true">
+  <div class="drawer-head"><h3>Tu pedido</h3><button id="cartClose" aria-label="Cerrar">×</button></div>
+  <div class="drawer-body" id="cartItems"></div>
+  <div class="drawer-foot">
+    <div class="total"><span>Total</span><b id="cartTotal">—</b></div>
+    <button class="btn btn-gold full" id="checkout">Hacer pedido</button>
+    <p class="fine" id="checkoutNote"></p>
+  </div>
+</aside>
+<div class="overlay" id="overlay"></div>
+<div class="toast" id="toast"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jennifer Gasca · Romance de época</title>
+<meta name="description" content="Las novelas de Jennifer Gasca: Serie Prohibido, Trilogía Stewart, Bilogía Amor Real y más. Lee la muestra gratis y compra en Amazon.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Great+Vibes&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="vignette" aria-hidden="true"></div>
+<canvas id="embers" aria-hidden="true"></canvas>
+
+<div class="topbar"><span>✦ Romance de época escrito desde Cali, Colombia</span><span>Disponible en Kindle Unlimited</span></div>
+<header class="nav" id="nav">
+  <a href="#inicio" class="logo wordmark"><span class="mono">JG</span><span>Jennifer<b>Gasca</b></span></a>
+  <nav class="links" id="links"><a href="#inicio">Inicio</a><a href="#coleccion">Libros</a><a href="#generos">Series</a><a href="#fragmentos">Leer muestra</a><a href="#autora">La autora</a></nav>
+  <button class="icon-btn" id="searchBtn" aria-label="Buscar"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>
+  <button class="burger" id="burger" aria-label="Menú"><span></span><span></span></button>
+</header>
+
+<main>
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-bg"><img src="img/hero.jpg" alt="Velas, rosas borgoña, vino y un libro antiguo"></div>
+  <div class="hero-copy">
+    <p class="kicker reveal">Las novelas de Jennifer Gasca</p>
+    <h1 class="reveal"><span class="serif">Amor de</span><span class="script">época</span><span class="serif small">duques · lores · secretos</span></h1>
+    <div class="flourish reveal"><span></span>⚜<span></span></div>
+    <p class="lead reveal" id="heroLead"></p>
+    <div class="cta reveal">
+      <a href="#" class="btn btn-wine" id="heroBuy" target="_blank" rel="noopener">Comprar en Amazon <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <button class="btn btn-line" id="heroRead">Leer la muestra gratis</button>
+    </div>
+  </div>
+  <div class="hero-book reveal" id="heroBook"></div>
+</section>
+
+<!-- FRANJA -->
+<section class="strip">
+  <div><svg viewBox="0 0 24 24"><path d="M4 5h7a3 3 0 0 1 3 3v12a2 2 0 0 0-2-2H4ZM20 5h-5a3 3 0 0 0-3 3"/></svg><p><b>Muestra gratis</b><small>Lee antes de comprar</small></p></div>
+  <div><svg viewBox="0 0 24 24"><path d="M6 7h12l-1 13H7L6 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg><p><b>Compra en Amazon</b><small>Pago seguro de Amazon</small></p></div>
+  <div><svg viewBox="0 0 24 24"><rect x="6" y="3" width="12" height="18" rx="2"/><path d="M10 18h4"/></svg><p><b>Kindle y papel</b><small>Según cada edición</small></p></div>
+  <div><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10Z"/></svg><p><b>Kindle Unlimited</b><small>Léelos con tu suscripción</small></p></div>
+</section>
+
+<!-- SERIES -->
+<section class="genres" id="generos">
+  <div class="sec-head"><p class="kicker">Explora por serie</p><h2>Encuentra tu próxima <em>obsesión</em></h2></div>
+  <div class="genre-grid" id="genres"></div>
+</section>
+
+<!-- COLECCIÓN -->
+<section class="collection" id="coleccion">
+  <div class="sec-head row"><div><p class="kicker">La colección completa</p><h2>Los libros de <em>Jennifer</em></h2></div>
+    <div class="filters" id="filters"></div></div>
+  <div class="book-grid" id="books"></div>
+</section>
+
+<!-- MUESTRA DESTACADA -->
+<section class="excerpt" id="fragmentos">
+  <div class="excerpt-bg"><img src="img/candle-book.jpg" alt="" loading="lazy"></div>
+  <div class="paper reveal" id="featured"></div>
+</section>
+
+<!-- AUTORA -->
+<section class="author" id="autora">
+  <div class="author-photo reveal-img"><img id="authorPhoto" alt="Jennifer Gasca"></div>
+  <div class="author-copy">
+    <p class="kicker reveal">Sobre la autora</p>
+    <h2 class="reveal">Jennifer <em>Gasca</em></h2>
+    <div class="author-bio reveal" id="authorBio"></div>
+    <a class="btn btn-line reveal" id="authorStore" target="_blank" rel="noopener">Ver su página en Amazon</a>
+  </div>
+</section>
+
+<!-- COMUNIDAD -->
+<section class="community" id="comunidad">
+  <div class="comm-card">
+    <div class="comm-copy">
+      <p class="kicker">Únete al círculo</p>
+      <h2>Recibe estrenos<br>y lecturas <em>exclusivas</em></h2>
+      <p>Sé de las primeras en saber cuándo sale una nueva novela de Jennifer Gasca.</p>
+      <form class="news" id="newsForm"><input type="email" required placeholder="Tu correo"><button>Suscribirme</button></form>
+      <p class="news-msg" id="newsMsg"></p>
+    </div>
+    <div class="comm-img"><img src="img/candle-book.jpg" alt="Libro abierto a la luz de una vela" loading="lazy"></div>
+  </div>
+  <ul class="promises">
+    <li><span>❦</span>Romance de época</li><li><span>♛</span>Autora independiente</li><li><span>✦</span>Hecho en Cali</li><li><span>♥</span>Historias que se quedan</li>
+  </ul>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="f-brand"><a href="#inicio" class="logo wordmark"><span class="mono">JG</span><span>Jennifer<b>Gasca</b></span></a><p>Amores imposibles, secretos de familia y corazones que vuelven a latir.</p></div>
+  <div><h4>Libros</h4><a href="#coleccion">Todos los libros</a><a href="#generos">Series</a><a href="#fragmentos">Leer muestra</a><a id="amazonStore" target="_blank" rel="noopener">Tienda en Amazon</a></div>
+  <div><h4>La autora</h4><a href="#autora">Biografía</a><a href="#comunidad">Novedades</a><span id="credit"></span></div>
+  <p class="f-copy">© <span id="year"></span> Jennifer Gasca. Las compras se procesan en Amazon; los precios los muestra Amazon según tu país.</p>
+</footer>
+
+<!-- LECTOR -->
+<div class="reader" id="reader" aria-hidden="true">
+  <div class="reader-book">
+    <button class="reader-close" id="readerClose" aria-label="Cerrar">×</button>
+    <div class="reader-cover" id="readerCover"></div>
+    <article class="reader-page" id="readerPage"></article>
+  </div>
+</div>
+
+<!-- BUSCADOR -->
+<div class="search" id="search" aria-hidden="true">
+  <input type="search" id="searchInput" placeholder="Busca un título o una serie…">
+  <div id="searchResults" class="search-results"></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
