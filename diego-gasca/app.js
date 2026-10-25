@@ -210,7 +210,7 @@
     if (!data.acepto) { msg.className = "form-msg err"; msg.textContent = "Para unirte necesitas autorizar el tratamiento de datos."; return; }
     const btn = $("button[type=submit]", form); btn.disabled = true; msg.className = "form-msg"; msg.textContent = "Enviando…";
     try {
-      const r = await fetch("/api/fans", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
+      const r = await fetch(D.club, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...data, sitio_web: fd.get("sitio_web") || "" }) });
       if (r.ok) { form.reset(); msg.className = "form-msg ok"; msg.textContent = `¡Listo, ${data.nombre.split(" ")[0]}! Ya eres parte del club.`; btn.disabled = false; return; }
       if (r.status === 400) { const j = await r.json().catch(() => ({})); msg.className = "form-msg err"; msg.textContent = j.error || "Revisa los datos."; btn.disabled = false; return; }
     } catch { /* sin servicio: se envía por correo */ }
@@ -284,6 +284,7 @@
   gsap.set(".hero-title .ch", { yPercent: 115 });
   gsap.set(".hero .h-in", { yPercent: 110, opacity: 0 });
   gsap.set(".hero-photo img", { scale: 1.28 });
+  const hgl = window.HeroGL ? HeroGL.start({ host: $(".hero-photo"), img: heroImg, reduced }) : null;
   gsap.set(".hero-foot", { opacity: 0 });
   const countTw = gsap.to(counter, { v: 90, duration: 1, ease: "power2.out", onUpdate: () => (num.textContent = Math.round(counter.v)) });
   ready.then(() => {
@@ -292,7 +293,8 @@
       .to(counter, { v: 100, duration: .3, onUpdate: () => (num.textContent = Math.round(counter.v)) })
       .to(".loader-in", { opacity: 0, y: -20, duration: .35, ease: "power2.in" })
       .to(loader, { yPercent: -100, duration: 1, ease: "expo.inOut" }, "-=.05")
-      .to(".hero-photo img", { scale: 1, duration: 2.2, ease: E }, "-=.75")
+      .add(() => hgl && hgl.play(), "-=.75")
+      .to(".hero-photo img", { scale: 1, duration: 2.2, ease: E }, "<")
       .to(".hero-title .ch", { yPercent: 0, duration: 1.3, stagger: .045, ease: E }, "-=2")
       .to(".hero .h-in", { yPercent: 0, opacity: 1, duration: 1, stagger: .1, ease: P }, "-=1.3")
       .to(".hero-foot", { opacity: .9, duration: .8 }, "-=.6");
@@ -310,7 +312,8 @@
     });
   }
   // Portada al hacer scroll: la foto se acerca y el texto sube
-  gsap.to(".hero-photo img", { yPercent: 12, scale: 1.08, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+  gsap.to(".hero-photo img", { yPercent: 12, scale: 1.08, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true,
+    onUpdate: (self) => hgl && hgl.setScroll(self.progress, lenis ? lenis.velocity : self.getVelocity() / 60) } });
   gsap.to(".hero-copy", { yPercent: -35, opacity: 0, ease: "none", scrollTrigger: { trigger: ".hero", start: "20% top", end: "85% top", scrub: true } });
 
   // Titulares por líneas
@@ -378,6 +381,30 @@
   rail.addEventListener("mouseenter", () => revTw.pause()); rail.addEventListener("mouseleave", () => revTw.resume());
   // Club
   gsap.from(".perks li, .club-form", { y: 40, opacity: 0, duration: 1, stagger: .1, ease: P, scrollTrigger: { trigger: ".club", start: "top 80%" } });
+  // Trébol con volumen: capas apiladas en profundidad que giran juntas
+  $$(".clover3d").forEach((c) => {
+    const src = $("img", c).getAttribute("src"); const n = 10;
+    c.innerHTML = `<div class="c3">${Array.from({ length: n }, (_, i) => `<img src="${src}" alt="" style="transform:translateZ(${(i - n / 2) * 0.9}px);filter:brightness(${i === n - 1 || i === 0 ? 1 : .45 + i * .03})">`).join("")}</div>`;
+  });
+  // Botones magnéticos
+  if (fine) $$(".btn, .nav-cta, .ai-fab").forEach((b) => {
+    const mx = gsap.quickTo(b, "x", { duration: .5, ease: "elastic.out(1,.5)" }), my = gsap.quickTo(b, "y", { duration: .5, ease: "elastic.out(1,.5)" });
+    b.addEventListener("mousemove", (e) => { const r = b.getBoundingClientRect(); mx((e.clientX - r.left - r.width / 2) * .28); my((e.clientY - r.top - r.height / 2) * .38); });
+    b.addEventListener("mouseleave", () => { mx(0); my(0); });
+  });
+  // Live: el video se inclina en 3D con el mouse
+  if (fine) {
+    gsap.set(feature, { transformPerspective: 1400 });
+    const fx = gsap.quickTo(feature, "rotationY", { duration: .9, ease: P }), fy = gsap.quickTo(feature, "rotationX", { duration: .9, ease: P });
+    feature.addEventListener("mousemove", (e) => { const r = feature.getBoundingClientRect(); fx(((e.clientX - r.left) / r.width - .5) * 5); fy(-((e.clientY - r.top) / r.height - .5) * 4); });
+    feature.addEventListener("mouseleave", () => { fx(0); fy(0); });
+  }
+  // Sesgo según la velocidad del scroll (fotos de la revista y titulares grandes)
+  if (lenis) {
+    const skewEls = $$(".ed-item .ph, .rev");
+    const setters = skewEls.map((el) => gsap.quickTo(el, "skewY", { duration: .6, ease: P }));
+    lenis.on("scroll", (l) => { const k = Math.max(-4, Math.min(4, l.velocity * .12)); setters.forEach((s) => s(k)); });
+  }
   // Cierre
   gsap.fromTo(".final-photo", { yPercent: -8, scale: 1.12 }, { yPercent: 6, scale: 1, ease: "none", scrollTrigger: { trigger: ".final", start: "top bottom", end: "bottom top", scrub: true } });
 

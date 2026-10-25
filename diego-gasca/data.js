@@ -4,6 +4,7 @@ window.DG = {
   brand: "Diego Gasca",
   email: "prey-hunter-oficial@hotmail.com",
   whatsapp: "",
+  club: "https://fpxyixfjqcsbxysiluhy.supabase.co/functions/v1/club", // función de Supabase que guarda el club
   youtube: "https://www.youtube.com/channel/UCh9PJ6voJWT6-G1YXtLo1Mw",
   eco: { prey: "https://prey-hunter.vercel.app", salsafro: "https://salsafro.vercel.app", cartel: "https://cartel-music.vercel.app" },
 
