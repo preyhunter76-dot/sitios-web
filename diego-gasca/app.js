@@ -20,7 +20,7 @@
   $("#brands").innerHTML = D.brands.map((b) => {
     const u = b.href || D.eco[b.key];
     const ext = u && u.startsWith("http");
-    return `<a class="brandcard" href="${u || "#"}" ${ext ? 'target="_blank" rel="noopener"' : ""}>
+    return `<a class="brandcard"${b.color ? ` style="--c:${b.color}"` : ""} href="${u || "#"}" ${ext ? 'target="_blank" rel="noopener"' : ""}>
       <img src="${b.img}" alt="" loading="lazy"><small>${esc(b.role)}</small><h3>${esc(b.name)}</h3>
       <span class="go">${esc(b.cta)}<i></i></span></a>`;
   }).join("");
@@ -171,17 +171,6 @@
     });
     addEventListener("mousemove", (e) => { tx = e.clientX; ty = e.clientY; }, { passive: true });
     (function loop() { fx += (tx - fx) * .14; fy += (ty - fy) * .14; float.style.left = fx + "px"; float.style.top = fy + "px"; requestAnimationFrame(loop); })();
-  }
-
-  /* ——— Cursor ——— */
-  const cursor = $("#cursor");
-  if (fine && hasGsap) {
-    const cx = gsap.quickTo(cursor, "x", { duration: .35, ease: "power3" }), cy = gsap.quickTo(cursor, "y", { duration: .35, ease: "power3" });
-    addEventListener("mousemove", (e) => { cx(e.clientX); cy(e.clientY); }, { passive: true });
-    document.addEventListener("mouseover", (e) => {
-      cursor.classList.toggle("big", !!e.target.closest("a, button, .live-feature"));
-      cursor.classList.toggle("hide", !!e.target.closest(".hit, iframe, .modal"));
-    });
   }
 
   /* ——— Sin animación ——— */

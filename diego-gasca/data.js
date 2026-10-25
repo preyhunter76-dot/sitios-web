@@ -18,9 +18,9 @@ window.DG = {
   // La persona, el artista, el sello y su propio género.
   brands: [
     { key: "persona", name: "Diego Gasca", role: "La persona · empresario", img: "img/portrait-diego.webp", href: "#servicios", cta: "Ver servicios" },
-    { key: "prey", name: "Prey Hunter", role: "El artista · DJ y productor", img: "img/portrait-prey-hunter.webp", cta: "Tienda oficial" },
-    { key: "cartel", name: "Cartel Music", role: "El sello discográfico", img: "img/portrait-cartel-music.webp", cta: "Tienda oficial" },
-    { key: "salsafro", name: "Salsafro", role: "Su propio género", img: "img/portrait-salsafro.webp", cta: "Tienda oficial" },
+    { key: "prey", name: "Prey Hunter", role: "El artista · DJ y productor", img: "img/portrait-prey-hunter.webp", color: "#FF2D87", cta: "Tienda oficial" },
+    { key: "cartel", name: "Cartel Music", role: "El sello discográfico", img: "img/portrait-cartel-music.webp", color: "#00FF7B", cta: "Tienda oficial" },
+    { key: "salsafro", name: "Salsafro", role: "Su propio género", img: "img/portrait-salsafro.webp", color: "#FF6D29", cta: "Tienda oficial" },
   ],
 
   // Éxitos (texto de Diego). Enlace: video oficial cuando existe; si no, búsqueda en YouTube.
