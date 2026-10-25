@@ -1,0 +1,9 @@
+{
+  "name": "diego-gasca",
+  "private": true,
+  "type": "module",
+  "description": "Sitio oficial de Diego Gasca: estático + funciones /api (asistente y club).",
+  "dependencies": {
+    "@anthropic-ai/sdk": "0.133.0"
+  }
+}

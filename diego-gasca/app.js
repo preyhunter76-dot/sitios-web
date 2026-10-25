@@ -4,7 +4,8 @@
   const $$ = (q, r = document) => [...r.querySelectorAll(q)];
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
   // Respeta «reducir movimiento» del sistema; ?motion=1 fuerza la versión animada (para revisar).
-  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches && !/[?&]motion=1\b/.test(location.search);
+  // ?static=1 muestra la versión sin animación (para capturas).
+  const reduced = (matchMedia("(prefers-reduced-motion: reduce)").matches && !/[?&]motion=1\b/.test(location.search)) || /[?&]static=1\b/.test(location.search);
   const fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
   const hasGsap = !!(window.gsap && window.ScrollTrigger);
   if (reduced || !hasGsap) document.documentElement.classList.add("reduced");
@@ -21,7 +22,7 @@
     const u = b.href || D.eco[b.key];
     const ext = u && u.startsWith("http");
     return `<a class="brandcard"${b.color ? ` style="--c:${b.color}"` : ""} href="${u || "#"}" ${ext ? 'target="_blank" rel="noopener"' : ""}>
-      <img src="${b.img}" alt="" loading="lazy"><small>${esc(b.role)}</small><h3>${esc(b.name)}</h3>
+      <img class="bg" src="${b.img}" alt="" loading="lazy"><img class="logo" src="${b.logo}" alt=""><small>${esc(b.role)}</small><h3>${esc(b.name)}</h3>
       <span class="go">${esc(b.cta)}<i></i></span></a>`;
   }).join("");
 
@@ -30,15 +31,14 @@
     `<div class="num"><b data-v="${v}" data-dec="${dec}" data-pre="${esc(pre)}" data-suf="${esc(suf)}">${esc(pre)}${fmt(v, dec)}${esc(suf)}</b><span>${esc(l)}</span></div>`).join("");
 
   const genres = ["Salsafro", "Afro House", "House", "Tech House", "Deep House"];
-  const gHTML = genres.map((g) => `<span>${esc(g)}<img src="img/clover.webp" alt=""></span>`).join("");
+  const gHTML = genres.map((g) => `<span>${esc(g)}<img src="img/logos/trebol.png" alt=""></span>`).join("");
   $("#genres").innerHTML = gHTML + gHTML + gHTML;
 
-  const hitImgs = ["img/press-14.webp", "img/press-05.webp", "img/portrait-prey-hunter.webp", "img/press-18.webp", "img/live-02.webp", "img/portrait-salsafro.webp", "img/press-07.webp"];
   const arrow = `<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`;
   $("#hits").innerHTML = D.hits.map((h, i) => {
     const url = h.yt ? `https://www.youtube.com/watch?v=${h.yt}` : `https://www.youtube.com/results?search_query=${encodeURIComponent("Prey Hunter " + h.t)}`;
-    return `<li><a class="hit" href="${url}" target="_blank" rel="noopener" data-img="${hitImgs[i % hitImgs.length]}">
-      <h3>${esc(h.t)}</h3><small>${esc(h.f || "Prey Hunter")}</small><span class="arr">${arrow}</span></a></li>`;
+    return `<li><a class="hit" href="${url}" target="_blank" rel="noopener" data-cover="img/covers/${h.cover}.webp">
+      <img class="cv" src="img/covers/${h.cover}.webp" alt="Portada de ${esc(h.t)}" loading="lazy"><h3>${esc(h.t)}</h3><small>${esc(h.f || "Prey Hunter")}</small><span class="arr">${arrow}</span></a></li>`;
   }).join("");
 
   $("#services").innerHTML = D.services.map((s) => `<button class="svc" data-req-id="${s.id}" data-req-name="${esc(s.t)}" data-req-detail="Diego Gasca">
@@ -49,7 +49,28 @@
   $("#mailBtn").href = `${mail}?subject=${encodeURIComponent("Hablemos · Diego Gasca")}`;
   $("#pressBtn").href = `${mail}?subject=${encodeURIComponent("Press kit · Diego Gasca")}`;
   $("#fmail").textContent = D.email; $("#fmail").href = mail;
-  $("#fyt").href = D.youtube; $("#ytLink").href = D.youtube;
+  $("#ytLink").href = D.youtube;
+  const icon = (i) => `<i class="ico" style="--i:url(img/icons/${i}.svg)" aria-hidden="true"></i>`;
+  $("#socials").innerHTML = D.links.map((l) => `<a class="soc" href="${l.u}" target="_blank" rel="noopener">${icon(l.i)}<span><b>${esc(l.n)}</b><small>${esc(l.k)}</small></span></a>`).join("");
+  $("#ficons").innerHTML = D.links.map((l) => `<a href="${l.u}" target="_blank" rel="noopener" aria-label="${esc(l.n)}">${icon(l.i)}</a>`).join("");
+
+  // Galería editorial: ritmo de revista (una portada, luego bloques anchos y verticales, con citas).
+  const quotes = [["Construyendo desde 2014.", "Diego Gasca"], ["Un artista, un sello y un género propio.", "El editorial"]];
+  let gi = 0;
+  $("#gallery").innerHTML = D.gallery.map(([f, cap, o], i) => {
+    const cls = i === 0 ? "hero" : o === "w" ? "w" : "";
+    let html = `<figure class="ed-item ${cls}" data-i="${i}"><div class="ph"><img src="img/galeria/${f}.webp" alt="${esc(cap)} · Prey Hunter" loading="${i < 2 ? "eager" : "lazy"}"></div><figcaption><em>${esc(cap)}</em><span>${String(i + 1).padStart(2, "0")}</span></figcaption></figure>`;
+    if ((i === 4 || i === 15) && quotes[gi]) { const [q, a] = quotes[gi++]; html += `<div class="ed-quote"><p>${esc(q)}</p><small>${esc(a)}</small></div>`; }
+    return html;
+  }).join("");
+
+  // Reseñas reales (YouTube)
+  const revHTML = D.reviews.map((r) => `<article class="rev"><div><div class="stars" aria-label="Comentario de fan"><i></i><i></i><i></i><i></i><i></i></div><p>${esc(r.t)}</p></div>
+    <footer><b>${esc(r.a)}</b><small>${esc(r.v)} · ${esc(r.d)}</small><a href="https://www.youtube.com/watch?v=${r.id}&lc=${r.c}" target="_blank" rel="noopener">Ver en YouTube</a></footer></article>`).join("");
+  $("#reviews").innerHTML = revHTML + revHTML;
+  $("#reviews").querySelectorAll(".rev").forEach((el, i) => { if (i >= D.reviews.length) { el.setAttribute("aria-hidden", "true"); el.querySelector("a").tabIndex = -1; } });
+
+  $("#perks").innerHTML = D.perks.map(([t, d]) => `<li><b>${esc(t)}</b><span>${esc(d)}</span></li>`).join("");
   const names = { prey: "Prey Hunter", cartel: "Cartel Music", salsafro: "Salsafro" };
   $("#feco").innerHTML = Object.entries(D.eco).filter(([, u]) => u).map(([k, u]) => `<a href="${u}" target="_blank" rel="noopener">${names[k]}</a>`).join("");
   $("#year").textContent = new Date().getFullYear();
@@ -62,7 +83,7 @@
   const allowBg = !(navigator.connection && navigator.connection.saveData);
 
   $("#liveRail").innerHTML = D.sets.map((s, i) => `<button class="set${i ? "" : " on"}" role="listitem" data-id="${s.id}">
-    <span class="th"><img src="https://i.ytimg.com/vi/${s.id}/hqdefault.jpg" alt="" loading="lazy"></span>
+    <span class="th"><img src="https://i.ytimg.com/vi/${s.id}/hqdefault.jpg" alt=""></span>
     <b>${esc(s.t)}</b><small>${esc(s.y)}${s.m ? ` · ${s.m} min` : ""}</small></button>`).join("");
 
   function loadBg() {
@@ -134,7 +155,7 @@
     nav.classList.toggle("solid", scrollY > 40);
     const y = nav.getBoundingClientRect().bottom - 2;
     nav.classList.toggle("dark", darkSecs.some((s) => { const r = s.getBoundingClientRect(); return r.top <= y && r.bottom > y; }));
-    const secs = ["historia", "exitos", "live", "ecosistema", "servicios"];
+    const secs = ["historia", "exitos", "live", "editorial", "servicios", "club"];
     let on = ""; secs.forEach((id) => { const r = document.getElementById(id).getBoundingClientRect(); if (r.top < innerHeight * .45 && r.bottom > innerHeight * .45) on = id; });
     $$("#links a").forEach((a) => a.classList.toggle("on", a.getAttribute("href") === "#" + on));
   }
@@ -161,17 +182,80 @@
     lenis ? lenis.scrollTo(el, { offset: off, duration: 1.4 }) : scrollTo({ top: el.getBoundingClientRect().top + scrollY + off, behavior: reduced ? "auto" : "smooth" });
   }));
 
-  /* ——— Imagen flotante de Éxitos ——— */
-  const float = $("#hitFloat"), fImg = $("img", float);
+  /* ——— Disco con la portada en Éxitos ——— */
+  const vinyl = $("#vinyl"), vSleeve = $(".vinyl-sleeve img", vinyl), vLabel = $(".vinyl-label img", vinyl);
   if (fine) {
-    let fx = 0, fy = 0, tx = 0, ty = 0;
+    let fx = innerWidth / 2, fy = innerHeight / 2, tx = fx, ty = fy, on = false;
     $$(".hit").forEach((h) => {
-      h.addEventListener("mouseenter", () => { fImg.src = h.dataset.img; float.classList.add("on"); });
-      h.addEventListener("mouseleave", () => float.classList.remove("on"));
+      h.addEventListener("mouseenter", () => { vSleeve.src = vLabel.src = h.dataset.cover; vinyl.classList.add("on"); on = true; });
+      h.addEventListener("mouseleave", () => { vinyl.classList.remove("on"); on = false; });
     });
-    addEventListener("mousemove", (e) => { tx = e.clientX; ty = e.clientY; }, { passive: true });
-    (function loop() { fx += (tx - fx) * .14; fy += (ty - fy) * .14; float.style.left = fx + "px"; float.style.top = fy + "px"; requestAnimationFrame(loop); })();
+    addEventListener("mousemove", (e) => { tx = e.clientX + 150; ty = e.clientY; }, { passive: true });
+    (function loop() { if (on || vinyl.classList.contains("on")) { fx += (tx - fx) * .14; fy += (ty - fy) * .14; vinyl.style.left = fx + "px"; vinyl.style.top = fy + "px"; } requestAnimationFrame(loop); })();
   }
+
+  /* ——— Club de fans y clientes ——— */
+  const form = $("#clubForm"), msg = $("#clubMsg");
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const fd = new FormData(form);
+    if (fd.get("sitio_web")) return; // trampa para bots
+    const data = { tipo: fd.get("tipo"), nombre: (fd.get("nombre") || "").trim(), correo: (fd.get("correo") || "").trim(), whatsapp: (fd.get("whatsapp") || "").trim(),
+      ciudad: (fd.get("ciudad") || "").trim(), pais: (fd.get("pais") || "").trim(), intereses: fd.getAll("intereses"), acepto: !!fd.get("acepto") };
+    $$(".fld input", form).forEach((i) => i.classList.remove("bad"));
+    const bad = [];
+    if (data.nombre.length < 2) bad.push("nombre");
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(data.correo)) bad.push("correo");
+    if (bad.length) { bad.forEach((n) => form.elements[n].classList.add("bad")); msg.className = "form-msg err"; msg.textContent = "Revisa tu nombre y tu correo."; form.elements[bad[0]].focus(); return; }
+    if (!data.acepto) { msg.className = "form-msg err"; msg.textContent = "Para unirte necesitas autorizar el tratamiento de datos."; return; }
+    const btn = $("button[type=submit]", form); btn.disabled = true; msg.className = "form-msg"; msg.textContent = "Enviando…";
+    try {
+      const r = await fetch("/api/fans", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
+      if (r.ok) { form.reset(); msg.className = "form-msg ok"; msg.textContent = `¡Listo, ${data.nombre.split(" ")[0]}! Ya eres parte del club.`; btn.disabled = false; return; }
+      if (r.status === 400) { const j = await r.json().catch(() => ({})); msg.className = "form-msg err"; msg.textContent = j.error || "Revisa los datos."; btn.disabled = false; return; }
+    } catch { /* sin servicio: se envía por correo */ }
+    // Respaldo: abre el correo del visitante con los datos, para que no se pierda el registro.
+    const body = `Quiero unirme al club de Diego Gasca.\n\nComo: ${data.tipo}\nNombre: ${data.nombre}\nCorreo: ${data.correo}\nWhatsApp: ${data.whatsapp || "-"}\nCiudad: ${data.ciudad || "-"}\nPaís: ${data.pais || "-"}\nMe interesa: ${data.intereses.join(", ") || "-"}\n\nAutorizo el tratamiento de mis datos según la política de privacidad (Ley 1581 de 2012).`;
+    location.href = `mailto:${D.email}?subject=${encodeURIComponent("Club Diego Gasca · " + data.tipo)}&body=${encodeURIComponent(body)}`;
+    msg.className = "form-msg ok"; msg.textContent = "Abrimos tu correo con tus datos: solo dale enviar para completar el registro.";
+    btn.disabled = false;
+  });
+
+  /* ——— Visor de fotos ——— */
+  const lb = $("#lightbox"), lbImg = $("#lbImg"), lbCap = $("#lbCap");
+  let lbi = 0, lbOpen = false;
+  const showPhoto = (i) => { lbi = (i + D.gallery.length) % D.gallery.length; const [f, cap] = D.gallery[lbi]; lbImg.src = `img/galeria/${f}.webp`; lbImg.alt = cap; lbCap.textContent = `${cap} · ${lbi + 1}/${D.gallery.length}`; };
+  const openLb = (i) => { showPhoto(i); lb.classList.add("on"); lb.setAttribute("aria-hidden", "false"); lbOpen = true; lenis && lenis.stop(); $("#lbX").focus(); };
+  const closeLb = () => { lb.classList.remove("on"); lb.setAttribute("aria-hidden", "true"); lbOpen = false; lenis && lenis.start(); };
+  $("#gallery").addEventListener("click", (e) => { const f = e.target.closest(".ed-item"); if (f) openLb(+f.dataset.i); });
+  $("#lbX").onclick = closeLb; $("#lbPrev").onclick = () => showPhoto(lbi - 1); $("#lbNext").onclick = () => showPhoto(lbi + 1);
+  lb.addEventListener("click", (e) => { if (e.target === lb) closeLb(); });
+  addEventListener("keydown", (e) => { if (!lbOpen) return; if (e.key === "Escape") closeLb(); if (e.key === "ArrowLeft") showPhoto(lbi - 1); if (e.key === "ArrowRight") showPhoto(lbi + 1); });
+
+  /* ——— Asistente ——— */
+  const aiFab = $("#aiFab"), aiPanel = $("#aiPanel"), aiLog = $("#aiLog"), aiForm = $("#aiForm"), aiInput = $("#aiInput");
+  const chat = []; let greeted = false, busy = false;
+  const linkify = (t) => esc(t).replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>').replace(/([\w.+-]+@[\w-]+\.[\w.]+)/g, '<a href="mailto:$1">$1</a>');
+  const addMsg = (who, text) => { const d = document.createElement("div"); d.className = `msg ${who}`; d.innerHTML = linkify(text); aiLog.appendChild(d); aiLog.scrollTop = aiLog.scrollHeight; return d; };
+  function aiToggle(open) {
+    aiPanel.classList.toggle("on", open); aiPanel.setAttribute("aria-hidden", String(!open)); aiFab.setAttribute("aria-expanded", String(open));
+    if (open && !greeted) { greeted = true; addMsg("bot", "¡Hola! Soy el asistente de Diego Gasca. Pregúntame por su música, live sets, shows, servicios, el club de fans o cómo contactarlo."); }
+    if (open) setTimeout(() => aiInput.focus(), 200);
+  }
+  aiFab.onclick = () => aiToggle(!aiPanel.classList.contains("on"));
+  $("#aiClose").onclick = () => aiToggle(false);
+  addEventListener("keydown", (e) => { if (e.key === "Escape" && aiPanel.classList.contains("on")) aiToggle(false); });
+  aiLog.addEventListener("wheel", (e) => e.stopPropagation(), { passive: true });
+  async function send(text) {
+    text = text.trim().slice(0, 500); if (!text || busy) return;
+    busy = true; addMsg("me", text); chat.push({ role: "user", content: text });
+    const typing = addMsg("bot typing", "Escribiendo…");
+    const reply = await window.Asistente.ask(chat);
+    typing.remove(); addMsg("bot", reply); chat.push({ role: "assistant", content: reply }); busy = false;
+  }
+  $("#aiChips").innerHTML = window.Asistente.chips.map((c) => `<button type="button">${esc(c)}</button>`).join("");
+  $("#aiChips").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) send(b.textContent); });
+  aiForm.addEventListener("submit", (e) => { e.preventDefault(); const v = aiInput.value; aiInput.value = ""; send(v); });
 
   /* ——— Sin animación ——— */
   const loader = $("#loader");
@@ -236,7 +320,7 @@
     gsap.from(chars.length ? chars : parts, { yPercent: 115, duration: 1.2, stagger: chars.length ? .04 : .1, ease: E, scrollTrigger: { trigger: h, start: "top 85%" } });
   });
   // Entradas suaves de bloques
-  $$(".eco-head p, .hits-head p, .live-head p, .svc-head p, .story-copy p, .biz-copy p, .final-copy p, .final-copy .cta, .num-note, .sf-logo, .topics").forEach((el) =>
+  $$(".eco-head p, .hits-head p, .live-head p, .svc-head p, .soc-head p, .rev-head p, .club-lead, .story-copy p, .biz-copy p, .final-copy p, .final-copy .cta, .num-note, .sf-logo, .topics").forEach((el) =>
     gsap.from(el, { y: 40, opacity: 0, duration: 1, ease: P, scrollTrigger: { trigger: el, start: "top 90%" } }));
 
   // Ecosistema: tarjetas que suben + inclinación 3D
@@ -279,6 +363,21 @@
   gsap.fromTo(".biz-photo img", { yPercent: -12 }, { yPercent: 0, ease: "none", scrollTrigger: { trigger: ".biz", start: "top bottom", end: "bottom top", scrub: true } });
   // Servicios
   gsap.from(".svc", { y: 60, opacity: 0, duration: 1, stagger: .08, ease: P, scrollTrigger: { trigger: "#services", start: "top 85%" } });
+  // Redes
+  gsap.from(".soc", { y: 40, opacity: 0, duration: .9, stagger: .06, ease: P, scrollTrigger: { trigger: "#socials", start: "top 88%" } });
+  // Editorial: cada foto se revela como una página
+  gsap.from(".ed-mast > *", { y: 40, opacity: 0, duration: 1.1, stagger: .12, ease: P, scrollTrigger: { trigger: ".ed-mast", start: "top 85%" } });
+  $$(".ed-item .ph").forEach((ph) => {
+    gsap.fromTo(ph, { clipPath: "inset(12% 0% 12% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", ease: "none", scrollTrigger: { trigger: ph, start: "top 95%", end: "top 55%", scrub: true } });
+    gsap.fromTo($("img", ph), { scale: 1.18 }, { scale: 1, ease: "none", scrollTrigger: { trigger: ph, start: "top bottom", end: "bottom top", scrub: true } });
+  });
+  gsap.from(".ed-quote", { y: 40, opacity: 0, duration: 1.1, ease: P, stagger: .2, scrollTrigger: { trigger: ".ed-quote", start: "top 88%" } });
+  // Reseñas: carrusel continuo que se detiene al pasar el mouse
+  const rail = $("#reviews");
+  const revTw = gsap.to(rail, { x: () => -(rail.scrollWidth / 2), duration: 70, ease: "none", repeat: -1 });
+  rail.addEventListener("mouseenter", () => revTw.pause()); rail.addEventListener("mouseleave", () => revTw.resume());
+  // Club
+  gsap.from(".perks li, .club-form", { y: 40, opacity: 0, duration: 1, stagger: .1, ease: P, scrollTrigger: { trigger: ".club", start: "top 80%" } });
   // Cierre
   gsap.fromTo(".final-photo", { yPercent: -8, scale: 1.12 }, { yPercent: 6, scale: 1, ease: "none", scrollTrigger: { trigger: ".final", start: "top bottom", end: "bottom top", scrub: true } });
 
