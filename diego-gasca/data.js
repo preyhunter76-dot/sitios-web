@@ -5,7 +5,7 @@ window.DG = {
   email: "prey-hunter-oficial@hotmail.com",
   whatsapp: "",
   club: "https://fpxyixfjqcsbxysiluhy.supabase.co/functions/v1/club", // función de Supabase que guarda el club
-  eco: { cartel: "https://cartel-music.vercel.app", salsafro: "https://salsafro.vercel.app" },
+  eco: { prey: "https://prey-hunter.vercel.app", cartel: "https://cartel-music.vercel.app", salsafro: "https://salsafro.vercel.app" },
 
   // [valor, sufijo, texto, decimales, prefijo, sin separador de miles]
   stats: [
@@ -24,9 +24,10 @@ window.DG = {
     ["Modelo", "Campañas de moda y de marca, con contrato de uso de imagen en cada sesión.", "img/press-07.webp"],
   ],
 
-  // La persona, el sello y su propio género.
+  // La persona, el artista, el sello y su propio género.
   brands: [
     { key: "persona", name: "Diego Gasca", role: "La persona · empresario", img: "img/portrait-diego.webp", logo: "img/logos/trebol.png", href: "#servicios", cta: "Ver servicios" },
+    { key: "prey", name: "Prey Hunter", role: "Su proyecto artístico", img: "img/portrait-prey-hunter.webp", logo: "img/logos/prey-hunter.png", color: "#FF2D87", cta: "Sitio oficial" },
     { key: "cartel", name: "Cartel Music", role: "Su sello discográfico", img: "img/portrait-cartel-music.webp", logo: "img/logos/cartel-music.png", color: "#00FF7B", cta: "Sitio oficial" },
     { key: "salsafro", name: "Salsafro", role: "Su propio género", img: "img/portrait-salsafro.webp", logo: "img/logos/salsafro.png", color: "#FF6D29", cta: "Sitio oficial" },
   ],
