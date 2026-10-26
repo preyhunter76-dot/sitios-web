@@ -86,7 +86,10 @@
   $$("#reviews .rev").forEach((el, i) => { if (i >= D.reviews.length) { el.setAttribute("aria-hidden", "true"); el.querySelector("a").tabIndex = -1; } });
 
   // Logros de canciones (misma fila en movimiento que Mi identidad)
-  $("#hits").innerHTML = D.hits.map(([n, u, t, d]) => `<article class="tile hit"><b>${esc(n)}</b><small>${esc(u)}</small><span>${esc(t)}</span><em>${esc(d)}</em></article>`).join("");
+  // Como en el Cerebro: la carátula de la canción y un disco dorado que gira con la carátula como etiqueta.
+  $("#hits").innerHTML = D.hits.map(([n, u, t, d, c]) => { const img = `img/covers/${c}.webp`;
+    return `<article class="tile hit"><div class="hit-art" aria-hidden="true"><img class="hit-sleeve" src="${img}" width="200" height="200" alt="" loading="lazy" decoding="async"><span class="hit-disc"><span class="hit-grooves"><img src="${img}" width="200" height="200" alt="" loading="lazy" decoding="async"></span><i></i></span></div>
+      <div class="hit-txt"><b>${esc(n)}</b><small>${esc(u)}</small><span>${esc(t)}</span><em>${esc(d)}</em></div></article>`; }).join("");
 
   // Spotify: reproductor oficial del perfil de artista (se carga al acercarse)
   const sp = $("#spotify");

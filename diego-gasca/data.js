@@ -53,13 +53,13 @@ window.DG = {
     { id: "dg-taller", t: "Charla o taller para tu equipo", p: { cop: 1800000, usd: 480, clp: 450000, eur: 440 } },
   ],
 
-  // Logros de canciones (Cerebro: módulo 16 Logros y módulo 06 Catálogo). [cifra, unidad, canción, detalle]
+  // Logros de canciones (Cerebro: módulo 16 Logros y módulo 06 Catálogo). [cifra, unidad, canción, detalle, carátula]
   hits: [
-    ["+17 M", "reproducciones en Spotify", "I Like It", "Felipe Vasquez Dj, Prey Hunter, Disoft · 2022"],
-    ["+3 M", "reproducciones", "Vacaciones Con Pablo", "Prey Hunter · 2025"],
-    ["+2,2 M", "reproducciones", "Antava", "Disoft feat. Prey Hunter · 2023"],
-    ["+2,1 M", "reproducciones", "Karely", "Cartel Music · 2023"],
-    ["+1,2 M", "reproducciones", "Lele", "Felipe Vasquez Dj feat. Disoft, Prey Hunter · 2023"],
+    ["+17 M", "reproducciones en Spotify", "I Like It", "Felipe Vasquez Dj, Prey Hunter, Disoft · 2022", "i-like-it"],
+    ["+3 M", "reproducciones", "Vacaciones Con Pablo", "Prey Hunter · 2025", "vacaciones-con-pablo"],
+    ["+2,2 M", "reproducciones", "Antava", "Disoft feat. Prey Hunter · 2023", "antava"],
+    ["+2,1 M", "reproducciones", "Karely", "Cartel Music · 2023", "karely"],
+    ["+1,2 M", "reproducciones", "Lele", "Felipe Vasquez Dj feat. Disoft, Prey Hunter · 2023", "lele"],
   ],
 
   // Reseñas: comentarios reales del público en YouTube (texto original, sin emojis).
