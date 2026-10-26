@@ -53,6 +53,15 @@ window.DG = {
     { id: "dg-taller", t: "Charla o taller para tu equipo", p: { cop: 1800000, usd: 480, clp: 450000, eur: 440 } },
   ],
 
+  // Logros de canciones (Cerebro: módulo 16 Logros y módulo 06 Catálogo). [cifra, unidad, canción, detalle]
+  hits: [
+    ["+17 M", "reproducciones en Spotify", "I Like It", "Felipe Vasquez Dj, Prey Hunter, Disoft · 2022"],
+    ["+3 M", "reproducciones", "Vacaciones Con Pablo", "Prey Hunter · 2025"],
+    ["+2,2 M", "reproducciones", "Antava", "Disoft feat. Prey Hunter · 2023"],
+    ["+2,1 M", "reproducciones", "Karely", "Cartel Music · 2023"],
+    ["+1,2 M", "reproducciones", "Lele", "Felipe Vasquez Dj feat. Disoft, Prey Hunter · 2023"],
+  ],
+
   // Reseñas: comentarios reales del público en YouTube (texto original, sin emojis).
   reviews: [
     { a: "@eliotmarileo-r5x", t: "Me tele transporte a otra dimensión con esta musica uuff placer amis oídos", v: "Afro House & Salsafro · Live Set 2026", id: "2kk2d5GUxXE", c: "UgxPN9Yh33P-6dGRr5d4AaABAg", d: "sep 2026" },

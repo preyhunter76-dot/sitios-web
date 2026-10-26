@@ -85,6 +85,9 @@
   $("#reviews").innerHTML = revHTML + revHTML;
   $$("#reviews .rev").forEach((el, i) => { if (i >= D.reviews.length) { el.setAttribute("aria-hidden", "true"); el.querySelector("a").tabIndex = -1; } });
 
+  // Logros de canciones (misma fila en movimiento que Mi identidad)
+  $("#hits").innerHTML = D.hits.map(([n, u, t, d]) => `<article class="tile hit"><b>${esc(n)}</b><small>${esc(u)}</small><span>${esc(t)}</span><em>${esc(d)}</em></article>`).join("");
+
   // Spotify: reproductor oficial del perfil de artista (se carga al acercarse)
   const sp = $("#spotify");
   if (sp) sp.innerHTML = `<iframe title="Escuchar en Spotify" src="https://open.spotify.com/embed/artist/${D.spotify}?utm_source=generator&theme=0" width="100%" height="152" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>`;
