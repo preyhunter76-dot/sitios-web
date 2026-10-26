@@ -5,7 +5,30 @@ window.DG = {
   email: "prey-hunter-oficial@hotmail.com",
   whatsapp: "",
   club: "https://fpxyixfjqcsbxysiluhy.supabase.co/functions/v1/club", // función de Supabase que guarda el club
-  spotify: "7HWCje6tPWnHnBHxXiwrsM", // perfil oficial de artista (Cerebro, módulo de medios)
+  spotify: "7HWCje6tPWnHnBHxXiwrsM",
+  agenda: "https://fpxyixfjqcsbxysiluhy.supabase.co/functions/v1/agenda", // función de Supabase que guarda las citas
+  horas: ["10:00", "11:30", "15:00", "16:30"], // hora de Colombia, lunes a viernes
+  // Enlaces de pago por servicio (Wompi, Mercado Pago o Stripe). Vacíos = se envían por correo al confirmar la cita.
+  pagos: { "Diagnóstico": "", "Crea tu sello": "", "Crecimiento": "" },
+  // Casos reales con cifras del Cerebro (módulos 03, 05, 06 y 12).
+  cases: [
+    { name: "Cartel Music", tag: "Crea tu sello", href: "https://cartel-music.vercel.app", color: "#00FF7B",
+      lead: "Sello independiente fundado por Diego en octubre de 2022, sin disquera detrás.",
+      kpis: [["+29 M", "streams del sello"], ["71", "lanzamientos"], ["142", "grabaciones con ISRC"]],
+      items: ["Distribución propia por ONErpm y DistroKid", "Catálogo con metadatos y códigos ISRC completos", "Seis colaboradores acreditados, de Cali hacia Europa"] },
+    { name: "Prey Hunter", tag: "Crecimiento", href: "https://prey-hunter.vercel.app", color: "#FF2D87",
+      lead: "Su proyecto artístico: una marca construida lanzamiento a lanzamiento desde 2014.",
+      kpis: [["+410 mil", "oyentes mensuales en Spotify"], ["Top 2 %", "ranking global de artistas"], ["148", "créditos de compositor"]],
+      items: ["35 lanzamientos verificados entre 2021 y 2026", "Perfiles en Apple Music, Deezer, Spotify, Bandcamp y SoundCloud", "Género propio: Salsafro"] },
+  ],
+  // Presencia verificada (sin notas de prensa inventadas: el Cerebro aún no registra medios).
+  press: [
+    ["Apple Music", "Perfil editorial con entrevista", "https://music.apple.com/co/artist/prey-hunter/1380533892"],
+    ["Spotify", "Top 2 % del ranking global de artistas", "https://open.spotify.com/artist/7HWCje6tPWnHnBHxXiwrsM"],
+    ["YouTube", "I Like It: +11 M de vistas en el video oficial", "https://www.youtube.com/watch?v=GWoGXxP9xGM"],
+    ["Deezer", "Perfil biográfico verificado", "https://www.deezer.com/artist/14723513"],
+    ["MUSO.AI", "148 créditos de composición verificados", ""],
+  ], // perfil oficial de artista (Cerebro, módulo de medios)
   eco: { prey: "https://prey-hunter.vercel.app", cartel: "https://cartel-music.vercel.app", salsafro: "https://salsafro.vercel.app" },
 
   // [valor, sufijo, texto, decimales, prefijo, sin separador de miles]

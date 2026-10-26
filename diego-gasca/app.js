@@ -69,6 +69,7 @@
       <div class="price"><small>desde</small><b>${money(p, cur)}</b><span>${CUR[cur]} · ${esc(p.unit)}</span></div>
       <ul>${p.items.map((i) => `<li>${svg("check")}<span>${esc(i)}</span></li>`).join("")}</ul>
       <button class="plan-btn" type="button" aria-label="Elegir ${esc(p.name)}" data-req-id="${p.id}" data-req-name="${esc(p.name)} · ${esc(p.sub)}" data-req-detail="desde ${money(p, cur)} ${CUR[cur]}">Elegir</button>
+      <a class="plan-book" href="#agenda" data-book="${esc(p.name)}">Agendar cita</a>
     </article>`).join("");
     $("#extras").innerHTML = D.extras.map((x) => `<button type="button" class="extra" data-req-id="${x.id}" data-req-name="${esc(x.t)}" data-req-detail="desde ${money(x, cur)} ${CUR[cur]}"><b>${esc(x.t)}</b><span>desde ${money(x, cur)}</span><i>+</i></button>`).join("");
   }
@@ -84,6 +85,17 @@
     <footer><b>${esc(r.a)}</b><small>${esc(r.v)} · ${esc(r.d)}</small><a href="https://www.youtube.com/watch?v=${r.id}&lc=${r.c}" target="_blank" rel="noopener">Ver en YouTube</a></footer></article>`).join("");
   $("#reviews").innerHTML = revHTML + revHTML;
   $$("#reviews .rev").forEach((el, i) => { if (i >= D.reviews.length) { el.setAttribute("aria-hidden", "true"); el.querySelector("a").tabIndex = -1; } });
+
+  // Casos reales
+  $("#cases").innerHTML = D.cases.map((c) => `<article class="case" style="--c:${c.color}"><header><span class="case-tag">${esc(c.tag)}</span><h3>${esc(c.name)}</h3><p>${esc(c.lead)}</p></header>
+    <div class="case-kpis">${c.kpis.map(([n, l]) => `<div><b>${esc(n)}</b><span>${esc(l)}</span></div>`).join("")}</div>
+    <ul>${c.items.map((i) => `<li>${esc(i)}</li>`).join("")}</ul><a href="${c.href}" target="_blank" rel="noopener">Ver el sitio oficial ↗</a></article>`).join("");
+
+  // Presencia verificada
+  $("#press").innerHTML = D.press.map(([n, d, u]) => u
+    ? `<li><a href="${u}" target="_blank" rel="noopener"><b>${esc(n)}</b><span>${esc(d)}</span><i aria-hidden="true">↗</i></a></li>`
+    : `<li><div><b>${esc(n)}</b><span>${esc(d)}</span><i aria-hidden="true"></i></div></li>`).join("");
+  $("#pressMail").href = `mailto:${D.email}?subject=${encodeURIComponent("Entrevista / prensa · Diego Gasca")}`;
 
   // Logros de canciones (misma fila en movimiento que Mi identidad)
   // Como en el Cerebro: la carátula de la canción y un disco dorado que gira con la carátula como etiqueta.
@@ -108,11 +120,12 @@
   /* ——— Navegación ——— */
   const nav = $("#nav"), links = $("#links"), burger = $("#burger");
   const darkSecs = $$(".hero, .rowsec.dark, .plans, .final, .footer");
-  const secs = ["identidad", "historia", "ecosistema", "servicios", "club"].map((id) => document.getElementById(id)).filter(Boolean);
+  const allSecs = $$("main > section, .footer");
+  const secs = ["identidad", "historia", "ecosistema", "servicios", "agenda", "club"].map((id) => document.getElementById(id)).filter(Boolean);
   function navState() {
     nav.classList.toggle("solid", scrollY > 40);
     const y = nav.getBoundingClientRect().bottom - 2;
-    nav.classList.toggle("dark", darkSecs.some((s) => { const r = s.getBoundingClientRect(); return r.top <= y && r.bottom > y; }));
+    nav.classList.toggle("dark", (document.documentElement.dataset.theme === "dark" ? allSecs : darkSecs).some((s) => { const r = s.getBoundingClientRect(); return r.top <= y && r.bottom > y; }));
     let on = ""; secs.forEach((s) => { const r = s.getBoundingClientRect(); if (r.top < innerHeight * .45 && r.bottom > innerHeight * .45) on = s.id; });
     $$("#links a").forEach((a) => a.classList.toggle("on", a.getAttribute("href") === "#" + on));
   }
@@ -139,6 +152,56 @@
     lenis ? lenis.scrollTo(el, { offset: off, duration: 1.4 }) : scrollTo({ top: el.getBoundingClientRect().top + scrollY + off, behavior: reduced ? "auto" : "smooth" });
   }));
 
+  /* ——— Agenda de citas ——— */
+  const T = (es, en) => (document.documentElement.lang === "en" ? en : es);
+  const ag = $("#agendaForm"), agMsg = $("#agendaMsg"), pay = $("#payBtn"), slots = $("#slots");
+  const SERV = [...D.plans.map((p) => p.name), ...D.extras.map((x) => x.t)];
+  ag.elements.servicio.innerHTML = SERV.map((s) => `<option value="${esc(s)}">${esc(s)}</option>`).join("");
+  slots.innerHTML = D.horas.map((h, i) => `<label><input type="radio" name="hora" value="${h}"${i ? "" : " checked"}><span>${h}</span></label>`).join("");
+  const iso = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+  const next = new Date(); do next.setDate(next.getDate() + 1); while ([0, 6].includes(next.getDay()));
+  const last = new Date(); last.setDate(last.getDate() + 120);
+  Object.assign(ag.elements.fecha, { min: iso(next), max: iso(last), value: iso(next) });
+  document.addEventListener("click", (e) => { const a = e.target.closest("[data-book]"); if (a) ag.elements.servicio.value = a.dataset.book; });
+  ag.addEventListener("submit", async (e) => {
+    e.preventDefault(); pay.hidden = true;
+    const fd = new FormData(ag); if (fd.get("sitio_web")) return;
+    const data = Object.fromEntries(["servicio", "fecha", "hora", "modalidad", "nombre", "correo", "whatsapp", "mensaje"].map((k) => [k, String(fd.get(k) || "").trim()]));
+    $$(".fld input", ag).forEach((i) => i.classList.remove("bad"));
+    const dia = new Date(data.fecha + "T12:00:00").getDay();
+    if (!data.fecha || dia === 0 || dia === 6) { ag.elements.fecha.classList.add("bad"); agMsg.className = "form-msg err"; agMsg.textContent = T("Elige un día de lunes a viernes.", "Choose a weekday (Monday to Friday)."); return; }
+    const bad = []; if (data.nombre.length < 2) bad.push("nombre"); if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(data.correo)) bad.push("correo");
+    if (bad.length) { bad.forEach((n) => ag.elements[n].classList.add("bad")); agMsg.className = "form-msg err"; agMsg.textContent = T("Revisa tu nombre y tu correo.", "Check your name and email."); ag.elements[bad[0]].focus(); return; }
+    if (!fd.get("acepto")) { agMsg.className = "form-msg err"; agMsg.textContent = T("Para agendar necesitas autorizar el tratamiento de datos.", "Please accept the data-processing terms to book."); return; }
+    const btn = $("button[type=submit]", ag); btn.disabled = true; agMsg.className = "form-msg"; agMsg.textContent = T("Enviando…", "Sending…");
+    try {
+      const r = await fetch(D.agenda, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...data, acepto: true, idioma: document.documentElement.lang === "en" ? "en" : "es", sitio_web: "" }) });
+      const j = await r.json().catch(() => ({}));
+      btn.disabled = false;
+      if (r.ok) {
+        const first = data.nombre.split(" ")[0];
+        agMsg.className = "form-msg ok";
+        agMsg.textContent = T(`¡Listo, ${first}! Pediste ${data.servicio} el ${data.fecha} a las ${data.hora} (hora Colombia). Diego te confirma por correo.`, `Done, ${first}! You requested ${data.servicio} on ${data.fecha} at ${data.hora} (Colombia time). Diego will confirm by email.`);
+        const link = D.pagos[data.servicio]; if (link) { pay.href = link; pay.hidden = false; }
+        ag.reset(); ag.elements.fecha.value = iso(next); return;
+      }
+      if (r.status !== 503) { agMsg.className = "form-msg err"; agMsg.textContent = j.error || T("No se pudo agendar. Intenta de nuevo.", "Could not book. Please try again."); return; }
+    } catch { btn.disabled = false; }
+    const body = `Quiero agendar: ${data.servicio}\nDía: ${data.fecha} · ${data.hora} (hora Colombia) · ${data.modalidad}\nNombre: ${data.nombre}\nCorreo: ${data.correo}\nWhatsApp: ${data.whatsapp || "-"}\n\n${data.mensaje}`;
+    location.href = `mailto:${D.email}?subject=${encodeURIComponent("Cita · " + data.servicio)}&body=${encodeURIComponent(body)}`;
+    agMsg.className = "form-msg ok"; agMsg.textContent = T("Abrimos tu correo con la cita: dale enviar para completarla.", "We opened your email app with the booking: just hit send.");
+  });
+
+  /* ——— Tema claro / oscuro ——— */
+  const themeBtn = $("#themeBtn");
+  const setTheme = (dark) => { document.documentElement.dataset.theme = dark ? "dark" : "light"; themeBtn.setAttribute("aria-pressed", String(dark));
+    themeBtn.setAttribute("aria-label", dark ? T("Modo claro", "Light mode") : T("Modo oscuro", "Dark mode")); try { localStorage.setItem("dg-theme", dark ? "dark" : "light"); } catch {} };
+  setTheme(document.documentElement.dataset.theme === "dark");
+  themeBtn.addEventListener("click", () => { setTheme(document.documentElement.dataset.theme !== "dark"); navState(); });
+
+  // Vercel Web Analytics (sin cookies): solo en el sitio publicado.
+  if (/\.vercel\.app$/.test(location.hostname)) { const s = document.createElement("script"); s.defer = true; s.src = "/_vercel/insights/script.js"; document.head.appendChild(s); }
+
   /* ——— Club de fans y clientes ——— */
   const form = $("#clubForm"), msg = $("#clubMsg");
   form.addEventListener("submit", async (e) => {
@@ -155,7 +218,7 @@
     if (!data.acepto) { msg.className = "form-msg err"; msg.textContent = "Para unirte necesitas autorizar el tratamiento de datos."; return; }
     const btn = $("button[type=submit]", form); btn.disabled = true; msg.className = "form-msg"; msg.textContent = "Enviando…";
     try {
-      const r = await fetch(D.club, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...data, sitio_web: "" }) });
+      const r = await fetch(D.club, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...data, idioma: document.documentElement.lang === "en" ? "en" : "es", sitio_web: "" }) });
       if (r.ok) { form.reset(); msg.className = "form-msg ok"; msg.textContent = `¡Listo, ${data.nombre.split(" ")[0]}! Ya eres parte del club.`; btn.disabled = false; return; }
       if (r.status === 429) { msg.className = "form-msg err"; msg.textContent = "Recibimos varios intentos seguidos. Espera unos minutos e inténtalo de nuevo."; btn.disabled = false; return; }
       if (r.status === 400) { const j = await r.json().catch(() => ({})); msg.className = "form-msg err"; msg.textContent = j.error || "Revisa los datos."; btn.disabled = false; return; }
@@ -282,7 +345,7 @@
     const chars = $$(".ch", h);
     gsap.from(chars.length ? chars : $$(".split", h), { yPercent: 115, duration: 1.2, stagger: chars.length ? .04 : .1, ease: E, scrollTrigger: { trigger: h, start: "top 85%" } });
   });
-  $$(".row-head p, .plans-head p, .cur, .rev-head p, .club-lead, .story-copy p, .biz-copy p, .final-copy p, .final-copy .cta, .extras, .plan-note").forEach((el) =>
+  $$(".agenda-head p, .agenda-form, .case, .press-list li, .row-head p, .plans-head p, .cur, .rev-head p, .club-lead, .story-copy p, .biz-copy p, .final-copy p, .final-copy .cta, .extras, .plan-note").forEach((el) =>
     gsap.from(el, { y: 30, opacity: 0, duration: 1, ease: P, scrollTrigger: { trigger: el, start: "top 90%" } }));
 
   // Filas de tarjetas

@@ -1,6 +1,6 @@
 // Función «club» de Supabase: guarda los registros del club de diego-gasca.vercel.app.
 // Usa la llave de servicio que Supabase inyecta en el entorno de la función (no hay claves en el sitio).
-// v3 (26/10/2026, autorizada por Diego): exige Origin y limita a 5 envíos cada 10 minutos por huella de IP.
+// v4 (26/10/2026): v3 + correo de bienvenida opcional. v3: exige Origin y limita a 5 envíos cada 10 minutos por huella de IP.
 // El límite se guarda en la tabla club_rate con un hash SHA-256 de la IP (nunca la IP) y se borra a las 24 h.
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 
@@ -69,5 +69,17 @@ Deno.serve(async (req: Request) => {
     body: JSON.stringify(row),
   });
   if (!r.ok) { console.error("insert", r.status, await r.text()); return new Response(JSON.stringify({ error: "No se pudo guardar" }), { status: 503, headers: h }); }
+  // v4: correo de bienvenida, solo si existen los secretos RESEND_API_KEY y CORREO_REMITENTE (sin ellos, solo guarda).
+  const RESEND = Deno.env.get("RESEND_API_KEY"), FROM = Deno.env.get("CORREO_REMITENTE");
+  if (RESEND && FROM) {
+    const n = row.nombre.split(" ")[0].replace(/[<>&"]/g, ""), en = b.idioma === "en";
+    const html = en
+      ? `<p>Hi ${n},</p><p>Welcome to Diego Gasca's club. You'll be among the first to hear about new projects, releases, events in your city and service openings.</p><p>Once a month you'll receive a short newsletter. Reply «unsubscribe» anytime to leave.</p><p>Diego Gasca · https://diego-gasca.vercel.app</p>`
+      : `<p>Hola ${n},</p><p>Bienvenido al club de Diego Gasca. Serás de los primeros en enterarte de proyectos, lanzamientos, eventos en tu ciudad y cupos de servicios.</p><p>Una vez al mes recibirás un boletín corto. Responde «baja» cuando quieras salir.</p><p>Diego Gasca · https://diego-gasca.vercel.app</p>`;
+    try {
+      await fetch("https://api.resend.com/emails", { method: "POST", headers: { Authorization: `Bearer ${RESEND}`, "Content-Type": "application/json" },
+        body: JSON.stringify({ from: FROM, to: row.correo, subject: en ? "Welcome to the club · Diego Gasca" : "Bienvenido al club · Diego Gasca", html }) });
+    } catch { /* el registro ya quedó guardado */ }
+  }
   return new Response(JSON.stringify({ ok: true }), { status: 200, headers: h });
 });

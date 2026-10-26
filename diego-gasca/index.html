@@ -21,6 +21,7 @@
 <meta name="twitter:title" content="Diego Gasca · Empresario · Cali, Colombia">
 <meta name="twitter:description" content="Empresario, DJ, productor musical, compositor y modelo. Construyendo desde 2014.">
 <meta name="twitter:image" content="https://diego-gasca.vercel.app/img/og-diego-gasca.jpg">
+<script>try{if(localStorage.getItem("dg-theme")==="dark")document.documentElement.dataset.theme="dark";if(localStorage.getItem("dg-lang")==="en")document.documentElement.lang="en"}catch(e){}</script>
 <link rel="icon" href="img/favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="img/favicon.png">
 <script type="application/ld+json">
@@ -62,14 +63,16 @@
 
 <header class="nav" id="nav">
   <nav class="links" id="links" aria-label="Secciones">
-    <a href="#identidad">Mi identidad</a><a href="#historia">Historia</a><a href="#ecosistema">Empresas</a><a href="#servicios">Servicios</a><a href="#club">Club</a>
+    <a href="#identidad">Mi identidad</a><a href="#historia">Historia</a><a href="#ecosistema">Empresas</a><a href="#servicios">Servicios</a><a href="#agenda">Agenda</a><a href="#club">Club</a>
   </nav>
   <a href="#inicio" class="brand">
     <img src="img/logos/trebol-sm.png" width="200" height="255" alt="">
     <span><b>Diego Gasca</b><small>Cali · Colombia</small></span>
   </a>
   <div class="nav-end">
-    <a href="#servicios" class="nav-cta">Trabajemos juntos</a>
+    <button type="button" class="tgl" id="langBtn" aria-label="Ver en inglés" translate="no">EN</button>
+    <button type="button" class="tgl" id="themeBtn" aria-label="Modo oscuro" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="moon" d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/><g class="sun"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg></button>
+    <a href="#agenda" class="nav-cta">Agenda tu cita</a>
     <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false"><span></span><span></span></button>
   </div>
 </header>
@@ -165,6 +168,45 @@
   <p class="plan-note">Precios de referencia «desde», fijos en cada moneda. Las sesiones son virtuales o presenciales en Cali; la propuesta final se confirma según el alcance, y viajes o producción se cotizan aparte.</p>
 </section>
 
+<!-- AGENDA -->
+<section class="agenda" id="agenda">
+  <div class="agenda-head">
+    <h2 class="big-head"><span class="line"><span class="split">Agenda tu cita.</span></span></h2>
+    <p>Elige el servicio, el día y la hora. Diego confirma tu cita por correo en menos de 24 horas hábiles, junto con los datos de pago.</p>
+  </div>
+  <form class="agenda-form" id="agendaForm" novalidate>
+    <label class="fld">Servicio<select name="servicio" required></select></label>
+    <div class="two">
+      <label class="fld">Día<input name="fecha" type="date" required></label>
+      <div class="fld"><span id="horaLbl">Hora (Colombia)</span><div class="slots" id="slots" role="radiogroup" aria-labelledby="horaLbl"></div></div>
+    </div>
+    <div class="seg" role="radiogroup" aria-label="Modalidad">
+      <label><input type="radio" name="modalidad" value="Virtual" checked><span>Virtual</span></label>
+      <label><input type="radio" name="modalidad" value="Presencial en Cali"><span>Presencial en Cali</span></label>
+    </div>
+    <div class="two">
+      <label class="fld">Nombre<input name="nombre" required autocomplete="name" maxlength="80"></label>
+      <label class="fld">Correo<input name="correo" type="email" required autocomplete="email" maxlength="120"></label>
+    </div>
+    <label class="fld">WhatsApp (opcional)<input name="whatsapp" type="tel" autocomplete="tel" maxlength="30"></label>
+    <label class="fld">Cuéntame de tu proyecto (opcional)<textarea name="mensaje" rows="3" maxlength="600"></textarea></label>
+    <input class="hp" name="sitio_web" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <label class="consent"><input type="checkbox" name="acepto" required><span>Autorizo el tratamiento de mis datos para gestionar mi cita, según la <a href="privacidad.html" target="_blank">política de privacidad</a> (Ley 1581 de 2012).</span></label>
+    <button class="btn btn-dark" type="submit">Pedir mi cita</button>
+    <p class="form-msg" id="agendaMsg" role="status" aria-live="polite"></p>
+    <a class="btn btn-light pay" id="payBtn" target="_blank" rel="noopener" hidden>Pagar ahora</a>
+  </form>
+</section>
+
+<!-- CASOS REALES -->
+<section class="cases" id="casos">
+  <div class="row-head">
+    <h2 class="big-head"><span class="line"><span class="split">Casos reales.</span></span></h2>
+    <p>Lo que ofrezco lo construí primero para mí. Estas son las cifras.</p>
+  </div>
+  <div class="case-grid" id="cases"></div>
+</section>
+
 <!-- RESEÑAS -->
 <section class="reviews" id="resenas">
   <div class="rev-head">
@@ -185,7 +227,16 @@
     <h2>Logros de mis canciones</h2>
     <div class="row-arrows"><button type="button" data-row="hits" data-dir="prev" aria-label="Logro anterior">←</button><button type="button" data-row="hits" data-dir="next" aria-label="Logro siguiente">→</button></div>
   </div>
-  <div class="tiles hits" id="hits"></div>
+  <div class="tiles hits" id="hits" tabindex="0" role="region" aria-label="Logros de mis canciones"></div>
+</section>
+
+<!-- PRESENCIA Y PRENSA -->
+<section class="press" id="prensa">
+  <div class="listen-head">
+    <h2>Presencia y prensa</h2>
+    <a id="pressMail" href="#">Pedir una entrevista ↗</a>
+  </div>
+  <ul class="press-list" id="press"></ul>
 </section>
 
 <!-- CLUB DE FANS Y CLIENTES -->
@@ -246,7 +297,7 @@
     <p class="f-tag">Empresario · Cali, Colombia</p>
   </div>
   <div class="f-cols">
-    <div><p>Sitio</p><a href="#identidad">Mi identidad</a><a href="#historia">Historia</a><a href="#ecosistema">Empresas</a><a href="#servicios">Servicios</a><a href="#musica">Música</a><a href="#club">Club</a></div>
+    <div><p>Sitio</p><a href="#identidad">Mi identidad</a><a href="#historia">Historia</a><a href="#ecosistema">Empresas</a><a href="#servicios">Servicios</a><a href="#agenda">Agenda</a><a href="#casos">Casos</a><a href="#musica">Música</a><a href="#prensa">Prensa</a><a href="#club">Club</a></div>
     <div><p>Empresas</p><span id="feco"></span></div>
     <div><p>Contacto</p><a id="fmail"></a><a href="#club">Club</a></div>
   </div>
@@ -272,6 +323,7 @@
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
 <script src="solicitud.js"></script>
 <script src="data.js"></script>
+<script src="i18n.js"></script>
 <script src="asistente.js"></script>
 <script src="app.js"></script>
 </body>
