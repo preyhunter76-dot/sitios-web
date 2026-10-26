@@ -3,7 +3,7 @@
 Actualizado: 26 de octubre de 2026.
 
 ## Requieren autorización de Diego
-1. **Publicar en producción** los cambios de la auditoría (`vercel deploy ./diego-gasca --prod`). Estado: BLOQUEADO hasta autorización.
+1. ~~Publicar en producción~~ — HECHO el 26/10/2026 con autorización de Diego y verificado.
 2. **Desplegar la función `club` v2 en Supabase** (exige `Origin` y limita a 5 envíos por IP cada 10 minutos). Estado: PREPARADO, no desplegado. Riesgo: si algún navegador no enviara `Origin`, el registro caería al plan B por correo (no se pierde).
 3. **Indexación en buscadores**: hoy `robots.txt` permite indexar `diego-gasca.vercel.app`. Si se va a usar un dominio propio, conviene publicarlo primero y cambiar `canonical`, `og:url`, `sitemap.xml` y el JSON-LD a ese dominio. Estado: REQUIERE CONFIRMACIÓN.
 
@@ -34,7 +34,5 @@ Actualizado: 26 de octubre de 2026.
 - **Pausa del plan gratuito de Supabase**: si el proyecto pasa unos 7 días sin actividad, se pausa y el club pasa al plan B por correo hasta reactivarlo.
 
 ## No se pudo comprobar
-- Puntuaciones de Lighthouse en producción después de los cambios (no se publicó).
-- Cabeceras de `vercel.json` en producción (el servidor local no las aplica).
 - Lectores de pantalla reales (NVDA/VoiceOver) y Safari en iOS: no disponibles en este entorno.
 - Envío real por correo del carrito y del plan B del club (abre el cliente de correo del visitante; no se envió nada).

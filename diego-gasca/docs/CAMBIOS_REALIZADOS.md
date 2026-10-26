@@ -1,7 +1,7 @@
 # Cambios realizados · auditoría del 26 de octubre de 2026
 
 Partida: commit `04717ed`. Todos los cambios son localizados; no se eliminó ninguna sección, texto, integración ni recurso que funcionara.
-**Estado de publicación:** guardado en Git; **no publicado en producción** (pendiente de autorización de Diego).
+**Estado de publicación:** guardado en Git (commit `65b951e`) y **publicado en producción el 26 de octubre de 2026** con autorización de Diego (despliegue `diego-gasca-lf3si5d4o`). La función `club` v2 de Supabase sigue sin desplegar.
 
 ## Lote A · Errores evidentes y enlaces
 | Archivo | Cambio | Motivo | Estado |
@@ -85,3 +85,27 @@ El único error de consola es `404 /api/chat`, propio del servidor local (en pro
 - Ver los cambios: `git -C "G:\CLAUDE (CEREBRO)\sitios" show --stat HEAD` y `git diff 04717ed HEAD -- diego-gasca`.
 - Volver atrás en el código: `git revert <commit de esta auditoría>` (no borra historia).
 - Volver atrás en producción (si ya se publicó): en Vercel → proyecto `diego-gasca` → Deployments → el despliegue anterior → «Promote to Production» (o «Instant Rollback»).
+
+## Verificación en producción (26 de octubre de 2026, después de publicar)
+| Comprobación | Resultado |
+|---|---|
+| Cabeceras de seguridad en `/` (`X-Content-Type-Options`, `Referrer-Policy`, `X-Frame-Options`, `Permissions-Policy`, HSTS) | VERIFICADO |
+| Caché de `/img/` (1 día + revalidación) y `no-store` en `/api/` | VERIFICADO |
+| `/robots.txt`, `/sitemap.xml` (2 URL), `/favicon.ico`, `/img/og-diego-gasca.jpg` | VERIFICADO (200) |
+| Ruta inexistente muestra la 404 propia | VERIFICADO |
+| `docs/`, `supabase/` y `package.json` no se publican | VERIFICADO (404) |
+| canonical, `og:url`, `og:image` absoluta, `twitter:card`, JSON-LD | VERIFICADO |
+| axe-core en 1440 px y 390 px | VERIFICADO · 0 fallos |
+| 11 pruebas funcionales (carga, planes, carrito, USD, asistente, club con Supabase) | VERIFICADO (registro de prueba borrado; el registro real se conservó) |
+| Celular de 390 px sin desbordamiento | VERIFICADO |
+
+**Lighthouse en producción, antes y después**
+| | Rendimiento | Accesibilidad | Buenas prácticas | SEO | LCP |
+|---|---|---|---|---|---|
+| Móvil antes | 65 | 89 | 100 | 100 | 5,2 s |
+| Móvil después | **73** | **100** | 100 | 100 | **3,9 s** |
+| Escritorio antes | 86 | 92 | 100 | 100 | 1,3 s |
+| Escritorio después | 86 | **100** | 100 | 100 | 1,2 s |
+
+El «Speed Index» sigue alto (la intro de carga y el carrusel de reseñas mantienen la pantalla en movimiento); es una consecuencia esperada del diseño pedido, no un error.
+Único aviso de consola en producción: `503 /api/chat`, esperado hasta configurar `ANTHROPIC_API_KEY`; el asistente responde con su base local.
