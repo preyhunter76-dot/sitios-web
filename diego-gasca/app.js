@@ -101,7 +101,7 @@
   $("#mailBtn").href = `${mail}?subject=${encodeURIComponent("Hablemos · Diego Gasca")}`;
   $("#pressBtn").href = `${mail}?subject=${encodeURIComponent("Press kit · Diego Gasca")}`;
   $("#fmail").textContent = D.email; $("#fmail").href = mail;
-  const names = { cartel: "Cartel Music", salsafro: "Salsafro" };
+  const names = { prey: "Prey Hunter", cartel: "Cartel Music", salsafro: "Salsafro" };
   $("#feco").innerHTML = Object.entries(D.eco).filter(([k]) => names[k]).map(([k, u]) => `<a href="${u}" target="_blank" rel="noopener">${names[k]}</a>`).join("");
   $("#year").textContent = new Date().getFullYear();
 

@@ -709,3 +709,13 @@ b{font-weight:700}
 .tile.hit .hit-txt small{white-space:nowrap;text-align:left}
 .tile.hit .hit-txt small{display:block;overflow:hidden;text-overflow:ellipsis;max-width:100%}
 @media (max-width:820px){ .tile.hit .hit-txt small{letter-spacing:.04em;font-size:10px} .tile.hit{gap:14px} }
+
+/* ═══ v8.3 · revisión final ═══ */
+/* Los titulares de las filas no se encogen ni se recortan en pantallas pequeñas */
+.row-head .big-head{flex:0 0 auto;max-width:100%}
+@media (max-width:820px){
+  .row-head .big-head{flex-basis:100%}
+  /* Retrato del empresario: vertical y con el rostro completo */
+  .biz-photo{aspect-ratio:4/5}
+  .biz-photo > img:first-child{object-position:50% 12%}
+}
