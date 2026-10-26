@@ -12,6 +12,9 @@
   if (!location.hash && "scrollRestoration" in history) { history.scrollRestoration = "manual"; scrollTo(0, 0); }
 
   if (window.Solicitud) Solicitud.init({ brand: D.brand, email: D.email, whatsapp: D.whatsapp, label: "Tu solicitud" });
+  const rqCount = document.getElementById("rqCount"); if (rqCount) rqCount.setAttribute("aria-hidden", "true"); // el número ya lo anuncia el aviso
+  const drawer = document.getElementById("rqDrawer");
+  if (drawer) { const sync = () => (drawer.inert = drawer.getAttribute("aria-hidden") !== "false"); sync(); new MutationObserver(sync).observe(drawer, { attributes: true, attributeFilter: ["aria-hidden"] }); }
 
   /* ——— Contenido ——— */
   const tick = ["Construyendo desde 2014", "Empresario", "DJ", "Productor musical", "Fotógrafo", "Modelo", "Cartel Music", "Salsafro", "Cali, Colombia"];
@@ -28,18 +31,24 @@
     check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
   };
   const svg = (k) => `<svg viewBox="0 0 24 24" aria-hidden="true">${ICON[k]}</svg>`;
+  // Ancho real de cada original (las variantes -480.webp están en img/)
+  const W = { "img/portrait-diego.webp": [720, 1080], "img/portrait-prey-hunter.webp": [720, 1082], "img/portrait-cartel-music.webp": [720, 1082], "img/portrait-salsafro.webp": [720, 1082],
+    "img/facet-dj.webp": [1200, 675], "img/press-14.webp": [1200, 800], "img/press-18.webp": [1200, 1803], "img/press-07.webp": [560, 841] };
+  const LOGO = { "img/logos/trebol.png": [200, 255], "img/logos/prey-hunter.png": [240, 146], "img/logos/cartel-music.png": [160, 182], "img/logos/salsafro.png": [240, 80] };
+  const tileImg = (src) => { const [w, h] = W[src] || [720, 1080]; const sm = src.replace(".webp", "-480.webp");
+    return `<img src="${sm}" srcset="${sm} 480w, ${src} ${w}w" sizes="(max-width: 820px) 62vw, 22vw" width="${w}" height="${h}" alt="" loading="lazy" decoding="async">`; };
 
   // Facetas en fila
   $("#facets").innerHTML = D.facets.map(([t, ic, d, img]) => `<a class="tile" href="#servicios">
-      <img src="${img}" alt="" loading="lazy"><span class="tile-shade"></span>
+      ${tileImg(img)}<span class="tile-shade"></span>
       <span class="tile-in">${svg(ic)}<b>${esc(t)}</b><em>${esc(d)}</em><u>Ver planes</u></span></a>`).join("");
 
   // Empresas en fila (mismo formato)
   $("#brands").innerHTML = D.brands.map((b) => {
     const u = b.href || D.eco[b.key]; const ext = u && u.startsWith("http");
     return `<a class="tile co"${b.color ? ` style="--c:${b.color}"` : ""} href="${u}" ${ext ? 'target="_blank" rel="noopener"' : ""}>
-      <img src="${b.img}" alt="" loading="lazy"><span class="tile-shade"></span>
-      <span class="tile-in"><img class="tile-logo" src="${b.logo}" alt=""><b>${esc(b.name)}</b><em>${esc(b.role)}</em><u>${esc(b.cta)}</u></span></a>`;
+      ${tileImg(b.img)}<span class="tile-shade"></span>
+      <span class="tile-in"><img class="tile-logo" src="${b.logo.replace(".png", "-sm.png")}" width="${LOGO[b.logo][0]}" height="${LOGO[b.logo][1]}" alt="" decoding="async"><b>${esc(b.name)}</b><em>${esc(b.role)}</em><u>${esc(b.cta)}</u></span></a>`;
   }).join("");
 
   // Cifras
@@ -56,7 +65,7 @@
       <header><h3>${esc(p.name)}</h3><p>${esc(p.sub)}</p></header>
       <div class="price"><small>desde</small><b>${money(p, cur)}</b><span>${cur === "usd" ? "USD" : "COP"} · ${esc(p.unit)}</span></div>
       <ul>${p.items.map((i) => `<li>${svg("check")}<span>${esc(i)}</span></li>`).join("")}</ul>
-      <button class="plan-btn" type="button" data-req-id="${p.id}" data-req-name="Plan ${esc(p.name)} · ${esc(p.sub)}" data-req-detail="desde ${money(p, cur)} ${cur.toUpperCase()}">Elegir plan</button>
+      <button class="plan-btn" type="button" aria-label="Elegir plan ${esc(p.name)}" data-req-id="${p.id}" data-req-name="Plan ${esc(p.name)} · ${esc(p.sub)}" data-req-detail="desde ${money(p, cur)} ${cur.toUpperCase()}">Elegir plan</button>
     </article>`).join("");
     $("#extras").innerHTML = D.extras.map((x) => `<button type="button" class="extra" data-req-id="${x.id}" data-req-name="${esc(x.t)}" data-req-detail="desde ${money(x, cur)} ${cur.toUpperCase()}"><b>${esc(x.t)}</b><span>desde ${money(x, cur)}</span><i>+</i></button>`).join("");
   }
@@ -68,7 +77,7 @@
   }));
 
   // Reseñas reales
-  const revHTML = D.reviews.map((r) => `<article class="rev"><div><div class="stars" aria-label="Comentario del público"><i></i><i></i><i></i><i></i><i></i></div><p>${esc(r.t)}</p></div>
+  const revHTML = D.reviews.map((r) => `<article class="rev"><div><div class="stars" role="img" aria-label="Comentario del público"><i></i><i></i><i></i><i></i><i></i></div><p>${esc(r.t)}</p></div>
     <footer><b>${esc(r.a)}</b><small>${esc(r.v)} · ${esc(r.d)}</small><a href="https://www.youtube.com/watch?v=${r.id}&lc=${r.c}" target="_blank" rel="noopener">Ver en YouTube</a></footer></article>`).join("");
   $("#reviews").innerHTML = revHTML + revHTML;
   $$("#reviews .rev").forEach((el, i) => { if (i >= D.reviews.length) { el.setAttribute("aria-hidden", "true"); el.querySelector("a").tabIndex = -1; } });
@@ -134,6 +143,7 @@
     try {
       const r = await fetch(D.club, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...data, sitio_web: "" }) });
       if (r.ok) { form.reset(); msg.className = "form-msg ok"; msg.textContent = `¡Listo, ${data.nombre.split(" ")[0]}! Ya eres parte del club.`; btn.disabled = false; return; }
+      if (r.status === 429) { msg.className = "form-msg err"; msg.textContent = "Recibimos varios intentos seguidos. Espera unos minutos e inténtalo de nuevo."; btn.disabled = false; return; }
       if (r.status === 400) { const j = await r.json().catch(() => ({})); msg.className = "form-msg err"; msg.textContent = j.error || "Revisa los datos."; btn.disabled = false; return; }
     } catch { /* sin servicio: se envía por correo */ }
     const body = `Quiero unirme al club de Diego Gasca.\n\nComo: ${data.tipo}\nNombre: ${data.nombre}\nCorreo: ${data.correo}\nWhatsApp: ${data.whatsapp || "-"}\nCiudad: ${data.ciudad || "-"}\nPaís: ${data.pais || "-"}\nMe interesa: ${data.intereses.join(", ") || "-"}\n\nAutorizo el tratamiento de mis datos según la política de privacidad (Ley 1581 de 2012).`;
@@ -148,7 +158,7 @@
   const linkify = (t) => esc(t).replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>').replace(/([\w.+-]+@[\w-]+\.[\w.]+)/g, '<a href="mailto:$1">$1</a>');
   const addMsg = (who, text) => { const d = document.createElement("div"); d.className = `msg ${who}`; d.innerHTML = linkify(text); aiLog.appendChild(d); aiLog.scrollTop = aiLog.scrollHeight; return d; };
   function aiToggle(open) {
-    aiPanel.classList.toggle("on", open); aiPanel.setAttribute("aria-hidden", String(!open)); aiFab.setAttribute("aria-expanded", String(open));
+    aiPanel.classList.toggle("on", open); aiPanel.setAttribute("aria-hidden", String(!open)); aiPanel.inert = !open; aiFab.setAttribute("aria-expanded", String(open));
     if (open && !greeted) { greeted = true; addMsg("bot", "¡Hola! Soy el asistente de Diego Gasca. Pregúntame por Diego, sus empresas, los planes y precios, el club o cómo contactarlo."); }
     if (open) setTimeout(() => aiInput.focus(), 200);
   }
@@ -231,6 +241,7 @@
   const rail = $("#reviews");
   const revTw = gsap.to(rail, { x: () => -(rail.scrollWidth / 2), duration: 70, ease: "none", repeat: -1 });
   rail.addEventListener("mouseenter", () => revTw.pause()); rail.addEventListener("mouseleave", () => revTw.resume());
+  rail.addEventListener("focusin", () => revTw.pause()); rail.addEventListener("focusout", () => revTw.resume());
   gsap.from(".perks li, .club-form", { y: 40, opacity: 0, duration: 1, stagger: .1, ease: P, scrollTrigger: { trigger: ".club", start: "top 80%" } });
   gsap.fromTo(".final-photo", { yPercent: -6 }, { yPercent: 6, ease: "none", scrollTrigger: { trigger: ".final", start: "top bottom", end: "bottom top", scrub: true } });
 

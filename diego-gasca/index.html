@@ -8,27 +8,55 @@
 <meta name="theme-color" content="#0b0b0b">
 <meta property="og:title" content="Diego Gasca · Empresario · Cali, Colombia">
 <meta property="og:description" content="Empresario, DJ, productor musical, fotógrafo y modelo. Construyendo desde 2014.">
-<meta property="og:image" content="img/hero-diego.webp">
-<link rel="icon" href="img/favicon.png">
+<link rel="canonical" href="https://diego-gasca.vercel.app/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_CO">
+<meta property="og:site_name" content="Diego Gasca">
+<meta property="og:url" content="https://diego-gasca.vercel.app/">
+<meta property="og:image" content="https://diego-gasca.vercel.app/img/og-diego-gasca.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Retrato en blanco y negro de Diego Gasca">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Diego Gasca · Empresario · Cali, Colombia">
+<meta name="twitter:description" content="Empresario, DJ, productor musical, fotógrafo y modelo. Construyendo desde 2014.">
+<meta name="twitter:image" content="https://diego-gasca.vercel.app/img/og-diego-gasca.jpg">
+<link rel="icon" href="img/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="img/favicon.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Diego Alexander Gasca Martínez",
+  "alternateName": "Diego Gasca",
+  "url": "https://diego-gasca.vercel.app/",
+  "image": "https://diego-gasca.vercel.app/img/og-diego-gasca.jpg",
+  "jobTitle": "Empresario",
+  "birthPlace": { "@type": "Place", "name": "Cali, Colombia" },
+  "address": { "@type": "PostalAddress", "addressLocality": "Cali", "addressCountry": "CO" },
+  "email": "mailto:prey-hunter-oficial@hotmail.com"
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Inter+Tight:wght@600;700;800;900&family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;1,6..96,400;1,6..96,500&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="img/hero-diego.webp">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Inter+Tight:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/hero-diego.webp" imagesrcset="img/hero-diego-800.webp 800w, img/hero-diego-1280.webp 1280w, img/hero-diego.webp 1672w" imagesizes="(orientation: portrait) 180vh, 100vw">
 <link rel="stylesheet" href="solicitud.css">
 <link rel="stylesheet" href="style.css">
 <noscript><style>.loader{display:none}.is-loading{overflow:auto}</style></noscript>
 </head>
 <body class="is-loading">
+<a class="skip" href="#contenido">Saltar al contenido</a>
 
 <div class="loader" id="loader" aria-hidden="true">
   <div class="loader-in">
-    <div class="clover3d sm"><img src="img/logos/trebol.png" alt=""></div>
+    <div class="clover3d sm"><img src="img/logos/trebol-sm.png" width="200" height="255" alt=""></div>
     <b id="loaderNum" aria-live="polite">0</b>
   </div>
 </div>
 <div class="grain" aria-hidden="true"></div>
 
-<div class="topbar">
+<div class="topbar" aria-hidden="true">
   <div class="ticker"><div class="ticker-track" id="ticker"></div></div>
 </div>
 
@@ -36,8 +64,8 @@
   <nav class="links" id="links" aria-label="Secciones">
     <a href="#facetas">Facetas</a><a href="#historia">Historia</a><a href="#ecosistema">Empresas</a><a href="#servicios">Planes</a><a href="#club">Club</a>
   </nav>
-  <a href="#inicio" class="brand" aria-label="Diego Gasca, inicio">
-    <img src="img/logos/trebol.png" alt="">
+  <a href="#inicio" class="brand">
+    <img src="img/logos/trebol-sm.png" width="200" height="255" alt="">
     <span><b>Diego Gasca</b><small>Cali · Colombia</small></span>
   </a>
   <div class="nav-end">
@@ -46,11 +74,11 @@
   </div>
 </header>
 
-<main>
+<main id="contenido">
 <!-- PORTADA -->
 <section class="hero" id="inicio">
   <div class="hero-stage" id="heroStage">
-    <div class="hero-photo"><img src="img/hero-diego.webp" alt="Retrato en blanco y negro de Diego Alexander Gasca Martínez"></div>
+    <div class="hero-photo"><img src="img/hero-diego.webp" srcset="img/hero-diego-800.webp 800w, img/hero-diego-1280.webp 1280w, img/hero-diego.webp 1672w" sizes="(orientation: portrait) 180vh, 100vw" width="1672" height="941" fetchpriority="high" alt="Retrato en blanco y negro de Diego Alexander Gasca Martínez"></div>
     <div class="hero-scrim"></div>
     <div class="hero-copy">
       <p class="kicker"><span class="h-in">Empresario · Cali, Colombia</span></p>
@@ -78,7 +106,7 @@
 
 <!-- HISTORIA -->
 <section class="story" id="historia">
-  <div class="story-year" aria-hidden="true"><span>1998</span></div>
+  <div class="story-year" aria-hidden="true"><span data-y="1998"></span></div>
   <div class="story-grid">
     <div class="story-copy">
       <h2 class="big-head"><span class="line"><span class="split">Su historia.</span></span></h2>
@@ -86,7 +114,7 @@
       <p>Con una trayectoria de más de una década en la industria de la música, transita con fluidez entre géneros como el Salsafro, Afro House, House, Tech House y Deep House.</p>
     </div>
     <figure class="story-photo">
-      <div class="clip"><img src="img/historia-1998.webp" alt="Diego Gasca a su primer año, frente a su torta de cumpleaños" loading="lazy"></div>
+      <div class="clip"><img src="img/historia-1998-900.webp" srcset="img/historia-1998-900.webp 900w, img/historia-1998.webp 1670w" sizes="(max-width: 820px) 92vw, 46vw" width="900" height="507" alt="Diego Gasca a su primer año, frente a su torta de cumpleaños" loading="lazy"></div>
       <figcaption><b>Cali, 1999.</b> Su primer año.</figcaption>
     </figure>
   </div>
@@ -105,8 +133,8 @@
 <!-- EMPRESARIO -->
 <section class="biz" id="empresario">
   <div class="biz-photo">
-    <img src="img/live-02.webp" alt="Diego Gasca en vivo como DJ" loading="lazy">
-    <img class="biz-logo" src="img/logos/cartel-music.png" alt="Cartel Music">
+    <img src="img/live-02-1200.webp" srcset="img/live-02-800.webp 800w, img/live-02-1200.webp 1200w, img/live-02.webp 1920w" sizes="(max-width: 820px) 100vw, 50vw" width="1200" height="675" alt="Diego Gasca en vivo como DJ" loading="lazy">
+    <img class="biz-logo" src="img/logos/cartel-music-sm.png" width="160" height="182" alt="Cartel Music">
   </div>
   <div class="biz-copy">
     <h2 class="big-head"><span class="line"><span class="split">El empresario.</span></span></h2>
@@ -179,10 +207,10 @@
 
 <!-- CIERRE -->
 <section class="final" id="contacto">
-  <div class="final-photo"><img src="img/final-diego.webp" alt="Diego Gasca con capucha en estudio, blanco y negro" loading="lazy"></div>
+  <div class="final-photo"><img src="img/final-diego-1280.webp" srcset="img/final-diego-800.webp 800w, img/final-diego-1280.webp 1280w, img/final-diego.webp 1671w" sizes="(orientation: portrait) 180vh, 100vw" width="1280" height="721" alt="Diego Gasca con capucha en estudio, blanco y negro" loading="lazy"></div>
   <div class="final-shade"></div>
   <div class="final-copy">
-    <div class="clover3d"><img src="img/logos/trebol.png" alt=""></div>
+    <div class="clover3d"><img src="img/logos/trebol-sm.png" width="200" height="255" alt=""></div>
     <h2 class="mega"><span class="line"><span class="split">Hablemos.</span></span></h2>
     <p>Booking, charlas, alianzas y prensa. Biografía, cifras verificadas, retrato oficial y riders en el press kit.</p>
     <div class="cta">
@@ -196,7 +224,7 @@
 
 <footer class="footer">
   <div class="f-top">
-    <a href="#inicio" class="f-brand"><img src="img/logos/trebol.png" alt=""><span>Diego Gasca</span></a>
+    <a href="#inicio" class="f-brand"><img src="img/logos/trebol-sm.png" width="200" height="255" alt=""><span>Diego Gasca</span></a>
     <p class="f-tag">Empresario · Cali, Colombia</p>
   </div>
   <div class="f-cols">
@@ -212,12 +240,12 @@
 </footer>
 
 <!-- Asistente -->
-<button class="ai-fab" id="aiFab" aria-label="Abrir el asistente" aria-expanded="false"><img src="img/logos/trebol.png" alt=""><span>Pregúntame</span></button>
-<section class="ai-panel" id="aiPanel" aria-label="Asistente de Diego Gasca" aria-hidden="true">
+<button class="ai-fab" id="aiFab" aria-label="Pregúntame: abrir el asistente" aria-expanded="false" aria-controls="aiPanel"><img src="img/logos/trebol-sm.png" width="200" height="255" alt=""><span>Pregúntame</span></button>
+<section class="ai-panel" id="aiPanel" aria-label="Asistente de Diego Gasca" aria-hidden="true" inert>
   <header><div><b>Asistente de Diego Gasca</b><small>Responde sobre Diego, sus empresas, servicios y contacto</small></div><button id="aiClose" aria-label="Cerrar">×</button></header>
   <div class="ai-log" id="aiLog" role="log" aria-live="polite"></div>
   <div class="ai-chips" id="aiChips"></div>
-  <form class="ai-form" id="aiForm"><input id="aiInput" maxlength="500" placeholder="Escribe tu pregunta" autocomplete="off" aria-label="Tu pregunta"><button aria-label="Enviar">→</button></form>
+  <form class="ai-form" id="aiForm"><input id="aiInput" type="text" maxlength="500" placeholder="Escribe tu pregunta" autocomplete="off" aria-label="Tu pregunta"><button aria-label="Enviar">→</button></form>
 </section>
 
 

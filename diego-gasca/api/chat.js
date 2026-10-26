@@ -18,10 +18,27 @@ Nunca inventes precios, fechas, cifras ni datos personales. No pidas datos sensi
 
 const client = process.env.ANTHROPIC_API_KEY ? new Anthropic() : null;
 
+// Protección de costo: solo el propio sitio puede usar el asistente, con un límite simple por IP.
+// El límite vive en la memoria de cada instancia (no es global), suficiente para frenar abusos básicos.
+const ORIGINS = ["https://diego-gasca.vercel.app"];
+const LIMIT = 20, WINDOW_MS = 10 * 60 * 1000;
+const hits = new Map();
+function allowed(ip) {
+  const now = Date.now();
+  const list = (hits.get(ip) || []).filter((t) => now - t < WINDOW_MS);
+  list.push(now); hits.set(ip, list);
+  if (hits.size > 5000) for (const [k, v] of hits) if (now - v[v.length - 1] > WINDOW_MS) hits.delete(k);
+  return list.length <= LIMIT;
+}
+
 export default async function handler(req, res) {
   res.setHeader("Cache-Control", "no-store");
   if (req.method !== "POST") return res.status(405).json({ error: "Método no permitido" });
   if (!client) return res.status(503).json({ error: "Asistente sin configurar" });
+  const origin = req.headers.origin || "";
+  if (!ORIGINS.includes(origin)) return res.status(403).json({ error: "Origen no permitido" });
+  const ip = String(req.headers["x-forwarded-for"] || "").split(",")[0].trim() || "desconocida";
+  if (!allowed(ip)) return res.status(429).json({ error: "Demasiadas preguntas seguidas. Intenta en unos minutos." });
 
   const body = typeof req.body === "string" ? safeJson(req.body) : req.body || {};
   const messages = (Array.isArray(body.messages) ? body.messages : [])

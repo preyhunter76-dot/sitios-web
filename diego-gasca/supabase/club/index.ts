@@ -1,9 +1,19 @@
 // Función «club» de Supabase: guarda los registros del club de diego-gasca.vercel.app.
 // Usa la llave de servicio que Supabase inyecta en el entorno de la función (no hay claves en el sitio).
+// v2 (preparada 26/10/2026, PENDIENTE DE DESPLIEGUE con autorización): exige Origin y limita por IP.
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 
 const ORIGINS = ["https://diego-gasca.vercel.app", "http://localhost:5510"];
 const TIPOS = ["Fan", "Cliente", "Prensa o aliado"];
+// Límite simple por IP en la memoria de cada instancia (frena envíos masivos básicos).
+const LIMIT = 5, WINDOW_MS = 10 * 60 * 1000;
+const hits = new Map<string, number[]>();
+function allowed(ip: string) {
+  const now = Date.now();
+  const list = (hits.get(ip) || []).filter((t) => now - t < WINDOW_MS);
+  list.push(now); hits.set(ip, list);
+  return list.length <= LIMIT;
+}
 
 const cors = (origin: string | null) => ({
   "Access-Control-Allow-Origin": origin && ORIGINS.includes(origin) ? origin : ORIGINS[0],
@@ -17,7 +27,10 @@ Deno.serve(async (req: Request) => {
   const h = { ...cors(origin), "Content-Type": "application/json" };
   if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: h });
   if (req.method !== "POST") return new Response(JSON.stringify({ error: "Método no permitido" }), { status: 405, headers: h });
-  if (origin && !ORIGINS.includes(origin)) return new Response(JSON.stringify({ error: "Origen no permitido" }), { status: 403, headers: h });
+  // Los navegadores siempre envían Origin en un POST entre dominios: sin él, no es el formulario del sitio.
+  if (!origin || !ORIGINS.includes(origin)) return new Response(JSON.stringify({ error: "Origen no permitido" }), { status: 403, headers: h });
+  const ip = (req.headers.get("x-forwarded-for") || "").split(",")[0].trim() || "desconocida";
+  if (!allowed(ip)) return new Response(JSON.stringify({ error: "Demasiados intentos. Intenta más tarde." }), { status: 429, headers: h });
 
   let b: Record<string, unknown> = {};
   try { b = await req.json(); } catch { /* cuerpo vacío */ }
