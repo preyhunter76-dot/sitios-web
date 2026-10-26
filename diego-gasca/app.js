@@ -14,7 +14,7 @@
   if (window.Solicitud) Solicitud.init({ brand: D.brand, email: D.email, whatsapp: D.whatsapp, label: "Solicitud de servicios" });
 
   /* ——— Contenido ——— */
-  const tick = ["Construyendo desde 2014", "Salsafro", "Afro House", "House", "Tech House", "Deep House", "Cartel Music", "Prey Hunter", "Cali, Colombia"];
+  const tick = ["Construyendo desde 2014", "Empresario", "Cali, Colombia", "Cartel Music", "Salsafro", "Fotografía", "Modelaje", "Conferencias"];
   const tickHTML = tick.map((t) => `<span>${esc(t)}</span>`).join("");
   $("#ticker").innerHTML = tickHTML + tickHTML;
 
@@ -27,10 +27,10 @@
   }).join("");
 
   const fmt = (v, dec) => v.toLocaleString("es-CO", { minimumFractionDigits: dec, maximumFractionDigits: dec });
-  $("#numbers").innerHTML = D.stats.map(([v, suf, l, dec, pre]) =>
-    `<div class="num"><b data-v="${v}" data-dec="${dec}" data-pre="${esc(pre)}" data-suf="${esc(suf)}">${esc(pre)}${fmt(v, dec)}${esc(suf)}</b><span>${esc(l)}</span></div>`).join("");
+  $("#numbers").innerHTML = D.stats.map(([v, suf, l, dec, pre, raw]) =>
+    `<div class="num"><b data-v="${v}" data-dec="${dec}" data-pre="${esc(pre)}" data-suf="${esc(suf)}" data-raw="${raw ? 1 : 0}">${esc(pre)}${raw ? v : fmt(v, dec)}${esc(suf)}</b><span>${esc(l)}</span></div>`).join("");
 
-  const genres = ["Salsafro", "Afro House", "House", "Tech House", "Deep House"];
+  const genres = ["Empresario", "Conferencista", "Fotógrafo", "Modelo", "Salsafro"];
   const gHTML = genres.map((g) => `<span>${esc(g)}<img src="img/logos/trebol.png" alt=""></span>`).join("");
   $("#genres").innerHTML = gHTML + gHTML + gHTML;
 
@@ -49,18 +49,24 @@
   $("#mailBtn").href = `${mail}?subject=${encodeURIComponent("Hablemos · Diego Gasca")}`;
   $("#pressBtn").href = `${mail}?subject=${encodeURIComponent("Press kit · Diego Gasca")}`;
   $("#fmail").textContent = D.email; $("#fmail").href = mail;
-  $("#ytLink").href = D.youtube;
+  $("#phLink").href = D.eco.prey;
+
+  // Facetas: la foto de la izquierda cambia según la faceta
+  const fcFrame = $("#fcFrame");
+  fcFrame.innerHTML = D.facets.map(([t, , img], i) => `<img src="${img}" alt="${esc(t)}" loading="lazy" class="${i ? "" : "on"}">`).join("");
+  $("#facets").innerHTML = D.facets.map(([t, d], i) => `<li class="fc${i ? "" : " on"}" data-i="${i}" tabindex="0"><h3>${esc(t)}</h3><p>${esc(d)}</p></li>`).join("");
+  const setFacet = (i) => { $$(".fc").forEach((el) => el.classList.toggle("on", +el.dataset.i === i)); $$("img", fcFrame).forEach((im, j) => im.classList.toggle("on", j === i)); };
+  $$(".fc").forEach((el) => { const i = +el.dataset.i; el.addEventListener("mouseenter", () => setFacet(i)); el.addEventListener("focus", () => setFacet(i)); el.addEventListener("click", () => setFacet(i)); });
   const icon = (i) => `<i class="ico" style="--i:url(img/icons/${i}.svg)" aria-hidden="true"></i>`;
-  $("#socials").innerHTML = D.links.map((l) => `<a class="soc" href="${l.u}" target="_blank" rel="noopener">${icon(l.i)}<span><b>${esc(l.n)}</b><small>${esc(l.k)}</small></span></a>`).join("");
   $("#ficons").innerHTML = D.links.map((l) => `<a href="${l.u}" target="_blank" rel="noopener" aria-label="${esc(l.n)}">${icon(l.i)}</a>`).join("");
 
   // Galería editorial: ritmo de revista (una portada, luego bloques anchos y verticales, con citas).
   const quotes = [["Construyendo desde 2014.", "Diego Gasca"], ["Un artista, un sello y un género propio.", "El editorial"]];
   let gi = 0;
   $("#gallery").innerHTML = D.gallery.map(([f, cap, o], i) => {
-    const cls = i === 0 ? "hero" : o === "w" ? "w" : "";
+    const cls = o === "w" ? "w" : "";
     let html = `<figure class="ed-item ${cls}" data-i="${i}"><div class="ph"><img src="img/galeria/${f}.webp" alt="${esc(cap)} · Prey Hunter" loading="${i < 2 ? "eager" : "lazy"}"></div><figcaption><em>${esc(cap)}</em><span>${String(i + 1).padStart(2, "0")}</span></figcaption></figure>`;
-    if ((i === 4 || i === 15) && quotes[gi]) { const [q, a] = quotes[gi++]; html += `<div class="ed-quote"><p>${esc(q)}</p><small>${esc(a)}</small></div>`; }
+    if (false && quotes[gi]) { const [q, a] = quotes[gi++]; html += `<div class="ed-quote"><p>${esc(q)}</p><small>${esc(a)}</small></div>`; }
     return html;
   }).join("");
 
@@ -155,7 +161,7 @@
     nav.classList.toggle("solid", scrollY > 40);
     const y = nav.getBoundingClientRect().bottom - 2;
     nav.classList.toggle("dark", darkSecs.some((s) => { const r = s.getBoundingClientRect(); return r.top <= y && r.bottom > y; }));
-    const secs = ["historia", "exitos", "live", "editorial", "servicios", "club"];
+    const secs = ["facetas", "historia", "empresario", "editorial", "servicios", "club"];
     let on = ""; secs.forEach((id) => { const r = document.getElementById(id).getBoundingClientRect(); if (r.top < innerHeight * .45 && r.bottom > innerHeight * .45) on = id; });
     $$("#links a").forEach((a) => a.classList.toggle("on", a.getAttribute("href") === "#" + on));
   }
@@ -337,8 +343,8 @@
 
   // Cifras que cuentan
   $$(".num b").forEach((b) => {
-    const v = +b.dataset.v, dec = +b.dataset.dec, pre = b.dataset.pre, suf = b.dataset.suf, o = { v: 0 };
-    gsap.to(o, { v, duration: 2.2, ease: "power2.out", scrollTrigger: { trigger: b, start: "top 88%" }, onUpdate: () => (b.textContent = pre + fmt(o.v, dec) + suf) });
+    const v = +b.dataset.v, dec = +b.dataset.dec, pre = b.dataset.pre, suf = b.dataset.suf, raw = b.dataset.raw === "1", o = { v: raw ? v - 12 : 0 };
+    gsap.to(o, { v, duration: 2.2, ease: "power2.out", scrollTrigger: { trigger: b, start: "top 88%" }, onUpdate: () => (b.textContent = pre + (raw ? Math.round(o.v) : fmt(o.v, dec)) + suf) });
   });
   gsap.from(".num", { y: 50, opacity: 0, duration: 1, stagger: .1, ease: P, scrollTrigger: { trigger: "#numbers", start: "top 88%" } });
 
@@ -367,7 +373,8 @@
   // Servicios
   gsap.from(".svc", { y: 60, opacity: 0, duration: 1, stagger: .08, ease: P, scrollTrigger: { trigger: "#services", start: "top 85%" } });
   // Redes
-  gsap.from(".soc", { y: 40, opacity: 0, duration: .9, stagger: .06, ease: P, scrollTrigger: { trigger: "#socials", start: "top 88%" } });
+  gsap.from(".fc", { y: 40, opacity: 0, duration: .9, stagger: .08, ease: P, scrollTrigger: { trigger: "#facets", start: "top 85%" } });
+  gsap.fromTo(".fc-frame", { clipPath: "inset(14% 10% 14% 10%)" }, { clipPath: "inset(0% 0% 0% 0%)", ease: "none", scrollTrigger: { trigger: ".facets", start: "top 85%", end: "top 25%", scrub: true } });
   // Editorial: cada foto se revela como una página
   gsap.from(".ed-mast > *", { y: 40, opacity: 0, duration: 1.1, stagger: .12, ease: P, scrollTrigger: { trigger: ".ed-mast", start: "top 85%" } });
   $$(".ed-item .ph").forEach((ph) => {

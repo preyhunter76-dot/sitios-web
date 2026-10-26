@@ -8,12 +8,21 @@ window.DG = {
   youtube: "https://www.youtube.com/channel/UCh9PJ6voJWT6-G1YXtLo1Mw",
   eco: { prey: "https://prey-hunter.vercel.app", salsafro: "https://salsafro.vercel.app", cartel: "https://cartel-music.vercel.app" },
 
-  // [valor, sufijo, texto, decimales, prefijo]
+  // [valor, sufijo, texto, decimales, prefijo, sin separador de miles]
   stats: [
-    [62.2, " M", "reproducciones verificadas del catálogo", 1, ""],
-    [410117, "", "oyentes mensuales como Prey Hunter", 0, ""],
-    [29, " M", "streams de Cartel Music", 0, "+"],
-    [142, "", "grabaciones con ISRC", 0, ""],
+    [2014, "", "en la industria desde", 0, "", true],
+    [3, "", "marcas fundadas: Prey Hunter, Cartel Music y Salsafro", 0, ""],
+    [29, " M", "streams de su sello Cartel Music", 0, "+"],
+    [142, "", "grabaciones con ISRC en su catálogo", 0, ""],
+  ],
+
+  // Facetas personales de Diego (biografía oficial del Cerebro).
+  facets: [
+    ["Empresario", "Fundador del sello independiente Cartel Music y creador del género Salsafro. Dirige su operación con datos desde su propio sistema.", "img/portrait-diego.webp"],
+    ["Conferencista", "Charlas y paneles sobre industria musical independiente, catálogo y derechos, IA aplicada a la música y marca personal.", "img/press-14.webp"],
+    ["Fotógrafo", "Retrato y contenido para artistas y marcas, con mirada de quien también está frente a la cámara.", "img/press-18.webp"],
+    ["Modelo", "Campañas de moda y de marca, con contrato de uso de imagen en cada sesión.", "img/press-07.webp"],
+    ["Productor musical", "Más de una década en la música con su proyecto artístico, Prey Hunter, que tiene su propio sitio.", "img/live-02.webp"],
   ],
 
   // La persona, el artista, el sello y su propio género.
@@ -47,26 +56,18 @@ window.DG = {
     { n: "TikTok", i: "tiktok", u: "https://www.tiktok.com/@prey_hunter_oficial", k: "Seguir" },
   ],
 
-  // Live sets del canal oficial de YouTube (verificados el 25/10/2026).
+  // Muestra de live sets del canal oficial (la música completa vive en el sitio de Prey Hunter).
   sets: [
     { id: "2kk2d5GUxXE", t: "Afro House & Salsafro", y: "Live Set 2026", m: 73 },
-    { id: "0bBZMJ-WWys", t: "Clásicos de la Guaracha", y: "Live DJ Set 2026", m: 71 },
     { id: "cZ-SZhajAa0", t: "Afro Favela", y: "Salsafro Live Set 2026", m: 52 },
     { id: "zjkkn_6GbDI", t: "La Pampara de Colombia", y: "Live Set", m: 40 },
-    { id: "RT3oT47GBwE", t: "La Pampara", y: "Afro House · Live Set", m: 64 },
   ],
 
-  // Galería editorial: fotos del artista (sesiones de prensa, en vivo y las enviadas por Diego).
+  // Galería editorial: tres retratos de Diego.
   gallery: [
-    ["01-retrato-estudio", "Retrato de estudio", "w"], ["02-chile-oracion", "Chile", "t"], ["03-escenario-pirotecnia", "En vivo", "w"],
-    ["04-rosa-sesion", "Sesión rosa", "t"], ["05-negro-diamantes", "Negro y diamantes", "t"], ["06-cabina-momentum", "En cabina", "w"],
-    ["07-capucha", "Estudio", "w"], ["08-llamas", "Llamas", "t"], ["09-blanco-pieles", "Blanco", "t"],
-    ["10-cabina-pioneer", "Pioneer DJ", "w"], ["11-chile-gafas", "Chile", "w"], ["12-denim-negro", "Denim", "t"],
-    ["13-puffer-blanco", "Invierno", "t"], ["14-detalle-gafas", "Detalle", "w"], ["15-lila", "Lila", "t"],
-    ["16-capucha-chile", "Capucha", "t"], ["17-chile-sentado", "Pose", "t"], ["18-escenario-confeti", "Confeti", "w"],
-    ["19-verde-blanco", "Verde", "t"], ["20-negro-rosa", "Bordado", "t"], ["21-sombra-verde", "Sombra", "t"],
-    ["22-equipo-cabina", "Equipo", "w"], ["23-cuclillas", "Cuclillas", "t"], ["24-gorra-silla", "Gorra", "t"],
-    ["25-primer-ano", "Cali, 1999", "w"], ["26-sonrisa-blanco", "Sonrisa", "t"],
+    ["05-negro-diamantes", "Negro y diamantes", "t"],
+    ["04-rosa-sesion", "Sesión en rosa", "t"],
+    ["12-denim-negro", "Denim", "t"],
   ],
 
   // Reseñas: comentarios reales de fans en el canal oficial de YouTube (texto original, sin emojis).
@@ -87,16 +88,16 @@ window.DG = {
     { id: "dg-charla", t: "Charla o conferencia", d: "20 a 45 minutos sobre industria musical independiente, catálogo, derechos e IA aplicada a la música." },
     { id: "dg-panel", t: "Panel o entrevista", d: "45 a 60 minutos en paneles, podcasts y medios. Preguntas con 5 días de anticipación." },
     { id: "dg-consultoria", t: "Consultoría para artistas y sellos", d: "Catálogo, distribución, marca personal y operación con datos, desde la experiencia de construir un ecosistema propio." },
-    { id: "dg-show", t: "Show como Prey Hunter", d: "DJ set de Salsafro y Afro House de 60, 90 o 120 minutos con rider técnico." },
     { id: "dg-modelo", t: "Sesión como modelo", d: "Campañas de moda y marca. Contrato de uso de imagen firmado antes de la sesión." },
     { id: "dg-foto", t: "Sesión como fotógrafo", d: "Retrato y contenido. Galería de preselección en 72 horas, finales en alta y verticales." },
+    { id: "dg-show", t: "Show como Prey Hunter", d: "DJ set de Salsafro y Afro House de 60, 90 o 120 minutos con rider técnico." },
   ],
 
   topics: ["Industria musical independiente", "Catálogo y derechos", "IA aplicada al negocio de la música", "Marca personal"],
 
   // Beneficios del club (sin promesas que no existan todavía).
   perks: [
-    ["Fans", "Primero en escuchar los lanzamientos de Prey Hunter, Cartel Music y Salsafro, y aviso de los nuevos live sets."],
+    ["Fans", "Primero en enterarte de los proyectos, lanzamientos y eventos de Diego, de Cartel Music y de Salsafro."],
     ["Shows", "Aviso cuando haya fechas o eventos en tu ciudad."],
     ["Clientes", "Novedades de servicios, charlas y fechas disponibles para tu evento o marca."],
   ],
