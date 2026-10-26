@@ -1,4 +1,4 @@
-// Diego Gasca · marca personal. Contenido, navegación, club, asistente y animaciones.
+// Diego Gasca · marca personal. Contenido, navegación, planes, club, asistente y animaciones.
 (() => {
   const D = window.DG;
   const $ = (q, r = document) => r.querySelector(q);
@@ -11,41 +11,69 @@
   if (reduced || !hasGsap) document.documentElement.classList.add("reduced");
   if (!location.hash && "scrollRestoration" in history) { history.scrollRestoration = "manual"; scrollTo(0, 0); }
 
-  if (window.Solicitud) Solicitud.init({ brand: D.brand, email: D.email, whatsapp: D.whatsapp, label: "Solicitud de servicios" });
+  if (window.Solicitud) Solicitud.init({ brand: D.brand, email: D.email, whatsapp: D.whatsapp, label: "Tu solicitud" });
 
   /* ——— Contenido ——— */
   const tick = ["Construyendo desde 2014", "Empresario", "DJ", "Productor musical", "Fotógrafo", "Modelo", "Cartel Music", "Salsafro", "Cali, Colombia"];
   const tickHTML = tick.map((t) => `<span>${esc(t)}</span>`).join("");
   $("#ticker").innerHTML = tickHTML + tickHTML;
 
-  // Facetas: la foto cambia según la faceta
-  const fcFrame = $("#fcFrame");
-  fcFrame.innerHTML = D.facets.map(([t, , img], i) => `<img src="${img}" alt="${esc(t)}" loading="lazy" class="${i ? "" : "on"}">`).join("");
-  $("#facets").innerHTML = D.facets.map(([t, d], i) => `<li class="fc${i ? "" : " on"}" data-i="${i}" tabindex="0"><h3>${esc(t)}</h3><p>${esc(d)}</p></li>`).join("");
-  const setFacet = (i) => { $$(".fc").forEach((el) => el.classList.toggle("on", +el.dataset.i === i)); $$("img", fcFrame).forEach((im, j) => im.classList.toggle("on", j === i)); };
-  $$(".fc").forEach((el) => { const i = +el.dataset.i; ["mouseenter", "focus", "click"].forEach((ev) => el.addEventListener(ev, () => setFacet(i))); });
+  // Íconos de línea (trazo propio, sin librerías)
+  const ICON = {
+    brief: '<path d="M4 8h16v11H4zM9 8V5h6v3M4 13h16"/>',
+    head: '<path d="M5 14v-2a7 7 0 0 1 14 0v2"/><rect x="3.5" y="13.5" width="4" height="6" rx="1"/><rect x="16.5" y="13.5" width="4" height="6" rx="1"/>',
+    wave: '<path d="M3 12h2M7 8v8M11 5v14M15 9v6M19 11v2M21 12h0"/>',
+    cam: '<path d="M4 8h3.5L9 6h6l1.5 2H20v11H4z"/><circle cx="12" cy="13" r="3.5"/>',
+    star: '<path d="M12 4l2.4 5 5.6.6-4.2 3.8 1.2 5.6L12 16.2 7 19l1.2-5.6L4 9.6 9.6 9z"/>',
+    check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+  };
+  const svg = (k) => `<svg viewBox="0 0 24 24" aria-hidden="true">${ICON[k]}</svg>`;
 
+  // Facetas en fila
+  $("#facets").innerHTML = D.facets.map(([t, ic, d, img]) => `<a class="tile" href="#servicios">
+      <img src="${img}" alt="" loading="lazy"><span class="tile-shade"></span>
+      <span class="tile-in">${svg(ic)}<b>${esc(t)}</b><em>${esc(d)}</em><u>Ver planes</u></span></a>`).join("");
+
+  // Empresas en fila (mismo formato)
+  $("#brands").innerHTML = D.brands.map((b) => {
+    const u = b.href || D.eco[b.key]; const ext = u && u.startsWith("http");
+    return `<a class="tile co"${b.color ? ` style="--c:${b.color}"` : ""} href="${u}" ${ext ? 'target="_blank" rel="noopener"' : ""}>
+      <img src="${b.img}" alt="" loading="lazy"><span class="tile-shade"></span>
+      <span class="tile-in"><img class="tile-logo" src="${b.logo}" alt=""><b>${esc(b.name)}</b><em>${esc(b.role)}</em><u>${esc(b.cta)}</u></span></a>`;
+  }).join("");
+
+  // Cifras
   const fmt = (v, dec) => v.toLocaleString("es-CO", { minimumFractionDigits: dec, maximumFractionDigits: dec });
   $("#numbers").innerHTML = D.stats.map(([v, suf, l, dec, pre, raw]) =>
     `<div class="num"><b data-v="${v}" data-dec="${dec}" data-pre="${esc(pre)}" data-suf="${esc(suf)}" data-raw="${raw ? 1 : 0}">${esc(pre)}${raw ? v : fmt(v, dec)}${esc(suf)}</b><span>${esc(l)}</span></div>`).join("");
 
-  $("#brands").innerHTML = D.brands.map((b) => {
-    const u = b.href || D.eco[b.key];
-    const ext = u && u.startsWith("http");
-    return `<a class="brandcard"${b.color ? ` style="--c:${b.color}"` : ""} href="${u || "#"}" ${ext ? 'target="_blank" rel="noopener"' : ""}>
-      <img class="bg" src="${b.img}" alt="" loading="lazy"><img class="logo" src="${b.logo}" alt=""><small>${esc(b.role)}</small><h3>${esc(b.name)}</h3>
-      <span class="go">${esc(b.cta)}<i></i></span></a>`;
-  }).join("");
+  // Planes con cambio de moneda
+  const money = (p, cur) => cur === "usd" ? `US$${p.usd.toLocaleString("en-US")}` : `$${p.cop.toLocaleString("es-CO")}`;
+  let cur = "cop";
+  function renderPlans() {
+    $("#plans").innerHTML = D.plans.map((p) => `<article class="plan${p.featured ? " featured" : ""}">
+      ${p.featured ? '<span class="tag">Más pedido</span>' : ""}
+      <header><h3>${esc(p.name)}</h3><p>${esc(p.sub)}</p></header>
+      <div class="price"><small>desde</small><b>${money(p, cur)}</b><span>${cur === "usd" ? "USD" : "COP"} · ${esc(p.unit)}</span></div>
+      <ul>${p.items.map((i) => `<li>${svg("check")}<span>${esc(i)}</span></li>`).join("")}</ul>
+      <button class="plan-btn" type="button" data-req-id="${p.id}" data-req-name="Plan ${esc(p.name)} · ${esc(p.sub)}" data-req-detail="desde ${money(p, cur)} ${cur.toUpperCase()}">Elegir plan</button>
+    </article>`).join("");
+    $("#extras").innerHTML = D.extras.map((x) => `<button type="button" class="extra" data-req-id="${x.id}" data-req-name="${esc(x.t)}" data-req-detail="desde ${money(x, cur)} ${cur.toUpperCase()}"><b>${esc(x.t)}</b><span>desde ${money(x, cur)}</span><i>+</i></button>`).join("");
+  }
+  renderPlans();
+  $$(".cur button").forEach((b) => b.addEventListener("click", () => {
+    cur = b.dataset.cur; $$(".cur button").forEach((x) => { x.classList.toggle("on", x === b); x.setAttribute("aria-pressed", String(x === b)); });
+    renderPlans();
+    if (hasGsap && !reduced) gsap.fromTo(".price b", { yPercent: 40, opacity: 0 }, { yPercent: 0, opacity: 1, duration: .5, stagger: .05, ease: "power3.out" });
+  }));
 
-  const words = ["Empresario", "DJ", "Productor musical", "Fotógrafo", "Modelo"];
-  const wHTML = words.map((g) => `<span>${esc(g)}<img src="img/logos/trebol.png" alt=""></span>`).join("");
-  $("#genres").innerHTML = wHTML + wHTML + wHTML;
+  // Reseñas reales
+  const revHTML = D.reviews.map((r) => `<article class="rev"><div><div class="stars" aria-label="Comentario del público"><i></i><i></i><i></i><i></i><i></i></div><p>${esc(r.t)}</p></div>
+    <footer><b>${esc(r.a)}</b><small>${esc(r.v)} · ${esc(r.d)}</small><a href="https://www.youtube.com/watch?v=${r.id}&lc=${r.c}" target="_blank" rel="noopener">Ver en YouTube</a></footer></article>`).join("");
+  $("#reviews").innerHTML = revHTML + revHTML;
+  $$("#reviews .rev").forEach((el, i) => { if (i >= D.reviews.length) { el.setAttribute("aria-hidden", "true"); el.querySelector("a").tabIndex = -1; } });
 
-  $("#services").innerHTML = D.services.map((s) => `<button class="svc" data-req-id="${s.id}" data-req-name="${esc(s.t)}" data-req-detail="Diego Gasca">
-    <h3>${esc(s.t)}</h3><p>${esc(s.d)}</p><span class="add">Agregar a la solicitud<i>+</i></span></button>`).join("");
-  $("#topics").innerHTML = D.topics.map((t) => `<b>${esc(t)}</b>`).join("");
   $("#perks").innerHTML = D.perks.map(([t, d]) => `<li><b>${esc(t)}</b><span>${esc(d)}</span></li>`).join("");
-
   const mail = `mailto:${D.email}`;
   $("#mailBtn").href = `${mail}?subject=${encodeURIComponent("Hablemos · Diego Gasca")}`;
   $("#pressBtn").href = `${mail}?subject=${encodeURIComponent("Press kit · Diego Gasca")}`;
@@ -56,8 +84,8 @@
 
   /* ——— Navegación ——— */
   const nav = $("#nav"), links = $("#links"), burger = $("#burger");
-  const darkSecs = $$(".hero, .eco, .genres, .salsafro, .services, .final, .footer");
-  const secs = ["facetas", "historia", "empresario", "servicios", "club"].map((id) => document.getElementById(id)).filter(Boolean);
+  const darkSecs = $$(".hero, .rowsec.dark, .plans, .final, .footer");
+  const secs = ["facetas", "historia", "ecosistema", "servicios", "club"].map((id) => document.getElementById(id)).filter(Boolean);
   function navState() {
     nav.classList.toggle("solid", scrollY > 40);
     const y = nav.getBoundingClientRect().bottom - 2;
@@ -66,7 +94,7 @@
     $$("#links a").forEach((a) => a.classList.toggle("on", a.getAttribute("href") === "#" + on));
   }
   addEventListener("scroll", navState, { passive: true }); addEventListener("resize", navState); navState();
-  setInterval(navState, 500); // por si el navegador restaura la posición sin evento de scroll
+  setInterval(navState, 500);
   function menu(open) {
     links.classList.toggle("on", open); nav.classList.toggle("menu", open);
     burger.setAttribute("aria-expanded", String(open)); burger.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
@@ -79,7 +107,7 @@
   if (!reduced && hasGsap && window.Lenis) {
     lenis = new Lenis({ duration: 1.15, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: true });
     lenis.on("scroll", ScrollTrigger.update);
-    gsap.ticker.add((t) => lenis.raf(t * 1000)); gsap.ticker.lagSmoothing(0);
+    gsap.ticker.add((t) => lenis.raf(t * 1000));
   }
   $$('a[href^="#"]').forEach((a) => a.addEventListener("click", (e) => {
     const id = a.getAttribute("href"); const el = id.length > 1 && $(id); if (!el) return;
@@ -108,7 +136,6 @@
       if (r.ok) { form.reset(); msg.className = "form-msg ok"; msg.textContent = `¡Listo, ${data.nombre.split(" ")[0]}! Ya eres parte del club.`; btn.disabled = false; return; }
       if (r.status === 400) { const j = await r.json().catch(() => ({})); msg.className = "form-msg err"; msg.textContent = j.error || "Revisa los datos."; btn.disabled = false; return; }
     } catch { /* sin servicio: se envía por correo */ }
-    // Respaldo: abre el correo del visitante con los datos, para que no se pierda el registro.
     const body = `Quiero unirme al club de Diego Gasca.\n\nComo: ${data.tipo}\nNombre: ${data.nombre}\nCorreo: ${data.correo}\nWhatsApp: ${data.whatsapp || "-"}\nCiudad: ${data.ciudad || "-"}\nPaís: ${data.pais || "-"}\nMe interesa: ${data.intereses.join(", ") || "-"}\n\nAutorizo el tratamiento de mis datos según la política de privacidad (Ley 1581 de 2012).`;
     location.href = `mailto:${D.email}?subject=${encodeURIComponent("Club Diego Gasca · " + data.tipo)}&body=${encodeURIComponent(body)}`;
     msg.className = "form-msg ok"; msg.textContent = "Abrimos tu correo con tus datos: solo dale enviar para completar el registro.";
@@ -122,7 +149,7 @@
   const addMsg = (who, text) => { const d = document.createElement("div"); d.className = `msg ${who}`; d.innerHTML = linkify(text); aiLog.appendChild(d); aiLog.scrollTop = aiLog.scrollHeight; return d; };
   function aiToggle(open) {
     aiPanel.classList.toggle("on", open); aiPanel.setAttribute("aria-hidden", String(!open)); aiFab.setAttribute("aria-expanded", String(open));
-    if (open && !greeted) { greeted = true; addMsg("bot", "¡Hola! Soy el asistente de Diego Gasca. Pregúntame por Diego, sus empresas, sus servicios, el club o cómo contactarlo."); }
+    if (open && !greeted) { greeted = true; addMsg("bot", "¡Hola! Soy el asistente de Diego Gasca. Pregúntame por Diego, sus empresas, los planes y precios, el club o cómo contactarlo."); }
     if (open) setTimeout(() => aiInput.focus(), 200);
   }
   aiFab.onclick = () => aiToggle(!aiPanel.classList.contains("on"));
@@ -142,110 +169,72 @@
 
   /* ——— Sin animación ——— */
   const loader = $("#loader");
-  const done = () => { document.body.classList.remove("is-loading"); loader && loader.remove(); };
+  const done = () => { document.body.classList.remove("is-loading"); loader && loader.remove(); if (lenis) gsap.ticker.lagSmoothing(0); };
   if (reduced || !hasGsap) { done(); return; }
 
   /* ——— Animación ——— */
   gsap.registerPlugin(ScrollTrigger);
   const E = "expo.out", P = "power3.out";
 
-  // Titulares de portada y cierre partidos en letras
   $$(".hero-title .split, .mega .split").forEach((el) => {
     const txt = el.textContent; el.setAttribute("aria-label", txt);
     el.innerHTML = [...txt].map((c) => `<span class="ch" aria-hidden="true">${c === " " ? "&nbsp;" : esc(c)}</span>`).join("");
   });
-  // Palabras que se encienden con el scroll
-  $$(".reveal-words").forEach((el) => {
-    el.innerHTML = el.textContent.trim().split(/\s+/).map((w) => `<span class="w">${esc(w)}</span>`).join(" ");
-    gsap.fromTo($$(".w", el), { opacity: .14 }, { opacity: 1, stagger: .08, ease: "none", scrollTrigger: { trigger: el, start: "top 82%", end: "bottom 45%", scrub: true } });
-  });
 
-  // Pantalla de carga → intro de portada
+  // Pantalla de carga: el trébol, el conteo y al final «Diego Gasca»
   const num = $("#loaderNum"); const counter = { v: 0 };
   const heroImg = $(".hero-photo img");
-  const ready = new Promise((r) => { if (heroImg.complete) r(); else { heroImg.onload = r; heroImg.onerror = r; } setTimeout(r, 2500); });
+  const imgReady = new Promise((r) => { if (heroImg.complete) r(); else { heroImg.onload = r; heroImg.onerror = r; } setTimeout(r, 2500); });
+  const ready = Promise.all([imgReady, new Promise((r) => setTimeout(r, 1100))]); // mínimo para que se vea el conteo
   gsap.set(".hero-title .ch", { yPercent: 115 });
   gsap.set(".hero .h-in", { yPercent: 110, opacity: 0 });
-  gsap.set(".hero-photo img", { scale: 1.28 });
   gsap.set(".hero-foot", { opacity: 0 });
-  const hgl = window.HeroGL ? HeroGL.start({ host: $(".hero-photo"), img: heroImg, reduced }) : null;
   const countTw = gsap.to(counter, { v: 90, duration: 1, ease: "power2.out", onUpdate: () => (num.textContent = Math.round(counter.v)) });
   ready.then(() => {
     countTw.kill();
     gsap.timeline({ onComplete: done })
-      .to(counter, { v: 100, duration: .3, onUpdate: () => (num.textContent = Math.round(counter.v)) })
-      .to(".loader-in", { opacity: 0, y: -20, duration: .35, ease: "power2.in" })
+      .to(counter, { v: 100, duration: .25, onUpdate: () => (num.textContent = Math.round(counter.v)) })
+      .to(num, { opacity: 0, y: -8, duration: .2 })
+      .add(() => { num.textContent = "Diego Gasca"; num.classList.add("name"); })
+      .fromTo(num, { opacity: 0, y: 10, letterSpacing: ".4em" }, { opacity: 1, y: 0, letterSpacing: ".16em", duration: .7, ease: P })
+      .to(".loader-in", { opacity: 0, y: -20, duration: .4, ease: "power2.in" }, "+=.45")
       .to(loader, { yPercent: -100, duration: 1, ease: "expo.inOut" }, "-=.05")
-      .add(() => hgl && hgl.play(), "-=.75")
-      .to(".hero-photo img", { scale: 1, duration: 2.2, ease: E }, "<")
-      .to(".hero-title .ch", { yPercent: 0, duration: 1.3, stagger: .045, ease: E }, "-=2")
-      .to(".hero .h-in", { yPercent: 0, opacity: 1, duration: 1, stagger: .1, ease: P }, "-=1.3")
+      .to(".hero-title .ch", { yPercent: 0, duration: 1.3, stagger: .045, ease: E }, "-=.55")
+      .to(".hero .h-in", { yPercent: 0, opacity: 1, duration: 1, stagger: .1, ease: P }, "-=1.1")
       .to(".hero-foot", { opacity: .9, duration: .8 }, "-=.6");
   });
+  // El texto de la portada se desvanece al bajar (la foto queda quieta)
+  gsap.to(".hero-copy", { yPercent: -25, opacity: 0, ease: "none", scrollTrigger: { trigger: ".hero", start: "25% top", end: "85% top", scrub: true } });
 
-  // Parallax 3D con el mouse en la portada
-  if (fine) {
-    const layers = $$("[data-depth]", $("#heroStage")).map((el) => ({ d: +el.dataset.depth, x: gsap.quickTo(el, "x", { duration: 1.2, ease: P }), y: gsap.quickTo(el, "y", { duration: 1.2, ease: P }) }));
-    const rx = gsap.quickTo(".hero-copy", "rotationY", { duration: 1.2, ease: P }), ry = gsap.quickTo(".hero-copy", "rotationX", { duration: 1.2, ease: P });
-    $(".hero").addEventListener("mousemove", (e) => {
-      const nx = e.clientX / innerWidth - .5, ny = e.clientY / innerHeight - .5;
-      layers.forEach((l) => { l.x(nx * l.d * 2); l.y(ny * l.d * 1.4); });
-      rx(nx * 6); ry(-ny * 5);
-    });
-  }
-  // Portada al hacer scroll
-  gsap.to(".hero-photo img", { yPercent: 12, scale: 1.08, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true,
-    onUpdate: (self) => hgl && hgl.setScroll(self.progress, lenis ? lenis.velocity : self.getVelocity() / 60) } });
-  gsap.to(".hero-copy", { yPercent: -35, opacity: 0, ease: "none", scrollTrigger: { trigger: ".hero", start: "20% top", end: "85% top", scrub: true } });
-
-  // Titulares por líneas y entradas suaves
+  // Titulares y entradas suaves
   $$(".big-head, .mega").forEach((h) => {
     const chars = $$(".ch", h);
     gsap.from(chars.length ? chars : $$(".split", h), { yPercent: 115, duration: 1.2, stagger: chars.length ? .04 : .1, ease: E, scrollTrigger: { trigger: h, start: "top 85%" } });
   });
-  $$(".fc-lead, .eco-head p, .svc-head p, .club-lead, .story-copy p, .biz-copy p, .final-copy p, .final-copy .cta, .num-note, .sf-logo, .topics").forEach((el) =>
-    gsap.from(el, { y: 40, opacity: 0, duration: 1, ease: P, scrollTrigger: { trigger: el, start: "top 90%" } }));
+  $$(".row-head p, .plans-head p, .cur, .rev-head p, .club-lead, .story-copy p, .biz-copy p, .final-copy p, .final-copy .cta, .extras, .plan-note").forEach((el) =>
+    gsap.from(el, { y: 30, opacity: 0, duration: 1, ease: P, scrollTrigger: { trigger: el, start: "top 90%" } }));
 
-  // Facetas
-  gsap.from(".fc", { y: 40, opacity: 0, duration: .9, stagger: .08, ease: P, scrollTrigger: { trigger: "#facets", start: "top 85%" } });
-  gsap.fromTo(".fc-frame", { clipPath: "inset(14% 10% 14% 10%)" }, { clipPath: "inset(0% 0% 0% 0%)", ease: "none", scrollTrigger: { trigger: ".facets", start: "top 85%", end: "top 25%", scrub: true } });
+  // Filas de tarjetas
+  $$(".tiles").forEach((t) => gsap.from($$(".tile", t), { y: 60, opacity: 0, duration: 1.1, stagger: .08, ease: E, scrollTrigger: { trigger: t, start: "top 85%" } }));
 
-  // Historia: año gigante que se desliza y foto que se abre
+  // Historia
   gsap.fromTo(".story-year span", { xPercent: 10 }, { xPercent: -35, ease: "none", scrollTrigger: { trigger: ".story", start: "top bottom", end: "bottom top", scrub: true } });
   gsap.fromTo(".story-photo .clip", { clipPath: "inset(18% 14% 18% 14%)" }, { clipPath: "inset(0% 0% 0% 0%)", ease: "none", scrollTrigger: { trigger: ".story-photo", start: "top 90%", end: "center 55%", scrub: true } });
-  gsap.fromTo(".story-photo img", { scale: 1.35 }, { scale: 1, ease: "none", scrollTrigger: { trigger: ".story-photo", start: "top bottom", end: "bottom top", scrub: true } });
-
-  // Cifras que cuentan
   $$(".num b").forEach((b) => {
     const v = +b.dataset.v, dec = +b.dataset.dec, pre = b.dataset.pre, suf = b.dataset.suf, raw = b.dataset.raw === "1", o = { v: raw ? v - 12 : 0 };
-    gsap.to(o, { v, duration: 2.2, ease: "power2.out", scrollTrigger: { trigger: b, start: "top 88%" }, onUpdate: () => (b.textContent = pre + (raw ? Math.round(o.v) : fmt(o.v, dec)) + suf) });
-  });
-  gsap.from(".num", { y: 50, opacity: 0, duration: 1, stagger: .1, ease: P, scrollTrigger: { trigger: "#numbers", start: "top 88%" } });
-
-  // Empresas: tarjetas que suben + inclinación 3D
-  gsap.from(".brandcard", { yPercent: 18, opacity: 0, duration: 1.2, stagger: .1, ease: E, scrollTrigger: { trigger: "#brands", start: "top 85%" } });
-  if (fine) $$(".brandcard").forEach((c) => {
-    gsap.set(c, { transformPerspective: 900 });
-    const rX = gsap.quickTo(c, "rotationX", { duration: .8, ease: P }), rY = gsap.quickTo(c, "rotationY", { duration: .8, ease: P });
-    c.addEventListener("mousemove", (e) => { const r = c.getBoundingClientRect(); rY(((e.clientX - r.left) / r.width - .5) * 8); rX(-((e.clientY - r.top) / r.height - .5) * 8); });
-    c.addEventListener("mouseleave", () => { rX(0); rY(0); });
+    gsap.to(o, { v, duration: 2.2, ease: "power2.out", scrollTrigger: { trigger: b, start: "top 90%" }, onUpdate: () => (b.textContent = pre + (raw ? Math.round(o.v) : fmt(o.v, dec)) + suf) });
   });
 
-  // Marquesina de facetas que reacciona a la velocidad del scroll
-  const track = $("#genres"); let gx = 0, dir = -1, vel = 0;
-  if (lenis) lenis.on("scroll", (l) => { vel = l.velocity; if (Math.abs(vel) > .5) dir = vel > 0 ? -1 : 1; });
-  gsap.ticker.add(() => {
-    const w = track.scrollWidth / 3; gx += dir * (1.1 + Math.min(Math.abs(vel) * .35, 14));
-    if (gx <= -w) gx += w; if (gx > 0) gx -= w; track.style.transform = `translate3d(${gx}px,0,0)`; vel *= .92;
-  });
-
-  gsap.from(".sf-mix > *", { y: 30, opacity: 0, duration: .8, stagger: .12, ease: P, scrollTrigger: { trigger: ".sf-mix", start: "top 90%" } });
-  gsap.fromTo(".biz-photo > img:first-child", { yPercent: -12 }, { yPercent: 0, ease: "none", scrollTrigger: { trigger: ".biz", start: "top bottom", end: "bottom top", scrub: true } });
-  gsap.from(".svc", { y: 60, opacity: 0, duration: 1, stagger: .08, ease: P, scrollTrigger: { trigger: "#services", start: "top 85%" } });
+  // Empresario, planes, reseñas, club y cierre
+  gsap.fromTo(".biz-photo > img:first-child", { yPercent: -10 }, { yPercent: 0, ease: "none", scrollTrigger: { trigger: ".biz", start: "top bottom", end: "bottom top", scrub: true } });
+  gsap.from(".plan", { y: 70, opacity: 0, duration: 1.1, stagger: .1, ease: E, scrollTrigger: { trigger: "#plans", start: "top 85%" } });
+  const rail = $("#reviews");
+  const revTw = gsap.to(rail, { x: () => -(rail.scrollWidth / 2), duration: 70, ease: "none", repeat: -1 });
+  rail.addEventListener("mouseenter", () => revTw.pause()); rail.addEventListener("mouseleave", () => revTw.resume());
   gsap.from(".perks li, .club-form", { y: 40, opacity: 0, duration: 1, stagger: .1, ease: P, scrollTrigger: { trigger: ".club", start: "top 80%" } });
-  gsap.fromTo(".final-photo", { yPercent: -8, scale: 1.12 }, { yPercent: 6, scale: 1, ease: "none", scrollTrigger: { trigger: ".final", start: "top bottom", end: "bottom top", scrub: true } });
+  gsap.fromTo(".final-photo", { yPercent: -6 }, { yPercent: 6, ease: "none", scrollTrigger: { trigger: ".final", start: "top bottom", end: "bottom top", scrub: true } });
 
-  // Trébol con volumen: capas apiladas en profundidad que giran juntas
+  // Trébol con volumen
   $$(".clover3d").forEach((c) => {
     const src = $("img", c).getAttribute("src"); const n = 10;
     c.innerHTML = `<div class="c3">${Array.from({ length: n }, (_, i) => `<img src="${src}" alt="" style="transform:translateZ(${(i - n / 2) * 0.9}px);filter:brightness(${i === n - 1 || i === 0 ? 1 : .45 + i * .03})">`).join("")}</div>`;

@@ -23,7 +23,7 @@
 <div class="loader" id="loader" aria-hidden="true">
   <div class="loader-in">
     <div class="clover3d sm"><img src="img/logos/trebol.png" alt=""></div>
-    <b id="loaderNum">0</b>
+    <b id="loaderNum" aria-live="polite">0</b>
   </div>
 </div>
 <div class="grain" aria-hidden="true"></div>
@@ -34,14 +34,14 @@
 
 <header class="nav" id="nav">
   <nav class="links" id="links" aria-label="Secciones">
-    <a href="#facetas">Facetas</a><a href="#historia">Historia</a><a href="#empresario">Empresario</a><a href="#servicios">Servicios</a><a href="#club">Club</a>
+    <a href="#facetas">Facetas</a><a href="#historia">Historia</a><a href="#ecosistema">Empresas</a><a href="#servicios">Planes</a><a href="#club">Club</a>
   </nav>
   <a href="#inicio" class="brand" aria-label="Diego Gasca, inicio">
     <img src="img/logos/trebol.png" alt="">
     <span><b>Diego Gasca</b><small>Cali · Colombia</small></span>
   </a>
   <div class="nav-end">
-    <a href="#contacto" class="nav-cta">Trabajemos juntos</a>
+    <a href="#servicios" class="nav-cta">Trabajemos juntos</a>
     <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false"><span></span><span></span></button>
   </div>
 </header>
@@ -50,15 +50,15 @@
 <!-- PORTADA -->
 <section class="hero" id="inicio">
   <div class="hero-stage" id="heroStage">
-    <div class="hero-photo" data-depth="-14"><img src="img/hero-diego.webp" alt="Retrato en blanco y negro de Diego Alexander Gasca Martínez"></div>
+    <div class="hero-photo"><img src="img/hero-diego.webp" alt="Retrato en blanco y negro de Diego Alexander Gasca Martínez"></div>
     <div class="hero-scrim"></div>
-    <div class="hero-copy" data-depth="10">
+    <div class="hero-copy">
       <p class="kicker"><span class="h-in">Empresario · Cali, Colombia</span></p>
       <h1 class="hero-title"><span class="line"><span class="split">Diego Gasca</span></span></h1>
       <p class="hero-lead"><span class="h-in">Empresario, DJ, productor musical, fotógrafo y modelo. Construyendo desde 2014 una marca propia.</span></p>
       <div class="cta h-in">
-        <a class="btn btn-light" href="#facetas">Conoce a Diego</a>
-        <a class="btn btn-line" href="#historia">Su historia</a>
+        <a class="btn btn-light" href="#servicios">Ver planes</a>
+        <a class="btn btn-line" href="#facetas">Conoce a Diego</a>
       </div>
     </div>
   </div>
@@ -68,13 +68,12 @@
 </section>
 
 <!-- FACETAS -->
-<section class="facets" id="facetas">
-  <div class="fc-media" aria-hidden="true"><div class="fc-frame" id="fcFrame"></div></div>
-  <div class="fc-copy">
-    <h2 class="big-head"><span class="line"><span class="split">Una persona,</span></span><span class="line"><span class="split">muchas facetas.</span></span></h2>
-    <p class="fc-lead">Diego Alexander Gasca Martínez construye desde Cali una carrera que cruza los negocios, la imagen y la música.</p>
-    <ul class="fc-list" id="facets"></ul>
+<section class="rowsec" id="facetas">
+  <div class="row-head">
+    <h2 class="big-head"><span class="line"><span class="split">Una persona, muchas facetas.</span></span></h2>
+    <p>Diego Alexander Gasca Martínez construye desde Cali una carrera que cruza los negocios, la imagen y la música.</p>
   </div>
+  <div class="tiles" id="facets"></div>
 </section>
 
 <!-- HISTORIA -->
@@ -91,36 +90,16 @@
       <figcaption><b>Cali, 1999.</b> Su primer año.</figcaption>
     </figure>
   </div>
+  <div class="num-grid story-nums" id="numbers"></div>
 </section>
 
-<!-- CIFRAS -->
-<section class="numbers" aria-label="Cifras verificadas">
-  <div class="num-grid" id="numbers"></div>
-  <p class="num-note">Cifras verificadas en el Cerebro Central.</p>
-</section>
-
-<!-- ECOSISTEMA -->
-<section class="eco" id="ecosistema">
-  <div class="eco-head">
-    <h2 class="reveal-words">La persona, el artista, el sello y su propio género.</h2>
-    <p>Las empresas que Diego construyó desde Cali.</p>
+<!-- EMPRESAS -->
+<section class="rowsec dark" id="ecosistema">
+  <div class="row-head">
+    <h2 class="big-head light"><span class="line"><span class="split">La persona, el artista, el sello y su propio género.</span></span></h2>
+    <p>Cada una tiene su propio sitio oficial.</p>
   </div>
-  <div class="eco-grid" id="brands"></div>
-</section>
-
-<!-- GÉNEROS -->
-<div class="genres" aria-label="Facetas">
-  <div class="genres-track" id="genres"></div>
-</div>
-
-<!-- SALSAFRO -->
-<section class="salsafro">
-  <div class="sf-inner">
-    <img class="sf-logo" src="img/logos/salsafro.png" alt="Salsafro">
-    <h2 class="big-head light"><span class="line"><span class="split">Un género propio.</span></span></h2>
-    <p class="statement reveal-words">Su mayor sello distintivo a nivel global es la creación del género Salsafro, una propuesta sonora única que fusiona de manera orgánica los ritmos electrónicos del Afro House con las percusiones y la cadencia tradicional de los ritmos afrocaleños propios de su ciudad natal.</p>
-    <div class="sf-mix" aria-hidden="true"><span>Afro House</span><i>+</i><span>Percusión afrocaleña</span><i>=</i><span class="on">Salsafro</span></div>
-  </div>
+  <div class="tiles" id="brands"></div>
 </section>
 
 <!-- EMPRESARIO -->
@@ -132,18 +111,35 @@
   <div class="biz-copy">
     <h2 class="big-head"><span class="line"><span class="split">El empresario.</span></span></h2>
     <p>Además de su faceta como DJ y creador, Gasca Martínez es un activo emprendedor musical. Es el fundador del sello independiente <b>Cartel Music</b>, plataforma con la cual gestiona y distribuye de forma autónoma sus producciones discográficas y colaboraciones locales.</p>
-    <p>Su puesta en escena en vivo lo ha llevado a presentarse ante audiencias masivas en festivales y clubes del mundo.</p>
+    <p>Su mayor sello distintivo es la creación del género <b>Salsafro</b>, que fusiona el Afro House con las percusiones y la cadencia de los ritmos afrocaleños de su ciudad natal.</p>
   </div>
 </section>
 
-<!-- SERVICIOS -->
-<section class="services" id="servicios">
-  <div class="svc-head">
+<!-- PLANES -->
+<section class="plans" id="servicios">
+  <div class="plans-head">
     <h2 class="big-head light"><span class="line"><span class="split">Trabajemos juntos.</span></span></h2>
-    <p>Elige uno o varios servicios, agrégalos a tu solicitud y cuéntame fecha y ciudad. Cada propuesta se cotiza a la medida.</p>
+    <p>Elige el plan que se ajusta a tu evento, marca o proyecto. Lo agregas a tu solicitud y te respondo con la propuesta final.</p>
+    <div class="cur" role="group" aria-label="Moneda">
+      <button type="button" class="on" data-cur="cop" aria-pressed="true">Colombia · COP</button>
+      <button type="button" data-cur="usd" aria-pressed="false">Internacional · USD</button>
+    </div>
   </div>
-  <div class="svc-grid" id="services"></div>
-  <div class="topics"><p>Temas de charla</p><div id="topics"></div></div>
+  <div class="plan-grid" id="plans"></div>
+  <div class="extras">
+    <p>También por separado</p>
+    <div id="extras"></div>
+  </div>
+  <p class="plan-note">Precios de referencia «desde». Cada propuesta se confirma según fecha, ciudad y alcance; viajes, viáticos y producción técnica se cotizan aparte.</p>
+</section>
+
+<!-- RESEÑAS -->
+<section class="reviews" id="resenas">
+  <div class="rev-head">
+    <h2 class="big-head"><span class="line"><span class="split">Lo que dicen.</span></span></h2>
+    <p>Comentarios reales del público en YouTube.</p>
+  </div>
+  <div class="rev-rail" id="reviews"></div>
 </section>
 
 <!-- CLUB DE FANS Y CLIENTES -->
@@ -204,7 +200,7 @@
     <p class="f-tag">Empresario · Cali, Colombia</p>
   </div>
   <div class="f-cols">
-    <div><p>Sitio</p><a href="#facetas">Facetas</a><a href="#historia">Historia</a><a href="#empresario">Empresario</a><a href="#servicios">Servicios</a><a href="#club">Club</a></div>
+    <div><p>Sitio</p><a href="#facetas">Facetas</a><a href="#historia">Historia</a><a href="#ecosistema">Empresas</a><a href="#servicios">Planes</a><a href="#club">Club</a></div>
     <div><p>Empresas</p><span id="feco"></span></div>
     <div><p>Contacto</p><a id="fmail"></a><a href="#club">Club</a></div>
   </div>
@@ -231,7 +227,6 @@
 <script src="solicitud.js"></script>
 <script src="data.js"></script>
 <script src="asistente.js"></script>
-<script src="hero-gl.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
