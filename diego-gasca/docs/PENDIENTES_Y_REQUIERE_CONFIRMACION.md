@@ -37,3 +37,12 @@ Actualizado: 26 de octubre de 2026.
 ## No se pudo comprobar
 - Lectores de pantalla reales (NVDA/VoiceOver) y Safari en iOS: no disponibles en este entorno.
 - Envío real por correo del carrito y del plan B del club (abre el cliente de correo del visitante; no se envió nada).
+
+## Pasos que solo Diego puede hacer (26/10/2026, noche)
+Por seguridad, el asistente no crea cuentas, no escribe claves ni configura cobros. Todo lo demás quedó listo y publicado.
+1. **Asistente con IA:** crear una clave en console.anthropic.com → Vercel, proyecto `diego-gasca` → Settings → Environment Variables → `ANTHROPIC_API_KEY` (Production) → volver a publicar. Sin la clave, el asistente usa sus respuestas locales.
+2. **Pagos en la agenda:** crear un enlace de pago por servicio (Wompi, Mercado Pago o Stripe) y pegarlo en `data.js` → `pagos`. Con el enlace puesto, el botón «Pagar ahora» aparece al agendar. Sin él, Diego envía los datos de pago al confirmar.
+3. **Correos automáticos (bienvenida del club y avisos de la agenda):** crear cuenta en resend.com con un dominio propio verificado y poner en Supabase → Edge Functions → Secrets: `RESEND_API_KEY`, `CORREO_REMITENTE` (p. ej. `Diego Gasca <hola@tudominio.com>`) y opcional `CORREO_DIEGO`. El código ya está desplegado (club v4 y agenda v1) y se activa solo.
+4. **Boletín mensual:** el de octubre quedó como borrador en Gmail (preyhunter76@gmail.com). Antes de enviarlo, poner en CCO los correos del club (tabla `club_diego_gasca` en Supabase).
+5. **Citas:** llegan a la tabla `agenda_diego_gasca` en Supabase (estado `pendiente`). Un mismo día y hora no se puede reservar dos veces.
+6. **Prensa:** el Cerebro no registra notas de medios; la sección muestra solo presencia verificada. Cuando haya una nota real, se agrega en `data.js` → `press`.
