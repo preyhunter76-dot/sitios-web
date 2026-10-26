@@ -109,3 +109,18 @@ El único error de consola es `404 /api/chat`, propio del servidor local (en pro
 
 El «Speed Index» sigue alto (la intro de carga y el carrusel de reseñas mantienen la pantalla en movimiento); es una consecuencia esperada del diseño pedido, no un error.
 Único aviso de consola en producción: `503 /api/chat`, esperado hasta configurar `ANTHROPIC_API_KEY`; el asistente responde con su base local.
+
+## Cambios del 26 de octubre de 2026 (tarde), pedidos por Diego
+| Archivo | Cambio | Estado |
+|---|---|---|
+| Supabase `club` v3 + tabla `club_rate` | Exige Origin y limita 5 envíos / 10 min por huella cifrada de IP (el límite en memoria de la v2 no funcionaba entre instancias). | DESPLEGADO Y VERIFICADO |
+| `img/eco-*.webp` | Ecosistema con las figuras 3D: Diego, Prey Hunter, Cartel Music y Salsafro. | CORREGIDO |
+| `img/empresario-diego*.webp`, `img/final-diego-2*.webp` | Nuevas fotos del empresario y del cierre. | CORREGIDO |
+| `index.html`, `data.js` | «Una persona, muchas facetas» pasa a «Mi identidad» (menú y pie); Fotógrafo pasa a Compositor. | CORREGIDO |
+| `app.js`, `style.css` | Las filas de Mi identidad y Empresas se mueven solas y también con flechas, arrastre o deslizando; se pausan al pasar el mouse, enfocar o tocar; sin movimiento si el sistema pide reducirlo. | VERIFICADO |
+| `data.js`, `app.js` | 3 servicios de marca personal (sin shows) y 3 extras, con precios en COP, USD, CLP y EUR; etiqueta «Recomendado». | VERIFICADO |
+| `index.html` | Franja «Escucha mi música» con el reproductor oficial de Spotify (perfil de artista). | VERIFICADO |
+| `asistente.js`, `api/chat.js` | Servicios y precios nuevos; los DJ sets se remiten a prey-hunter.vercel.app. | VERIFICADO |
+| `privacidad.html` | Se añaden el reproductor de Spotify y la huella cifrada de IP del club. | REQUIERE CONFIRMACIÓN (revisión legal) |
+
+Pruebas: 19 de 19 pruebas funcionales verificadas, axe-core sin fallos en 1440 px y 390 px, sin desborde horizontal en celular. Los registros de prueba del club se borraron; el registro real se conservó.

@@ -17,7 +17,7 @@
   if (drawer) { const sync = () => (drawer.inert = drawer.getAttribute("aria-hidden") !== "false"); sync(); new MutationObserver(sync).observe(drawer, { attributes: true, attributeFilter: ["aria-hidden"] }); }
 
   /* ——— Contenido ——— */
-  const tick = ["Construyendo desde 2014", "Empresario", "DJ", "Productor musical", "Fotógrafo", "Modelo", "Cartel Music", "Salsafro", "Cali, Colombia"];
+  const tick = ["Construyendo desde 2014", "Empresario", "DJ", "Productor musical", "Compositor", "Modelo", "Cartel Music", "Salsafro", "Cali, Colombia"];
   const tickHTML = tick.map((t) => `<span>${esc(t)}</span>`).join("");
   $("#ticker").innerHTML = tickHTML + tickHTML;
 
@@ -27,21 +27,22 @@
     head: '<path d="M5 14v-2a7 7 0 0 1 14 0v2"/><rect x="3.5" y="13.5" width="4" height="6" rx="1"/><rect x="16.5" y="13.5" width="4" height="6" rx="1"/>',
     wave: '<path d="M3 12h2M7 8v8M11 5v14M15 9v6M19 11v2M21 12h0"/>',
     cam: '<path d="M4 8h3.5L9 6h6l1.5 2H20v11H4z"/><circle cx="12" cy="13" r="3.5"/>',
+    pen: '<path d="M4 20l1.2-4.6L15.8 4.8a2 2 0 0 1 2.8 0l.6.6a2 2 0 0 1 0 2.8L8.6 18.8z"/><path d="M14 6.6l3.4 3.4M4 20h16"/>',
     star: '<path d="M12 4l2.4 5 5.6.6-4.2 3.8 1.2 5.6L12 16.2 7 19l1.2-5.6L4 9.6 9.6 9z"/>',
     check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
   };
   const svg = (k) => `<svg viewBox="0 0 24 24" aria-hidden="true">${ICON[k]}</svg>`;
   // Ancho real de cada original (las variantes -480.webp están en img/)
-  const W = { "img/portrait-diego.webp": [720, 1080], "img/portrait-prey-hunter.webp": [720, 1082], "img/portrait-cartel-music.webp": [720, 1082], "img/portrait-salsafro.webp": [720, 1082],
+  const W = { "img/portrait-diego.webp": [720, 1080], "img/eco-diego.webp": [900, 900], "img/eco-prey-hunter.webp": [900, 900], "img/eco-cartel-music.webp": [900, 900], "img/eco-salsafro.webp": [900, 900],
     "img/facet-dj.webp": [1200, 675], "img/press-14.webp": [1200, 800], "img/press-18.webp": [1200, 1803], "img/press-07.webp": [560, 841] };
   const LOGO = { "img/logos/trebol.png": [200, 255], "img/logos/prey-hunter.png": [240, 146], "img/logos/cartel-music.png": [160, 182], "img/logos/salsafro.png": [240, 80] };
   const tileImg = (src) => { const [w, h] = W[src] || [720, 1080]; const sm = src.replace(".webp", "-480.webp");
-    return `<img src="${sm}" srcset="${sm} 480w, ${src} ${w}w" sizes="(max-width: 820px) 62vw, 22vw" width="${w}" height="${h}" alt="" loading="lazy" decoding="async">`; };
+    return `<img src="${sm}" srcset="${sm} 480w, ${src} ${w}w" sizes="(max-width: 820px) 64vw, 300px" width="${w}" height="${h}" alt="" loading="lazy" decoding="async">`; };
 
   // Facetas en fila
   $("#facets").innerHTML = D.facets.map(([t, ic, d, img]) => `<a class="tile" href="#servicios">
       ${tileImg(img)}<span class="tile-shade"></span>
-      <span class="tile-in">${svg(ic)}<b>${esc(t)}</b><em>${esc(d)}</em><u>Ver planes</u></span></a>`).join("");
+      <span class="tile-in">${svg(ic)}<b>${esc(t)}</b><em>${esc(d)}</em><u>Ver servicios</u></span></a>`).join("");
 
   // Empresas en fila (mismo formato)
   $("#brands").innerHTML = D.brands.map((b) => {
@@ -57,17 +58,19 @@
     `<div class="num"><b data-v="${v}" data-dec="${dec}" data-pre="${esc(pre)}" data-suf="${esc(suf)}" data-raw="${raw ? 1 : 0}">${esc(pre)}${raw ? v : fmt(v, dec)}${esc(suf)}</b><span>${esc(l)}</span></div>`).join("");
 
   // Planes con cambio de moneda
-  const money = (p, cur) => cur === "usd" ? `US$${p.usd.toLocaleString("en-US")}` : `$${p.cop.toLocaleString("es-CO")}`;
+  const CUR = { cop: "COP", usd: "USD", clp: "CLP", eur: "EUR" };
+  const money = (x, cur) => { const n = x.p[cur];
+    return cur === "usd" ? `US$${n.toLocaleString("en-US")}` : cur === "eur" ? `€${n.toLocaleString("es-CO")}` : cur === "clp" ? `CLP$${n.toLocaleString("es-CL")}` : `$${n.toLocaleString("es-CO")}`; };
   let cur = "cop";
   function renderPlans() {
     $("#plans").innerHTML = D.plans.map((p) => `<article class="plan${p.featured ? " featured" : ""}">
-      ${p.featured ? '<span class="tag">Más pedido</span>' : ""}
+      ${p.featured ? '<span class="tag">Recomendado</span>' : ""}
       <header><h3>${esc(p.name)}</h3><p>${esc(p.sub)}</p></header>
-      <div class="price"><small>desde</small><b>${money(p, cur)}</b><span>${cur === "usd" ? "USD" : "COP"} · ${esc(p.unit)}</span></div>
+      <div class="price"><small>desde</small><b>${money(p, cur)}</b><span>${CUR[cur]} · ${esc(p.unit)}</span></div>
       <ul>${p.items.map((i) => `<li>${svg("check")}<span>${esc(i)}</span></li>`).join("")}</ul>
-      <button class="plan-btn" type="button" aria-label="Elegir plan ${esc(p.name)}" data-req-id="${p.id}" data-req-name="Plan ${esc(p.name)} · ${esc(p.sub)}" data-req-detail="desde ${money(p, cur)} ${cur.toUpperCase()}">Elegir plan</button>
+      <button class="plan-btn" type="button" aria-label="Elegir ${esc(p.name)}" data-req-id="${p.id}" data-req-name="${esc(p.name)} · ${esc(p.sub)}" data-req-detail="desde ${money(p, cur)} ${CUR[cur]}">Elegir</button>
     </article>`).join("");
-    $("#extras").innerHTML = D.extras.map((x) => `<button type="button" class="extra" data-req-id="${x.id}" data-req-name="${esc(x.t)}" data-req-detail="desde ${money(x, cur)} ${cur.toUpperCase()}"><b>${esc(x.t)}</b><span>desde ${money(x, cur)}</span><i>+</i></button>`).join("");
+    $("#extras").innerHTML = D.extras.map((x) => `<button type="button" class="extra" data-req-id="${x.id}" data-req-name="${esc(x.t)}" data-req-detail="desde ${money(x, cur)} ${CUR[cur]}"><b>${esc(x.t)}</b><span>desde ${money(x, cur)}</span><i>+</i></button>`).join("");
   }
   renderPlans();
   $$(".cur button").forEach((b) => b.addEventListener("click", () => {
@@ -82,6 +85,11 @@
   $("#reviews").innerHTML = revHTML + revHTML;
   $$("#reviews .rev").forEach((el, i) => { if (i >= D.reviews.length) { el.setAttribute("aria-hidden", "true"); el.querySelector("a").tabIndex = -1; } });
 
+  // Spotify: reproductor oficial del perfil de artista (se carga al acercarse)
+  const sp = $("#spotify");
+  if (sp) sp.innerHTML = `<iframe title="Escuchar en Spotify" src="https://open.spotify.com/embed/artist/${D.spotify}?utm_source=generator&theme=0" width="100%" height="152" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>`;
+  $("#spLink").href = `https://open.spotify.com/artist/${D.spotify}`;
+
   $("#perks").innerHTML = D.perks.map(([t, d]) => `<li><b>${esc(t)}</b><span>${esc(d)}</span></li>`).join("");
   const mail = `mailto:${D.email}`;
   $("#mailBtn").href = `${mail}?subject=${encodeURIComponent("Hablemos · Diego Gasca")}`;
@@ -94,7 +102,7 @@
   /* ——— Navegación ——— */
   const nav = $("#nav"), links = $("#links"), burger = $("#burger");
   const darkSecs = $$(".hero, .rowsec.dark, .plans, .final, .footer");
-  const secs = ["facetas", "historia", "ecosistema", "servicios", "club"].map((id) => document.getElementById(id)).filter(Boolean);
+  const secs = ["identidad", "historia", "ecosistema", "servicios", "club"].map((id) => document.getElementById(id)).filter(Boolean);
   function navState() {
     nav.classList.toggle("solid", scrollY > 40);
     const y = nav.getBoundingClientRect().bottom - 2;
@@ -159,7 +167,7 @@
   const addMsg = (who, text) => { const d = document.createElement("div"); d.className = `msg ${who}`; d.innerHTML = linkify(text); aiLog.appendChild(d); aiLog.scrollTop = aiLog.scrollHeight; return d; };
   function aiToggle(open) {
     aiPanel.classList.toggle("on", open); aiPanel.setAttribute("aria-hidden", String(!open)); aiPanel.inert = !open; aiFab.setAttribute("aria-expanded", String(open));
-    if (open && !greeted) { greeted = true; addMsg("bot", "¡Hola! Soy el asistente de Diego Gasca. Pregúntame por Diego, sus empresas, los planes y precios, el club o cómo contactarlo."); }
+    if (open && !greeted) { greeted = true; addMsg("bot", "¡Hola! Soy el asistente de Diego Gasca. Pregúntame por Diego, sus empresas, los servicios y precios, el club o cómo contactarlo."); }
     if (open) setTimeout(() => aiInput.focus(), 200);
   }
   aiFab.onclick = () => aiToggle(!aiPanel.classList.contains("on"));
@@ -176,6 +184,53 @@
   $("#aiChips").innerHTML = window.Asistente.chips.map((c) => `<button type="button">${esc(c)}</button>`).join("");
   $("#aiChips").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) send(b.textContent); });
   aiForm.addEventListener("submit", (e) => { e.preventDefault(); const v = aiInput.value; aiInput.value = ""; send(v); });
+
+  /* ——— Filas que se mueven solas y también a mano ——— */
+  // Se duplican las tarjetas (copias ocultas a lectores de pantalla) para un bucle sin cortes.
+  // Avanza sola; se pausa al pasar el mouse, al enfocar con teclado o al tocar, y se puede arrastrar, deslizar o usar las flechas.
+  $$(".tiles").forEach((row) => {
+    const items = [...row.children]; const n = items.length;
+    const step = () => { const t = row.children[1], f = row.children[0]; return t && f ? t.offsetLeft - f.offsetLeft : 300; };
+    let pos = 0, hover = false, focus = false, paused = 0, drag = null, moved = false;
+    $$(`[data-row="${row.id}"]`).forEach((b) => b.addEventListener("click", () => {
+      const dir = b.dataset.dir === "next" ? 1 : -1;
+      if (reduced) { row.scrollBy({ left: dir * step(), behavior: "auto" }); return; }
+      paused = Date.now() + 4000;
+      if (dir < 0 && row.scrollLeft < step()) row.scrollLeft += period(); // da la vuelta sin salto visible
+      pos = row.scrollLeft + dir * step();
+      row.scrollTo({ left: pos, behavior: "smooth" });
+    }));
+    if (reduced) return;
+    row.classList.add("loop");
+    // Un «periodo» es el ancho de las tarjetas originales; se agregan copias hasta poder recorrer un periodo completo.
+    const period = () => n * step();
+    const fill = () => { let guard = 0; while (row.scrollWidth - row.clientWidth < period() + step() && guard++ < 12)
+      items.forEach((el) => { const c = el.cloneNode(true); c.setAttribute("aria-hidden", "true"); c.tabIndex = -1; $$("a,button", c).forEach((x) => (x.tabIndex = -1)); row.appendChild(c); }); };
+    fill(); addEventListener("resize", fill);
+    const speed = 24; // px por segundo, igual en pantallas de 60 o 120 Hz
+    row.addEventListener("mouseenter", () => (hover = true)); row.addEventListener("mouseleave", () => (hover = false));
+    row.addEventListener("focusin", () => (focus = true)); row.addEventListener("focusout", () => (focus = false));
+    row.addEventListener("touchstart", () => (paused = Date.now() + 3000), { passive: true });
+    row.addEventListener("wheel", (e) => { if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) paused = Date.now() + 2500; }, { passive: true });
+    // Arrastrar con el mouse
+    row.addEventListener("pointerdown", (e) => { if (e.pointerType !== "mouse" || e.button) return; drag = { x: e.clientX, l: row.scrollLeft }; moved = false; row.classList.add("drag"); });
+    addEventListener("pointermove", (e) => { if (!drag) return; const dx = e.clientX - drag.x; if (Math.abs(dx) > 5) moved = true; if (drag.l - dx < 0) drag.l += period(); row.scrollLeft = drag.l - dx; pos = row.scrollLeft; });
+    addEventListener("pointerup", () => { if (!drag) return; drag = null; row.classList.remove("drag"); paused = Date.now() + 1500; });
+    row.addEventListener("click", (e) => { if (moved) { e.preventDefault(); e.stopPropagation(); moved = false; } }, true);
+    row.addEventListener("dragstart", (e) => e.preventDefault());
+    let vis = true; new IntersectionObserver(([e]) => (vis = e.isIntersecting)).observe(row);
+    let last = performance.now();
+    (function loop(now = performance.now()) {
+      const dt = Math.min(now - last, 100) / 1000; last = now;
+      if (vis && !hover && !focus && !drag && Date.now() > paused) {
+        if (Math.abs(row.scrollLeft - pos) > 2) pos = row.scrollLeft; // el visitante movió la fila
+        pos += speed * dt; row.scrollLeft = pos;
+      } else pos = row.scrollLeft;
+      if (pos >= period()) { pos -= period(); row.scrollLeft = pos; }
+      requestAnimationFrame(loop);
+    })();
+    row.addEventListener("scroll", () => { const per = period(); if (row.scrollLeft >= per) { row.scrollLeft -= per; pos = row.scrollLeft; } }, { passive: true });
+  });
 
   /* ——— Sin animación ——— */
   const loader = $("#loader");
@@ -225,7 +280,7 @@
     gsap.from(el, { y: 30, opacity: 0, duration: 1, ease: P, scrollTrigger: { trigger: el, start: "top 90%" } }));
 
   // Filas de tarjetas
-  $$(".tiles").forEach((t) => gsap.from($$(".tile", t), { y: 60, opacity: 0, duration: 1.1, stagger: .08, ease: E, scrollTrigger: { trigger: t, start: "top 85%" } }));
+  $$(".tiles").forEach((t) => gsap.from($$(".tile:not([aria-hidden])", t), { y: 60, opacity: 0, duration: 1.1, stagger: .08, ease: E, scrollTrigger: { trigger: t, start: "top 85%" } }));
 
   // Historia
   gsap.fromTo(".story-year span", { xPercent: 10 }, { xPercent: -35, ease: "none", scrollTrigger: { trigger: ".story", start: "top bottom", end: "bottom top", scrub: true } });

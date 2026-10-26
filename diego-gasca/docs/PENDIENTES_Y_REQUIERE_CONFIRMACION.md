@@ -4,11 +4,12 @@ Actualizado: 26 de octubre de 2026.
 
 ## Requieren autorización de Diego
 1. ~~Publicar en producción~~ — HECHO el 26/10/2026 con autorización de Diego y verificado.
-2. **Desplegar la función `club` v2 en Supabase** (exige `Origin` y limita a 5 envíos por IP cada 10 minutos). Estado: PREPARADO, no desplegado. Riesgo: si algún navegador no enviara `Origin`, el registro caería al plan B por correo (no se pierde).
+2. ~~Desplegar la función `club` en Supabase~~ — HECHO el 26/10/2026 (v3): exige `Origin` y limita a 5 envíos cada 10 minutos por huella cifrada de IP (tabla `club_rate`, se borra a las 24 h). Verificado: sin Origin 403, otro sitio 403, 5 envíos 200 y el sexto 429.
 3. **Indexación en buscadores**: hoy `robots.txt` permite indexar `diego-gasca.vercel.app`. Si se va a usar un dominio propio, conviene publicarlo primero y cambiar `canonical`, `og:url`, `sitemap.xml` y el JSON-LD a ese dominio. Estado: REQUIERE CONFIRMACIÓN.
 
 ## Contenido y negocio (REQUIERE CONFIRMACIÓN)
-- **Precios de los planes**: son referencias «desde» basadas en investigación de mercado (ver `data.js`); Diego debe confirmarlos o ajustarlos.
+- **Precios de los servicios de marca (26/10/2026)**: Diagnóstico, Crea tu sello y Crecimiento, más 3 extras, en COP, USD, CLP y EUR. No hay tarifas publicadas de consultoría de marca en Colombia para comparar; se armaron con referencias internacionales (ver `data.js`). Diego debe confirmarlos o ajustarlos.
+- **Compositor**: «148 créditos registrados en MUSO.AI y código IPI de compositor» viene del Cerebro (módulo 12, corte manual de MUSO del 17/09/2026).
 - **Cifras**: «2 empresas propias», «+29 M streams de Cartel Music» y «142 grabaciones con ISRC» vienen del Cerebro Central; confirmar que siguen vigentes.
 - **Pie de foto** «Cali, 1999. Su primer año.»: inferido de la vela de 1 año.
 - **Reseñas**: son comentarios públicos reales de YouTube (con enlace a la fuente). Confirmar que Diego está de acuerdo con mostrarlos con el usuario de cada persona.

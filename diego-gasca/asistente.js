@@ -11,7 +11,7 @@ window.Asistente = (() => {
     { k: ["hola", "buenas", "buenos dias", "buenas tardes", "buenas noches", "hey", "saludos", "que tal"],
       a: "¡Hola! Soy el asistente de Diego Gasca. Te ayudo con quién es Diego, sus empresas, sus servicios, el club y cómo contactarlo. ¿Qué quieres saber?" },
     { k: ["quien es", "quien eres", "biografia", "bio", "historia", "edad", "nacio", "cumpleanos", "de donde"],
-      a: "Diego Alexander Gasca Martínez es un empresario colombiano nacido el 12 de enero de 1998 en Cali. Es fundador del sello Cartel Music, creador del género Salsafro, DJ, productor musical, fotógrafo y modelo. Está en la industria desde 2014." },
+      a: "Diego Alexander Gasca Martínez es un empresario colombiano nacido el 12 de enero de 1998 en Cali. Es fundador del sello Cartel Music, creador del género Salsafro, DJ, productor musical, compositor y modelo. Está en la industria desde 2014." },
     { k: ["empresario", "empresas", "negocios", "emprendedor", "marca personal"],
       a: "Como empresario, Diego fundó el sello independiente Cartel Music y creó el género Salsafro. Dirige su operación con datos desde su propio sistema." },
     { k: ["salsafro", "genero", "que es salsafro", "afro house", "estilo", "sonido"],
@@ -19,21 +19,21 @@ window.Asistente = (() => {
     { k: ["cartel", "sello", "disquera", "label", "demo", "demos", "firmar"],
       a: `Cartel Music es el sello independiente que fundó Diego: gestiona y distribuye producciones y colaboraciones, con más de 29 millones de streams. Para enviar música o demos visita ${D.eco.cartel}` },
     { k: ["dj", "set", "contratar", "booking", "show", "evento", "fiesta", "presentacion", "toque", "tocar", "festival", "discoteca"],
-      a: `Diego hace DJ sets de Salsafro y Afro House de 60, 90 o 120 minutos con rider técnico. El plan Evento empieza desde $3.500.000 COP (US$950). Elígelo en la sección Planes y envía la solicitud con fecha y ciudad, o escribe a ${mail}.` },
+      a: `Los shows y DJ sets se gestionan desde su proyecto artístico Prey Hunter: https://prey-hunter.vercel.app. Este sitio es para los servicios de marca de Diego Gasca.` },
     { k: ["precio", "precios", "tarifa", "cuanto cuesta", "cuanto cobra", "costo", "valor", "cotizar", "cotizacion"],
-      a: `Precios de referencia «desde»: Imagen (fotografía o modelaje) $650.000 COP por sesión; Mentoría $450.000 COP por sesión de 90 min; Evento (DJ set) $3.500.000 COP; Marca (charla + DJ set + contenido) $7.500.000 COP. En la sección Planes ves también los precios en USD. Cada propuesta se confirma según fecha y ciudad; viajes y producción técnica van aparte.` },
+      a: `Precios de referencia «desde»: Diagnóstico (sesión 1:1 de 90 min) $450.000 COP; Crea tu sello (proyecto de 6 semanas) $4.800.000 COP; Crecimiento (acompañamiento mensual, mínimo 3 meses) $1.900.000 COP al mes. En la sección Servicios los ves también en USD, CLP y EUR. La propuesta final se confirma según el alcance.` },
     { k: ["servicio", "servicios", "que ofrece", "que hace"],
-      a: "Diego trabaja con cuatro planes: Imagen (fotografía o modelaje), Mentoría (consultoría 1:1), Evento (DJ set) y Marca (charla, DJ set y contenido). También ofrece charlas, paneles y jornadas de modelaje por separado. Todo está en la sección Planes." },
-    { k: ["charla", "conferencia", "panel", "entrevista", "podcast", "speaker", "ponencia"],
-      a: "Da charlas de 20 a 45 minutos y paneles o entrevistas de 45 a 60 minutos sobre industria musical independiente, catálogo y derechos, IA aplicada a la música y marca personal." },
-    { k: ["consultoria", "asesoria", "mentoria", "distribucion", "catalogo", "derechos"],
-      a: "La consultoría para artistas y sellos cubre catálogo, distribución, marca personal y operación con datos, desde su experiencia construyendo su propio ecosistema." },
-    { k: ["productor", "produccion", "musica", "canciones", "temas"],
-      a: "Diego es productor musical desde hace más de una década; el catálogo de su sello Cartel Music suma 142 grabaciones con ISRC." },
+      a: "Diego ayuda a crear y hacer crecer sellos, marcas profesionales y marcas artísticas o personales con tres servicios: Diagnóstico (sesión 1:1), Crea tu sello (sello o marca desde cero) y Crecimiento (acompañamiento mensual). Por separado: sesión de fotos de marca, press kit y biografía, y charla o taller para tu equipo. Todo está en la sección Servicios." },
+    { k: ["charla", "conferencia", "panel", "taller", "entrevista", "podcast", "speaker", "ponencia"],
+      a: "Da charlas y talleres para equipos sobre industria musical independiente, catálogo y derechos, IA aplicada a la música y marca personal. Desde $1.800.000 COP; se pide en la sección Servicios." },
+    { k: ["consultoria", "asesoria", "mentoria", "diagnostico", "crear sello", "mi sello", "crear mi sello", "distribucion", "catalogo", "derechos", "marca personal", "crecer"],
+      a: "Para empezar está el Diagnóstico: una sesión 1:1 de 90 minutos que revisa tu marca, distribución, metadatos y derechos, con plan escrito en 72 horas. Si vas a fundar un sello, «Crea tu sello» te acompaña 6 semanas; para crecer, el acompañamiento mensual. Todo en la sección Servicios." },
+    { k: ["productor", "produccion", "musica", "canciones", "temas", "spotify", "escuchar", "compositor", "composicion"],
+      a: "Diego es productor musical desde hace más de una década y compositor con 148 créditos registrados en MUSO.AI. El catálogo de Cartel Music suma 142 grabaciones con ISRC. Puedes escucharlo en la sección «Escucha mi música»." },
     { k: ["modelo", "modelaje", "campana", "marca de ropa", "foto", "fotografo", "fotografia", "sesion de fotos"],
-      a: "Hace sesiones como modelo (con contrato de uso de imagen) y como fotógrafo (preselección en 72 horas). Puedes pedirlas en la sección Planes." },
+      a: "Diego trabaja como modelo en campañas de moda y de marca, con contrato de uso de imagen. Para tu propia marca puedes pedir una sesión de fotos de marca en la sección Servicios." },
     { k: ["contacto", "correo", "email", "mail", "escribir", "whatsapp", "telefono", "numero", "llamar", "redes", "instagram"],
-      a: `El canal oficial de contacto es el correo ${mail}. También puedes enviar una solicitud desde la sección Planes.` },
+      a: `El canal oficial de contacto es el correo ${mail}. También puedes enviar una solicitud desde la sección Servicios.` },
     { k: ["fan", "fans", "club", "beneficio", "beneficios", "registrarme", "suscribir", "newsletter", "noticias"],
       a: "En la sección Únete al club dejas tus datos como fan, cliente o prensa y recibes primero sus proyectos, lanzamientos y el aviso de eventos en tu ciudad." },
     { k: ["prensa", "press kit", "presskit", "medio", "periodista", "bio oficial"],
@@ -70,5 +70,5 @@ window.Asistente = (() => {
     return local(q);
   }
 
-  return { ask, local, chips: ["¿Quién es Diego?", "Sus empresas", "¿Qué es Salsafro?", "Servicios y precios", "Contratar un DJ set", "Club", "Contacto"] };
+  return { ask, local, chips: ["¿Quién es Diego?", "Sus empresas", "¿Qué es Salsafro?", "Servicios y precios", "Crear mi sello", "Club", "Contacto"] };
 })();
