@@ -2,102 +2,181 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<link rel="icon" href="img/logo-cartel-music.webp">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cartel Music · Sello discográfico independiente</title>
-<meta name="description" content="Cartel Music: sello independiente de Afro House desde Cali, Colombia. Catálogo, tienda, envío de demos y showcases del sello.">
+<title>Cartel Music · Sello discográfico independiente · Colombia · Chile</title>
+<meta name="description" content="Cartel Music, el sello de Diego Gasca (Prey Hunter), activo desde octubre de 2022. Música electrónica con créditos completos y cifras verificadas. Artistas, lanzamientos, eventos y demos.">
+<meta name="theme-color" content="#0b0b0b">
+<link rel="canonical" href="https://cartel-music.vercel.app/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_CO">
+<meta property="og:site_name" content="Cartel Music">
+<meta property="og:title" content="Cartel Music · El sello #1 · Colombia · Chile">
+<meta property="og:description" content="Música electrónica con créditos completos y cifras verificadas, desde 2022.">
+<meta property="og:url" content="https://cartel-music.vercel.app/">
+<meta property="og:image" content="https://cartel-music.vercel.app/img/og-cartel.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<script>try{document.documentElement.dataset.theme=localStorage.getItem("cm-theme")==="light"?"light":"dark";if(localStorage.getItem("cm-lang")==="en")document.documentElement.lang="en"}catch(e){}</script>
+<link rel="icon" href="img/logos/cartel-music-sm.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Inter+Tight:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/sapo-1200.webp" imagesrcset="img/sapo-700.webp 700w, img/sapo-1200.webp 1200w" imagesizes="(max-width: 820px) 100vw, 52vw">
 <link rel="stylesheet" href="solicitud.css">
 <link rel="stylesheet" href="style.css">
 </head>
-<body>
-<div class="grid-bg" aria-hidden="true"></div>
-<header class="nav" id="nav">
-  <a href="#inicio" class="brand"><img src="img/logo-cartel-music.webp" alt=""><span>CARTEL<b>MUSIC</b></span></a>
-  <nav class="links" id="links"><a href="#catalogo">Catálogo</a><a href="#tienda">Tienda</a><a href="#artistas">Artistas</a><a href="#demos">Demos</a><a href="#eventos">Eventos</a></nav>
-  <span class="status"><i></i>Sello activo</span>
-  <button class="burger" id="burger" aria-label="Menú"><span></span><span></span></button>
+<body class="ph cm">
+<a class="skip" href="#contenido">Saltar al contenido</a>
+
+<header class="nav dark" id="nav">
+  <nav class="links" id="links" aria-label="Secciones">
+    <a href="#catalogo">Catálogo</a><a href="#artistas">Artistas</a><a href="#lanzamientos">Lanzamientos</a><a href="#tienda">Tienda</a><a href="#eventos">Eventos</a><a href="#demos">Demos</a>
+  </nav>
+  <a href="#inicio" class="brand"><img src="img/logos/cartel-music-sm.png" width="160" height="182" alt="Cartel Music"></a>
+  <div class="nav-end">
+    <button type="button" class="tgl" id="tourBtn" aria-label="Recorrido por la página"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8.5l5 3.5-5 3.5z" fill="currentColor"/></svg></button>
+    <button type="button" class="tgl" id="musicBtn" aria-label="Escuchar mi música" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="ic-play" d="M9 18V6l10-2v12"/><circle class="ic-play" cx="6.5" cy="18" r="2.5"/><circle class="ic-play" cx="16.5" cy="16" r="2.5"/><path class="ic-pause" d="M9 6v12M15 6v12"/></svg></button>
+    <a class="tgl wa" id="waBtn" href="#" target="_blank" rel="noopener" aria-label="Preguntas por WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11 11 0 0 0 3.2 17.1L2 22l5-1.3A11 11 0 0 0 20.5 3.5zM12 20a8.9 8.9 0 0 1-4.6-1.3l-.3-.2-3 .8.8-2.9-.2-.3A9 9 0 1 1 12 20zm4.9-6.7c-.3-.1-1.6-.8-1.8-.9s-.4-.1-.6.1-.7.9-.8 1-.3.2-.6.1a7.4 7.4 0 0 1-3.7-3.2c-.3-.5.3-.5.8-1.6.1-.2 0-.4 0-.5l-.8-2c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.6-.3z" fill="currentColor" stroke="none"/></svg><span>Preguntas</span></a>
+    <button type="button" class="tgl" id="langBtn" aria-label="Ver en inglés" translate="no">EN</button>
+    <button type="button" class="tgl" id="themeBtn" aria-label="Modo claro" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="moon" d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/><g class="sun"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg></button>
+    <a href="#demos" class="nav-cta">Envía tu demo</a>
+    <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false"><span></span><span></span></button>
+  </div>
 </header>
 
-<main>
-<section class="hero" id="inicio">
-  <div class="hero-copy">
-    <p class="tag reveal">// sello discográfico independiente · Cali, CO</p>
-    <h1 class="reveal">Música de club<br>con <span class="g">visión</span><br>internacional.</h1>
-    <p class="lead reveal">Cartel Music es el sello de Diego Gasca (Prey Hunter), activo desde octubre de 2022. Lanzamos Afro House con créditos completos y cifras verificadas.</p>
-    <div class="cta reveal"><a class="btn btn-g" href="#demos">Enviar demo</a><a class="btn btn-o" href="#tienda">Tienda del sello</a></div>
-  </div>
-  <div class="hero-visual reveal">
-    <div class="frame"><img src="img/portrait-cartel-music.webp" alt="Diego Gasca, fundador de Cartel Music"><span class="corner tl"></span><span class="corner br"></span></div>
-    <div class="logo-chip"><img src="img/logo-cartel-music.webp" alt="Logo de Cartel Music"></div>
-    <pre class="readout" id="readout"></pre>
-  </div>
-</section>
-
-<section class="stats" id="stats"></section>
-
-<section class="catalog" id="catalogo">
-  <div class="head"><p class="tag">01 / catálogo</p><h2>Obras del sello<br>en el <span class="g">top</span></h2></div>
-  <div class="table" role="table" aria-label="Obras del sello">
-    <div class="tr th" role="row"><span>#</span><span>Obra</span><span>Artista</span><span>Reproducciones</span></div>
-    <div id="catalog"></div>
-  </div>
-  <p class="note">Reproducciones verificadas en todas las plataformas (MUSO.AI · sep 2026).</p>
-</section>
-
-<section class="store" id="tienda">
-  <div class="head row"><div><p class="tag">02 / tienda</p><h2>Lanzamientos<br><span class="g">a la venta</span></h2></div><p class="note">Descargas oficiales en Bandcamp. Precio mínimo en USD.</p></div>
-  <div class="store-grid" id="store"></div>
-</section>
-
-<section class="artists" id="artistas">
-  <div class="head"><p class="tag">03 / artistas y colaboradores</p><h2>Créditos que<br><span class="g">suenan</span></h2></div>
-  <div class="artists-grid">
-    <a class="founder" data-eco="prey"><img src="img/press-18.webp" alt="Prey Hunter" loading="lazy"><div><small>Fundador · director</small><b>Prey Hunter</b><span>Ver sitio oficial →</span></div></a>
-    <ul class="collab" id="collab"></ul>
+<main id="contenido">
+<!-- PORTADA: el sapo del sello, sin recuadros encima -->
+<section class="ph-hero" id="inicio">
+  <div class="ph-hero-photo"><img src="img/sapo-1200.webp" srcset="img/sapo-700.webp 700w, img/sapo-1200.webp 1200w" sizes="(max-width: 820px) 100vw, 52vw" width="1200" height="1200" fetchpriority="high" alt="El sapo de Cartel Music, personaje 3D con corona dorada y cadena CM"></div>
+  <div class="ph-hero-copy">
+    <p class="kicker">Sello discográfico independiente</p>
+    <h1 class="ph-title">Cartel Music</h1>
+    <p class="hero-hook">El sello <em>#1</em>.</p>
+    <p class="hero-sub">Colombia · Chile</p>
+    <p class="hero-lead">Cartel Music es el sello de Diego Gasca (Prey Hunter), activo desde octubre de 2022. Lanzamos música electrónica con créditos completos y cifras verificadas.</p>
+    <div class="cta">
+      <a class="btn btn-light" href="#demos">Envía tu demo</a>
+      <button type="button" class="btn btn-line" id="heroPlay">Escuchar ahora</button>
+    </div>
   </div>
 </section>
 
-<section class="demos" id="demos">
-  <div class="demo-copy">
-    <p class="tag">04 / demos</p>
-    <h2>¿Tienes el<br>próximo <span class="g">hit</span>?</h2>
-    <p>Envíanos un enlace privado de escucha con tu nombre artístico, ciudad y redes. Si avanzamos, esto es lo que el sello pide para cada lanzamiento:</p>
-    <a class="btn btn-g" id="demoBtn">Enviar demo por correo</a>
-    <img src="img/campaign-demos-chile.webp" alt="Pieza: productores y artistas de Chile, envía tu demo" class="demo-piece" loading="lazy">
+<!-- CIFRAS -->
+<section class="ph-stats" id="cifras" aria-label="Cifras"><div class="num-grid" id="stats"></div></section>
+
+<!-- 01 · CATÁLOGO -->
+<section class="rowsec" id="catalogo">
+  <div class="row-head">
+    <div><p class="ph-k">01 · Catálogo</p><h2 class="big-head">Obras del sello en el top.</h2></div>
+    <div class="row-arrows"><button type="button" data-row="top" data-dir="prev" aria-label="Anterior">←</button><button type="button" data-row="top" data-dir="next" aria-label="Siguiente">→</button></div>
   </div>
-  <dl class="spec" id="spec"></dl>
+  <div class="tiles achs" id="top" tabindex="0" role="region" aria-label="Obras del sello en el top"></div>
+  <div class="listen-head ph-listen"><h3>Escucha el catálogo</h3><a href="https://open.spotify.com/artist/7HWCje6tPWnHnBHxXiwrsM" target="_blank" rel="noopener">Abrir en Spotify ↗</a></div>
+  <div class="listen-player" id="spotify"></div>
 </section>
 
-<section class="events" id="eventos">
-  <div class="ev-media"><img src="img/live-06.webp" alt="Noche de Cartel Music" loading="lazy"></div>
-  <div class="ev-copy">
-    <p class="tag">05 / eventos</p>
-    <h2>Noches<br><span class="g">Cartel Music</span></h2>
-    <p>Showcases del sello con cabina compartida, cambios sin silencios y USB de respaldo. Elige el formato y agrégalo a tu solicitud; la tarifa se cotiza por evento.</p>
-    <div class="formats" id="formats"></div>
+<!-- 02 · ARTISTAS -->
+<section class="rowsec dark" id="artistas">
+  <div class="row-head">
+    <div><p class="ph-k">02 · Artistas</p><h2 class="big-head light">Artistas del sello.</h2></div>
+    <p>Productores y DJs que lanzan con Cartel Music.</p>
+    <div class="row-arrows"><button type="button" data-row="artists" data-dir="prev" aria-label="Anterior">←</button><button type="button" data-row="artists" data-dir="next" aria-label="Siguiente">→</button></div>
+  </div>
+  <div class="tiles" id="artists" tabindex="0" role="region" aria-label="Artistas del sello"></div>
+</section>
+
+<!-- 03 · LANZAMIENTOS -->
+<section class="rowsec" id="lanzamientos">
+  <div class="row-head">
+    <div><p class="ph-k">03 · Lanzamientos</p><h2 class="big-head">Lanzamientos.</h2></div>
+    <p>Una selección de los 71 lanzamientos del catálogo, con sus portadas oficiales.</p>
+    <div class="row-arrows"><button type="button" data-row="disco" data-dir="prev" aria-label="Anterior">←</button><button type="button" data-row="disco" data-dir="next" aria-label="Siguiente">→</button></div>
+  </div>
+  <div class="tiles" id="disco" tabindex="0" role="region" aria-label="Lanzamientos"></div>
+</section>
+
+<!-- 04 · TIENDA -->
+<section class="rowsec dark" id="tienda">
+  <div class="row-head">
+    <div><p class="ph-k">04 · Tienda</p><h2 class="big-head light">Lanzamientos a la venta.</h2></div>
+    <p>Descargas oficiales en Bandcamp. Precio mínimo en dólares: puedes pagar más si quieres apoyar.</p>
+    <div class="row-arrows"><button type="button" data-row="store" data-dir="prev" aria-label="Anterior">←</button><button type="button" data-row="store" data-dir="next" aria-label="Siguiente">→</button></div>
+  </div>
+  <div class="tiles" id="store"></div>
+</section>
+
+<!-- 05 · EVENTOS (sin foto) -->
+<section class="ph-split" id="eventos">
+  <div class="split-head">
+    <p class="ph-k">05 · Eventos</p>
+    <h2 class="big-head">Noches Cartel Music.</h2>
+    <p>Elige el formato y agrégalo a tu solicitud, o escríbenos por WhatsApp con fecha y ciudad. La tarifa se cotiza por evento.</p>
+    <ul class="rider"><li><b>Cabina</b>3 × CDJ-3000 + DJM-A9</li><li><b>Prueba de sonido</b>Mínimo 30 min</li><li><b>Anticipo</b>50 % al firmar</li></ul>
+    <div class="cta"><a class="btn btn-dark wa-link" href="#" target="_blank" rel="noopener">Cotizar por WhatsApp</a></div>
+  </div>
+  <div class="formats" id="formats"></div>
+</section>
+
+<!-- 06 · DEMOS -->
+<section class="rowsec dark" id="demos">
+  <div class="row-head">
+    <div><p class="ph-k">06 · Demos</p><h2 class="big-head light">¿Tienes el próximo hit?</h2></div>
+    <p>Esto hace el sello por tus lanzamientos. Envía tu demo por WhatsApp o por correo.</p>
+    <div class="row-arrows"><button type="button" data-row="services" data-dir="prev" aria-label="Anterior">←</button><button type="button" data-row="services" data-dir="next" aria-label="Siguiente">→</button></div>
+  </div>
+  <div class="tiles" id="services" tabindex="0" role="region" aria-label="Servicios del sello"></div>
+  <div class="deliv-wrap">
+    <h3>Qué necesitamos para lanzar</h3>
+    <ul class="deliv" id="delivery"></ul>
+    <div class="cta"><a class="btn btn-light wa-link" href="#" target="_blank" rel="noopener">Enviar demo por WhatsApp</a><a class="btn btn-line" id="mailBtn">Enviar por correo</a></div>
+  </div>
+</section>
+
+<!-- 07 · UNIVERSO -->
+<section class="rowsec" id="universo">
+  <div class="row-head">
+    <div><p class="ph-k">07 · Universo Cartel</p><h2 class="big-head">El sapo del sello.</h2></div>
+    <p>El personaje de Cartel Music en la cabina, el estudio y el escenario.</p>
+    <div class="row-arrows"><button type="button" data-row="chars" data-dir="prev" aria-label="Anterior">←</button><button type="button" data-row="chars" data-dir="next" aria-label="Siguiente">→</button></div>
+  </div>
+  <div class="tiles" id="chars" tabindex="0" role="region" aria-label="El sapo del sello"></div>
+</section>
+
+<!-- CIERRE -->
+<section class="oferta ph-final" id="contacto">
+  <div class="oferta-frame">
+    <div class="oferta-copy">
+      <p class="oferta-k">Demos · Distribución · Eventos</p>
+      <h2 class="oferta-t"><span>Lanza con</span><em>Cartel Music</em></h2>
+      <span class="oferta-badge">Recibimos demos todo el año</span>
+      <p class="oferta-div"><span>Escríbenos</span></p>
+      <div class="oferta-cta"><a class="btn btn-light wa-link" href="#" target="_blank" rel="noopener">WhatsApp</a><a class="btn btn-line" id="pressMail">Correo del sello</a></div>
+    </div>
+    <div class="ph-final-art wide"><img src="img/frog-stage-640.webp" srcset="img/frog-stage-640.webp 640w, img/frog-stage.webp 1280w" sizes="(max-width: 900px) 90vw, 40vw" width="1280" height="720" alt="El sapo de Cartel Music en el escenario con los brazos arriba" loading="lazy"></div>
   </div>
 </section>
 </main>
 
 <footer class="footer">
-  <div class="f-row">
-    <a href="#inicio" class="brand"><img src="img/logo-cartel-music.webp" alt=""><span>CARTEL<b>MUSIC</b></span></a>
-    <div class="f-cols">
-      <div><small>Contacto</small><a id="fmail"></a></div>
-      <div><small>Distribución</small><span>ONErpm · DistroKid</span></div>
-      <div><small>Ecosistema</small><span id="feco">Prey Hunter · Salsafro</span></div>
-    </div>
+  <div class="f-top">
+    <a href="#inicio" class="f-brand"><img src="img/logos/cartel-music-sm.png" width="160" height="182" alt="Cartel Music"></a>
+    <p class="f-tag">Sello discográfico independiente · Colombia · Chile</p>
   </div>
-  <p class="f-copy">© <span id="year"></span> Cartel Music · Cali, Colombia. Las compras se procesan en Bandcamp.</p>
+  <div class="f-cols">
+    <div><p>Sitio</p><a href="#catalogo">Catálogo</a><a href="#artistas">Artistas</a><a href="#lanzamientos">Lanzamientos</a><a href="#tienda">Tienda</a><a href="#eventos">Eventos</a><a href="#demos">Demos</a></div>
+    <div><p>Ecosistema</p><a data-eco="diego">Diego Gasca</a><a data-eco="prey">Prey Hunter</a><a data-eco="salsafro">Salsafro</a></div>
+    <div><p>Distribución</p><span class="f-plain">ONErpm · DistroKid</span></div>
+    <div><p>Contacto</p><a id="fmail"></a><a class="wa-link" href="#" target="_blank" rel="noopener">WhatsApp</a></div>
+  </div>
+  <div class="f-bottom"><span>Cartel Music · Diego Gasca</span><span>Las compras de música se procesan en Bandcamp.</span><span>© <span id="year"></span></span></div>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
 <script src="solicitud.js"></script>
 <script src="data.js"></script>
+<script src="i18n-dict.js"></script>
+<script src="i18n.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

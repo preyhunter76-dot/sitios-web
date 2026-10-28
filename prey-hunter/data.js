@@ -2,7 +2,19 @@
 // Regla del Cerebro: solo cifras verificadas; las tarifas de booking no se publican (se cotizan por evento).
 const BC = "https://salsafro.bandcamp.com/track/";
 window.PH = {
-  brand: "Prey Hunter",
+  brand: "Prey Hunter", key: "ph", mailSubject: "Booking",
+  waText: "Hola, quiero información de booking de Prey Hunter.", waTextEn: "Hi, I'd like booking information for Prey Hunter.",
+  tour: [
+    ["inicio", "Prey Hunter: DJ y productor de Salsafro, desde Cali.", "Prey Hunter: Salsafro DJ and producer, from Cali."],
+    ["musica", "Lo más escuchado y mi música en Spotify.", "Most played and my music on Spotify."],
+    ["tienda", "Compra mi música en Bandcamp.", "Buy my music on Bandcamp."],
+    ["booking", "Lleva Prey Hunter a tu evento.", "Bring Prey Hunter to your event."],
+    ["shows", "Pistas llenas en Chile y Colombia.", "Packed floors in Chile and Colombia."],
+    ["bio", "De Cali para el mundo.", "From Cali to the world."],
+    ["discografia", "Mis lanzamientos.", "My releases."],
+    ["prensa", "Press kit con fotos oficiales.", "Press kit with official photos."],
+    ["contacto", "¿Hablamos? Escríbenos por WhatsApp.", "Let's talk: message us on WhatsApp."],
+  ],
   email: "prey-hunter-oficial@hotmail.com",
   whatsapp: "573163136529", // WhatsApp de booking y preguntas (Cerebro, módulo 12)
   spotify: "7HWCje6tPWnHnBHxXiwrsM",
