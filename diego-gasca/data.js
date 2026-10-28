@@ -3,7 +3,7 @@
 window.DG = {
   brand: "Diego Gasca",
   email: "prey-hunter-oficial@hotmail.com",
-  whatsapp: "",
+  whatsapp: "573163136529", // WhatsApp de preguntas (Cerebro, módulo 12)
   club: "https://fpxyixfjqcsbxysiluhy.supabase.co/functions/v1/club", // función de Supabase que guarda el club
   spotify: "7HWCje6tPWnHnBHxXiwrsM",
   agenda: "https://fpxyixfjqcsbxysiluhy.supabase.co/functions/v1/agenda", // función de Supabase que guarda las citas
@@ -20,6 +20,22 @@ window.DG = {
       lead: "Su proyecto artístico: una marca construida lanzamiento a lanzamiento desde 2014.",
       kpis: [["+410 mil", "oyentes mensuales en Spotify"], ["Top 2 %", "ranking global de artistas"], ["148", "créditos de compositor"]],
       items: ["35 lanzamientos verificados entre 2021 y 2026", "Perfiles en Apple Music, Deezer, Spotify, Bandcamp y SoundCloud", "Género propio: Salsafro"] },
+    { name: "Salsafro", tag: "Marca y género propio", href: "https://salsafro.vercel.app", color: "#FF6D29",
+      lead: "El género que Diego creó en Cali: Afro House con ritmos afrocolombianos, salsa y percusión del Pacífico.",
+      kpis: [["17", "lanzamientos con crédito Salsafro"], ["154 mil", "reproducciones del set SALSAFRO 2.0"], ["2", "álbumes en 2026"]],
+      items: ["Marca, sello Salsafro Records y tienda propia en Bandcamp", "Álbumes Serenno (11 temas) y Golden Boy (17 temas)", "Una identidad propia con cuatro raíces musicales"] },
+  ],
+  // Mi proceso (palabras de Diego, 27/10/2026). Cifras: US$30.621 de ingreso reconocido en el Cerebro (módulo 00).
+  proceso: [
+    ["01", "Hábitos", "Cambié mis hábitos y dejé las drogas. Todo empezó ahí."],
+    ["02", "Comunicación", "Aprendí a comunicarme mejor con las mujeres y en los negocios."],
+    ["03", "Empresas", "Construí 3 empresas desde 2014 y una marca personal propia."],
+    ["04", "Resultados", "Pasé de $0 a generar $3.000 al mes con mi música y mis empresas."],
+  ],
+  ruta: [
+    ["Diagnóstico", "Revisamos dónde estás y qué sigue."],
+    ["Crea tu sello", "Montamos tu sello o tu artista desde cero."],
+    ["Crecimiento", "Te acompaño mes a mes hasta que despegue."],
   ],
   // Presencia verificada (sin notas de prensa inventadas: el Cerebro aún no registra medios).
   press: [
@@ -34,7 +50,7 @@ window.DG = {
   // [valor, sufijo, texto, decimales, prefijo, sin separador de miles]
   stats: [
     [2014, "", "en la industria desde", 0, "", true],
-    [2, "", "empresas propias: Cartel Music y Salsafro", 0, ""],
+    [3, "", "empresas propias: Cartel Music, Salsafro y Prey Hunter", 0, ""],
     [29, " M", "streams de su sello Cartel Music", 0, "+"],
     [142, "", "grabaciones con ISRC en el catálogo del sello", 0, ""],
   ],

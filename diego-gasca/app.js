@@ -16,6 +16,7 @@
   const drawer = document.getElementById("rqDrawer");
   if (drawer) { const sync = () => (drawer.inert = drawer.getAttribute("aria-hidden") !== "false"); sync(); new MutationObserver(sync).observe(drawer, { attributes: true, attributeFilter: ["aria-hidden"] }); }
 
+  const T = (es, en) => (document.documentElement.lang === "en" ? en : es);
   /* ——— Contenido ——— */
   const tick = ["Construyendo desde 2014", "Empresario", "DJ", "Productor musical", "Compositor", "Modelo", "Cartel Music", "Salsafro", "Cali, Colombia"];
   const tickHTML = tick.map((t) => `<span>${esc(t)}</span>`).join("");
@@ -86,6 +87,14 @@
   $("#reviews").innerHTML = revHTML + revHTML;
   $$("#reviews .rev").forEach((el, i) => { if (i >= D.reviews.length) { el.setAttribute("aria-hidden", "true"); el.querySelector("a").tabIndex = -1; } });
 
+  // Mi proceso y tu ruta
+  $("#steps").innerHTML = D.proceso.map(([n, t, d]) => `<li><span class="st-n">${n}</span><b>${esc(t)}</b><p>${esc(d)}</p></li>`).join("");
+  $("#ruta").innerHTML = D.ruta.map(([t, d], i) => `<li><a href="#agenda" data-book="${esc(t)}"><span>${i + 1}</span><b>${esc(t)}</b><em>${esc(d)}</em></a></li>`).join("");
+
+  // WhatsApp de preguntas
+  const wa = `https://wa.me/${D.whatsapp}?text=${encodeURIComponent((window.I18N && I18N.lang === "en") ? "Hi Diego, I have a question about your services." : "Hola Diego, tengo una pregunta sobre tus servicios.")}`;
+  $$("#waBtn, .wa-link").forEach((a) => (a.href = wa));
+
   // Casos reales
   $("#cases").innerHTML = D.cases.map((c) => `<article class="case" style="--c:${c.color}"><header><span class="case-tag">${esc(c.tag)}</span><h3>${esc(c.name)}</h3><p>${esc(c.lead)}</p></header>
     <div class="case-kpis">${c.kpis.map(([n, l]) => `<div><b>${esc(n)}</b><span>${esc(l)}</span></div>`).join("")}</div>
@@ -100,12 +109,31 @@
   // Logros de canciones (misma fila en movimiento que Mi identidad)
   // Como en el Cerebro: la carátula de la canción y un disco dorado que gira con la carátula como etiqueta.
   $("#hits").innerHTML = D.hits.map(([n, u, t, d, c]) => { const img = `img/covers/${c}.webp`;
-    return `<article class="tile hit"><div class="hit-art" aria-hidden="true"><img class="hit-sleeve" src="${img}" width="200" height="200" alt="" loading="lazy" decoding="async"><span class="hit-disc"><span class="hit-grooves"><img src="${img}" width="200" height="200" alt="" loading="lazy" decoding="async"></span><i></i></span></div>
+    return `<article class="tile ach"><div class="hit-art" aria-hidden="true"><img class="hit-sleeve" src="${img}" width="200" height="200" alt="" loading="lazy" decoding="async"><span class="hit-disc"><span class="hit-grooves"><img src="${img}" width="200" height="200" alt="" loading="lazy" decoding="async"></span><i></i></span></div>
       <div class="hit-txt"><b>${esc(n)}</b><small>${esc(u)}</small><span>${esc(t)}</span><em>${esc(d)}</em></div></article>`; }).join("");
 
   // Spotify: reproductor oficial del perfil de artista (se carga al acercarse)
-  const sp = $("#spotify");
-  if (sp) sp.innerHTML = `<iframe title="Escuchar en Spotify" src="https://open.spotify.com/embed/artist/${D.spotify}?utm_source=generator&theme=0" width="100%" height="152" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>`;
+  // Se usa la API oficial del reproductor para que el botón del menú pueda dar play y pausa.
+  const sp = $("#spotify"), musicBtn = $("#musicBtn");
+  let spCtl = null, spLoading = false, wantPlay = false;
+  const setMusic = (on) => { musicBtn.classList.toggle("on", on); musicBtn.setAttribute("aria-pressed", String(on)); musicBtn.setAttribute("aria-label", on ? T("Pausar mi música", "Pause my music") : T("Escuchar mi música", "Play my music")); };
+  function loadSpotify() {
+    if (spCtl || spLoading) return; spLoading = true;
+    const holder = document.createElement("div"); sp.appendChild(holder);
+    window.onSpotifyIframeApiReady = (API) => API.createController(holder, { uri: `spotify:artist:${D.spotify}`, width: "100%", height: 152 }, (c) => {
+      spCtl = c; const f = sp.querySelector("iframe"); if (f) f.title = T("Escuchar en Spotify", "Listen on Spotify");
+      c.addListener("playback_update", (e) => setMusic(!e.data.isPaused));
+      c.addListener("ready", () => { if (wantPlay) { wantPlay = false; c.play(); } });
+    });
+    const s = document.createElement("script"); s.src = "https://open.spotify.com/embed/iframe-api/v1"; s.async = true;
+    s.onerror = () => { sp.innerHTML = `<a class="sp-fallback" href="https://open.spotify.com/artist/${D.spotify}" target="_blank" rel="noopener">${T("Escuchar en Spotify ↗", "Listen on Spotify ↗")}</a>`; };
+    document.head.appendChild(s);
+  }
+  new IntersectionObserver((es, o) => { if (es[0].isIntersecting) { loadSpotify(); o.disconnect(); } }, { rootMargin: "800px" }).observe(sp);
+  musicBtn.addEventListener("click", () => {
+    if (spCtl) { spCtl.togglePlay(); return; }
+    wantPlay = true; loadSpotify();
+  });
   $("#spLink").href = `https://open.spotify.com/artist/${D.spotify}`;
 
   $("#perks").innerHTML = D.perks.map(([t, d]) => `<li><b>${esc(t)}</b><span>${esc(d)}</span></li>`).join("");
@@ -119,9 +147,9 @@
 
   /* ——— Navegación ——— */
   const nav = $("#nav"), links = $("#links"), burger = $("#burger");
-  const darkSecs = $$(".hero, .rowsec.dark, .plans, .final, .footer");
+  const darkSecs = $$(".hero, .rowsec.dark, .plans, .oferta, .final, .footer");
   const allSecs = $$("main > section, .footer");
-  const secs = ["identidad", "historia", "ecosistema", "servicios", "agenda", "club"].map((id) => document.getElementById(id)).filter(Boolean);
+  const secs = ["proceso", "identidad", "ecosistema", "servicios", "agenda", "club"].map((id) => document.getElementById(id)).filter(Boolean);
   function navState() {
     nav.classList.toggle("solid", scrollY > 40);
     const y = nav.getBoundingClientRect().bottom - 2;
@@ -153,7 +181,6 @@
   }));
 
   /* ——— Agenda de citas ——— */
-  const T = (es, en) => (document.documentElement.lang === "en" ? en : es);
   const ag = $("#agendaForm"), agMsg = $("#agendaMsg"), pay = $("#payBtn"), slots = $("#slots");
   const SERV = [...D.plans.map((p) => p.name), ...D.extras.map((x) => x.t)];
   ag.elements.servicio.innerHTML = SERV.map((s) => `<option value="${esc(s)}">${esc(s)}</option>`).join("");
@@ -191,6 +218,34 @@
     location.href = `mailto:${D.email}?subject=${encodeURIComponent("Cita · " + data.servicio)}&body=${encodeURIComponent(body)}`;
     agMsg.className = "form-msg ok"; agMsg.textContent = T("Abrimos tu correo con la cita: dale enviar para completarla.", "We opened your email app with the booking: just hit send.");
   });
+
+  /* ——— Recorrido automático por la página ——— */
+  const tourBtn = $("#tourBtn");
+  const STOPS = [
+    ["inicio", T("Bienvenido. Soy Diego Gasca: de $0 a $30.000 con hechos.", "Welcome. I'm Diego Gasca: from $0 to $30,000, with proof.")],
+    ["proceso", T("Mi proceso: lo que cambié para lograrlo.", "My process: what I changed to get here.")],
+    ["identidad", T("Mi identidad: empresario, DJ, productor, compositor y modelo.", "My identity: entrepreneur, DJ, producer, songwriter and model.")],
+    ["ecosistema", T("Mis empresas: cada una con su sitio oficial.", "My companies: each one with its own site.")],
+    ["servicios", T("Mis servicios para crear y hacer crecer tu sello o tu marca.", "My services to build and grow your label or brand.")],
+    ["agenda", T("Aquí agendas tu cita en menos de un minuto.", "Book your session here in under a minute.")],
+    ["casos", T("Casos reales, con cifras.", "Real cases, with numbers.")],
+    ["musica", T("Mi música y los logros de mis canciones.", "My music and my songs' milestones.")],
+    ["oferta", T("¿Listo? Crea tu sello conmigo.", "Ready? Build your label with me.")],
+  ];
+  let tour = null;
+  const cap = document.createElement("div"); cap.className = "tour-cap"; cap.setAttribute("role", "status"); cap.setAttribute("aria-live", "polite"); cap.hidden = true;
+  cap.innerHTML = `<span class="tour-n"></span><p></p><button type="button">${T("Detener", "Stop")}</button>`; document.body.appendChild(cap);
+  const goTo = (id) => { const el = document.getElementById(id); if (!el) return; const off = -nav.offsetHeight;
+    lenis ? lenis.scrollTo(el, { offset: off, duration: 1.6 }) : scrollTo({ top: el.getBoundingClientRect().top + scrollY + off, behavior: reduced ? "auto" : "smooth" }); };
+  function stopTour() { if (!tour) return; clearTimeout(tour.t); tour = null; cap.hidden = true; tourBtn.classList.remove("on"); tourBtn.setAttribute("aria-label", T("Recorrido por la página", "Page tour")); }
+  function step(i) {
+    if (!tour) return; if (i >= STOPS.length) { stopTour(); return; }
+    const [id, txt] = STOPS[i]; goTo(id); cap.querySelector(".tour-n").textContent = `${i + 1}/${STOPS.length}`; cap.querySelector("p").textContent = txt;
+    tour.t = setTimeout(() => step(i + 1), 5200);
+  }
+  tourBtn.addEventListener("click", () => { if (tour) return stopTour(); tour = { t: 0 }; cap.hidden = false; tourBtn.classList.add("on"); tourBtn.setAttribute("aria-label", T("Detener el recorrido", "Stop the tour")); step(0); });
+  cap.querySelector("button").addEventListener("click", stopTour);
+  ["wheel", "touchstart", "keydown"].forEach((ev) => addEventListener(ev, (e) => { if (tour && !(ev === "keydown" && e.target.closest(".tour-cap"))) stopTour(); }, { passive: true }));
 
   /* ——— Tema claro / oscuro ——— */
   const themeBtn = $("#themeBtn");
