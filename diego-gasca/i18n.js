@@ -3,7 +3,7 @@
 (() => {
   const EN = {
     "Saltar al contenido": "Skip to content",
-    "Mi proceso": "My process", "Mi proceso.": "My process.", "De $0 a $30.000.": "From $0 to $30,000.",
+    "Proceso": "Process", "Proceso.": "Process.", "Identidad": "Identity", "Identidad.": "Identity.", "Historia.": "Story.", "De $0 a $30.000.": "From $0 to $30,000.",
     "Te muestro con hechos cómo cambié mis hábitos, dejé las drogas y construí 3 empresas desde 2014. Hoy te enseño, paso a paso, a crear tu sello o tu artista desde cero.": "I'll show you, with proof, how I changed my habits, quit drugs and built 3 companies since 2014. Today I teach you, step by step, to build your label or your artist from scratch.",
     "Empieza conmigo": "Start with me", "Ver mi proceso": "See my process",
     "No te vendo teoría. Esto es lo que cambié, con hechos, para pasar de $0 a $30.000.": "I'm not selling theory. This is what I changed, with proof, to go from $0 to $30,000.",

@@ -223,8 +223,8 @@
   const tourBtn = $("#tourBtn");
   const STOPS = [
     ["inicio", T("Bienvenido. Soy Diego Gasca: de $0 a $30.000 con hechos.", "Welcome. I'm Diego Gasca: from $0 to $30,000, with proof.")],
-    ["proceso", T("Mi proceso: lo que cambié para lograrlo.", "My process: what I changed to get here.")],
-    ["identidad", T("Mi identidad: empresario, DJ, productor, compositor y modelo.", "My identity: entrepreneur, DJ, producer, songwriter and model.")],
+    ["proceso", T("Proceso: lo que cambié para lograrlo.", "Process: what I changed to get here.")],
+    ["identidad", T("Identidad: empresario, DJ, productor, compositor y modelo.", "Identity: entrepreneur, DJ, producer, songwriter and model.")],
     ["ecosistema", T("Mis empresas: cada una con su sitio oficial.", "My companies: each one with its own site.")],
     ["servicios", T("Mis servicios para crear y hacer crecer tu sello o tu marca.", "My services to build and grow your label or brand.")],
     ["agenda", T("Aquí agendas tu cita en menos de un minuto.", "Book your session here in under a minute.")],
