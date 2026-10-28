@@ -1,10 +1,12 @@
 // Función «club» de Supabase: guarda los registros del club de diego-gasca.vercel.app.
 // Usa la llave de servicio que Supabase inyecta en el entorno de la función (no hay claves en el sitio).
+// v5 (28/10/2026): también recibe el club de prey-hunter, cartel-music y salsafro (la columna origen dice de qué sitio viene).
 // v4 (26/10/2026): v3 + correo de bienvenida opcional. v3: exige Origin y limita a 5 envíos cada 10 minutos por huella de IP.
 // El límite se guarda en la tabla club_rate con un hash SHA-256 de la IP (nunca la IP) y se borra a las 24 h.
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 
-const ORIGINS = ["https://diego-gasca.vercel.app", "http://localhost:5510"];
+const BRANDS: Record<string, string> = { "https://diego-gasca.vercel.app": "Diego Gasca", "https://prey-hunter.vercel.app": "Prey Hunter", "https://cartel-music.vercel.app": "Cartel Music", "https://salsafro.vercel.app": "Salsafro", "http://localhost:5510": "Diego Gasca" };
+const ORIGINS = Object.keys(BRANDS);
 const TIPOS = ["Fan", "Cliente", "Prensa o aliado"];
 const LIMIT = 5, WINDOW_MIN = 10;
 const URL_ = Deno.env.get("SUPABASE_URL")!, KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
@@ -72,13 +74,14 @@ Deno.serve(async (req: Request) => {
   // v4: correo de bienvenida, solo si existen los secretos RESEND_API_KEY y CORREO_REMITENTE (sin ellos, solo guarda).
   const RESEND = Deno.env.get("RESEND_API_KEY"), FROM = Deno.env.get("CORREO_REMITENTE");
   if (RESEND && FROM) {
+    const B = BRANDS[origin] || "Diego Gasca", site = origin.startsWith("http://localhost") ? "https://diego-gasca.vercel.app" : origin;
     const n = row.nombre.split(" ")[0].replace(/[<>&"]/g, ""), en = b.idioma === "en";
     const html = en
-      ? `<p>Hi ${n},</p><p>Welcome to Diego Gasca's club. You'll be among the first to hear about new projects, releases, events in your city and service openings.</p><p>Once a month you'll receive a short newsletter. Reply «unsubscribe» anytime to leave.</p><p>Diego Gasca · https://diego-gasca.vercel.app</p>`
-      : `<p>Hola ${n},</p><p>Bienvenido al club de Diego Gasca. Serás de los primeros en enterarte de proyectos, lanzamientos, eventos en tu ciudad y cupos de servicios.</p><p>Una vez al mes recibirás un boletín corto. Responde «baja» cuando quieras salir.</p><p>Diego Gasca · https://diego-gasca.vercel.app</p>`;
+      ? `<p>Hi ${n},</p><p>Welcome to the ${B} club. You'll be among the first to hear about new projects, releases, events in your city and service openings.</p><p>Once a month you'll receive a short newsletter. Reply «unsubscribe» anytime to leave.</p><p>${B} · ${site}</p>`
+      : `<p>Hola ${n},</p><p>Bienvenido al club de ${B}. Serás de los primeros en enterarte de proyectos, lanzamientos, eventos en tu ciudad y cupos de servicios.</p><p>Una vez al mes recibirás un boletín corto. Responde «baja» cuando quieras salir.</p><p>${B} · ${site}</p>`;
     try {
       await fetch("https://api.resend.com/emails", { method: "POST", headers: { Authorization: `Bearer ${RESEND}`, "Content-Type": "application/json" },
-        body: JSON.stringify({ from: FROM, to: row.correo, subject: en ? "Welcome to the club · Diego Gasca" : "Bienvenido al club · Diego Gasca", html }) });
+        body: JSON.stringify({ from: FROM, to: row.correo, subject: en ? "Welcome to the club · " + B : "Bienvenido al club · " + B, html }) });
     } catch { /* el registro ya quedó guardado */ }
   }
   return new Response(JSON.stringify({ ok: true }), { status: 200, headers: h });

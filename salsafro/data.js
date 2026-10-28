@@ -60,20 +60,52 @@ window.PH = {
     { id: "sf-showcase", t: "Noche Salsafro", d: "Showcase con varios artistas del género." },
   ],
 
+  // Logros: canciones del catálogo Salsafro con cifras verificadas (Cerebro, módulos 06 y 16). [cifra, unidad, canción, detalle, carátula]
+  top: [
+    ["+3 M", "reproducciones", "Vacaciones Con Pablo", "Prey Hunter · 2025", "vacaciones-con-pablo"],
+    ["+717 mil", "reproducciones", "Hey Mambo", "Prey Hunter feat. Cartel Music · 2024", "hey-mambo"],
+    ["154 mil", "reproducciones", "SALSAFRO 2.0", "Set insignia del género", "salsafro-2-0"],
+  ],
+
+  // Demos: qué hace Salsafro por tu canción y qué necesitamos
+  services: [
+    ["Lanzamiento Salsafro", "Tu canción en el catálogo del género, con crédito Salsafro."],
+    ["Distribución digital", "En todas las plataformas vía ONErpm y DistroKid."],
+    ["Catálogo y metadatos", "ISRC, UPC y créditos completos en cada lanzamiento."],
+    ["Marketing y lanzamientos", "Plan de lanzamiento y pitching a playlists editoriales."],
+  ],
+  delivery: [
+    ["Máster", "WAV 24 bit / 44,1 o 48 kHz, pico real bajo −1 dBTP, sin clips"],
+    ["Stems", "Drums, bajo, música, voces y efectos en WAV"],
+    ["Portada", "3000 × 3000 px, JPG en RGB, sin logos de plataformas"],
+    ["Metadatos", "Título, versión, artistas, compositores con nombre legal y productores"],
+    ["Split sheet", "Firmado por todos los autores antes de subir la canción"],
+  ],
+
   // El personaje de Salsafro
   chars: [
     ["img/mono-700.webp", "El mono de Salsafro, personaje 3D con antifaz negro y cadena dorada", "50% 40%"],
     ["img/mono-cara.webp", "Primer plano del mono de Salsafro", "50% 30%"],
+    ["img/mono-dj-640.webp", "El mono de Salsafro tocando en una cabina Pioneer frente al público", "50% 35%"],
     ["img/mono-outfit.webp", "El mono de Salsafro con sudadera negra y tenis", "50% 50%"],
+    ["img/mono-firma-640.webp", "El mono de Salsafro firmando gorras para sus fans", "50% 35%"],
+    ["img/mono-estudio-640.webp", "El mono de Salsafro sentado en su estudio de grabación", "50% 40%"],
   ],
 
   tour: [
     ["inicio", "Salsafro: el género #1 de la electrónica.", "Salsafro: electronic music's #1 genre."],
     ["raices", "Las cuatro raíces del sonido.", "The four roots of the sound."],
     ["tienda", "Música para tocar en tus shows.", "Music to play at your shows."],
+    ["logros", "Las canciones más escuchadas.", "The most played songs."],
     ["lanzamientos", "Lanzamientos con crédito Salsafro.", "Releases credited to Salsafro."],
     ["artistas", "Los artistas del género.", "The genre's artists."],
     ["booking", "Salsafro en vivo para tu evento.", "Salsafro live at your event."],
+    ["shows", "Pistas llenas en Chile y Colombia.", "Packed floors in Chile and Colombia."],
+    ["demos", "¿Haces Salsafro? Envía tu demo.", "Do you make Salsafro? Send your demo."],
     ["universo", "El mono de Salsafro.", "The Salsafro monkey."],
+    ["resenas", "Lo que dice el público.", "What the audience says."],
+    ["casos", "Casos reales, con cifras.", "Real cases, with numbers."],
+    ["trabajemos", "Trabajemos juntos: los servicios de Diego Gasca.", "Let's work together: Diego Gasca's services."],
+    ["club", "Únete al club de fans.", "Join the fan club."],
   ],
 };

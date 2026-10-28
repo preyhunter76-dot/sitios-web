@@ -29,7 +29,7 @@
 
 <header class="nav dark" id="nav">
   <nav class="links" id="links" aria-label="Secciones">
-    <a href="#catalogo">Catálogo</a><a href="#artistas">Artistas</a><a href="#lanzamientos">Lanzamientos</a><a href="#tienda">Tienda</a><a href="#eventos">Eventos</a><a href="#demos">Demos</a>
+    <a href="#catalogo">Catálogo</a><a href="#artistas">Artistas</a><a href="#lanzamientos">Lanzamientos</a><a href="#tienda">Tienda</a><a href="#eventos">Eventos</a><a href="#demos">Demos</a><a href="#club">Club</a>
   </nav>
   <a href="#inicio" class="brand"><img src="img/logos/cartel-music-sm.png" width="160" height="182" alt="Cartel Music"></a>
   <div class="nav-end">
@@ -45,7 +45,7 @@
 
 <main id="contenido">
 <!-- PORTADA: el sapo del sello, sin recuadros encima -->
-<section class="ph-hero" id="inicio">
+<section class="ph-hero" id="inicio" data-3d="#00FF7B">
   <div class="ph-hero-photo"><img src="img/sapo-1200.webp" srcset="img/sapo-700.webp 700w, img/sapo-1200.webp 1200w" sizes="(max-width: 820px) 100vw, 52vw" width="1200" height="1200" fetchpriority="high" alt="El sapo de Cartel Music, personaje 3D con corona dorada y cadena CM"></div>
   <div class="ph-hero-copy">
     <p class="kicker">Sello discográfico independiente</p>
@@ -116,10 +116,16 @@
   <div class="formats" id="formats"></div>
 </section>
 
+<!-- EN VIVO -->
+<section class="ph-shows" id="shows">
+  <div class="row-head"><div><p class="ph-k">06 · En vivo</p><h2 class="big-head light">Pistas llenas.</h2></div><p>Asistencia declarada por el artista en sus shows destacados.</p></div>
+  <div class="ph-show-grid" id="showsGrid"></div>
+</section>
+
 <!-- 06 · DEMOS -->
 <section class="rowsec dark" id="demos">
   <div class="row-head">
-    <div><p class="ph-k">06 · Demos</p><h2 class="big-head light">¿Tienes el próximo hit?</h2></div>
+    <div><p class="ph-k">07 · Demos</p><h2 class="big-head light">¿Tienes el próximo hit?</h2></div>
     <p>Esto hace el sello por tus lanzamientos. Envía tu demo por WhatsApp o por correo.</p>
     <div class="row-arrows"><button type="button" data-row="services" data-dir="prev" aria-label="Anterior">←</button><button type="button" data-row="services" data-dir="next" aria-label="Siguiente">→</button></div>
   </div>
@@ -134,11 +140,72 @@
 <!-- 07 · UNIVERSO -->
 <section class="rowsec" id="universo">
   <div class="row-head">
-    <div><p class="ph-k">07 · Universo Cartel</p><h2 class="big-head">El sapo del sello.</h2></div>
+    <div><p class="ph-k">08 · Universo Cartel</p><h2 class="big-head">El sapo del sello.</h2></div>
     <p>El personaje de Cartel Music en la cabina, el estudio y el escenario.</p>
     <div class="row-arrows"><button type="button" data-row="chars" data-dir="prev" aria-label="Anterior">←</button><button type="button" data-row="chars" data-dir="next" aria-label="Siguiente">→</button></div>
   </div>
   <div class="tiles" id="chars" tabindex="0" role="region" aria-label="El sapo del sello"></div>
+</section>
+
+<!-- RESEÑAS -->
+<section class="reviews" id="resenas">
+  <div class="rev-head"><h2 class="big-head">Lo que dicen.</h2><p>Comentarios reales del público en YouTube.</p></div>
+  <div class="rev-rail" id="reviews"></div>
+</section>
+
+<!-- CASOS REALES -->
+<section class="cases" id="casos">
+  <div class="row-head">
+    <div><p class="ph-k">09 · Casos reales</p><h2 class="big-head">Hechos, no promesas.</h2></div>
+    <p>Lo que construimos desde Cali, con cifras verificadas.</p>
+  </div>
+  <div class="case-grid" id="cases"></div>
+</section>
+
+<!-- TRABAJEMOS JUNTOS -->
+<section class="plans" id="trabajemos">
+  <div class="plans-head">
+    <div><p class="ph-k light">10 · Servicios</p><h2 class="big-head light">Trabajemos juntos.</h2></div>
+    <p>Diego Gasca te ayuda a crear y hacer crecer tu sello, tu marca o tu proyecto artístico, con lo que aprendió construyendo Cartel Music y Salsafro.</p>
+  </div>
+  <div class="plan-grid" id="work"></div>
+  <p class="plan-note">Cada servicio se cotiza según tu proyecto. Escríbenos por WhatsApp y te enviamos la propuesta.</p>
+</section>
+
+<!-- CLUB DE FANS -->
+<section class="club" id="club">
+  <div class="club-copy">
+    <p class="ph-k">11 · Club</p>
+    <h2 class="big-head">Únete al club.</h2>
+    <p class="club-lead">Deja tus datos y recibe primero las novedades de Cartel Music.</p>
+    <ul class="perks" id="perks"></ul>
+  </div>
+  <form class="club-form" id="clubForm" novalidate>
+    <div class="seg" role="radiogroup" aria-label="Me uno como">
+      <label><input type="radio" name="tipo" value="Fan" checked><span>Fan</span></label>
+      <label><input type="radio" name="tipo" value="Cliente"><span>Artista o cliente</span></label>
+      <label><input type="radio" name="tipo" value="Prensa o aliado"><span>Prensa o aliado</span></label>
+    </div>
+    <label class="fld">Nombre<input name="nombre" required autocomplete="name" maxlength="80"></label>
+    <div class="two">
+      <label class="fld">Correo<input name="correo" type="email" required autocomplete="email" maxlength="120"></label>
+      <label class="fld">WhatsApp (opcional)<input name="whatsapp" type="tel" autocomplete="tel" maxlength="30"></label>
+    </div>
+    <div class="two">
+      <label class="fld">Ciudad<input name="ciudad" autocomplete="address-level2" maxlength="60"></label>
+      <label class="fld">País<input name="pais" autocomplete="country-name" maxlength="60"></label>
+    </div>
+    <fieldset class="chips"><legend>Me interesa</legend>
+      <label><input type="checkbox" name="intereses" value="Lanzamientos" checked><span>Lanzamientos</span></label>
+      <label><input type="checkbox" name="intereses" value="Eventos en mi ciudad"><span>Eventos en mi ciudad</span></label>
+      <label><input type="checkbox" name="intereses" value="Convocatorias de demos"><span>Convocatorias de demos</span></label>
+      <label><input type="checkbox" name="intereses" value="Servicios de marca"><span>Servicios de marca</span></label>
+    </fieldset>
+    <input class="hp" name="sitio_web" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <label class="consent"><input type="checkbox" name="acepto" required><span>Autorizo el tratamiento de mis datos para recibir noticias y beneficios, según la <a class="privacy-link" href="https://diego-gasca.vercel.app/privacidad.html" target="_blank" rel="noopener">política de privacidad</a> (Ley 1581 de 2012). Puedo darme de baja cuando quiera.</span></label>
+    <button class="btn btn-dark" type="submit">Unirme</button>
+    <p class="form-msg" id="clubMsg" role="status" aria-live="polite"></p>
+  </form>
 </section>
 
 <!-- CIERRE -->
@@ -162,7 +229,7 @@
     <p class="f-tag">Sello discográfico independiente · Colombia · Chile</p>
   </div>
   <div class="f-cols">
-    <div><p>Sitio</p><a href="#catalogo">Catálogo</a><a href="#artistas">Artistas</a><a href="#lanzamientos">Lanzamientos</a><a href="#tienda">Tienda</a><a href="#eventos">Eventos</a><a href="#demos">Demos</a></div>
+    <div><p>Sitio</p><a href="#catalogo">Catálogo</a><a href="#artistas">Artistas</a><a href="#lanzamientos">Lanzamientos</a><a href="#tienda">Tienda</a><a href="#eventos">Eventos</a><a href="#demos">Demos</a><a href="#casos">Casos</a><a href="#trabajemos">Trabajemos</a><a href="#club">Club</a></div>
     <div><p>Ecosistema</p><a data-eco="diego">Diego Gasca</a><a data-eco="prey">Prey Hunter</a><a data-eco="salsafro">Salsafro</a></div>
     <div><p>Distribución</p><span class="f-plain">ONErpm · DistroKid</span></div>
     <div><p>Contacto</p><a id="fmail"></a><a class="wa-link" href="#" target="_blank" rel="noopener">WhatsApp</a></div>
@@ -175,8 +242,10 @@
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
 <script src="solicitud.js"></script>
 <script src="data.js"></script>
+<script src="eco-data.js"></script>
 <script src="i18n-dict.js"></script>
 <script src="i18n.js"></script>
 <script src="app.js"></script>
+<script src="motion3d.js"></script>
 </body>
 </html>

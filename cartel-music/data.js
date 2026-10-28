@@ -76,6 +76,9 @@ window.PH = {
     ["img/frog-dj-640.webp", "El sapo de Cartel Music tocando en una cabina de DJ con láseres verdes", "50% 40%"],
     ["img/frog-studio-640.webp", "El sapo de Cartel Music en el estudio frente a la consola", "50% 40%"],
     ["img/frog-stage-640.webp", "El sapo de Cartel Music en un escenario frente al público", "50% 40%"],
+    ["img/frog-rey-640.webp", "El sapo de Cartel Music con corona en su estudio, rodeado de discos de oro y platino", "50% 35%"],
+    ["img/frog-firma-640.webp", "El sapo de Cartel Music firmando una gorra CM para sus fans", "50% 35%"],
+    ["img/frog-cabina-640.webp", "El sapo de Cartel Music en la cabina frente a una pantalla gigante con el logo CM", "50% 35%"],
   ],
 
   tour: [
@@ -86,6 +89,11 @@ window.PH = {
     ["tienda", "Compra la música del sello.", "Buy the label's music."],
     ["eventos", "Noches Cartel Music para tu evento.", "Cartel Music nights for your event."],
     ["demos", "¿Tienes el próximo hit? Envíalo.", "Got the next hit? Send it."],
+    ["shows", "Pistas llenas en Chile y Colombia.", "Packed floors in Chile and Colombia."],
     ["universo", "El universo del sapo de Cartel.", "The Cartel frog universe."],
+    ["resenas", "Lo que dice el público.", "What the audience says."],
+    ["casos", "Casos reales, con cifras.", "Real cases, with numbers."],
+    ["trabajemos", "Trabajemos juntos: los servicios de Diego Gasca.", "Let's work together: Diego Gasca's services."],
+    ["club", "Únete al club de fans.", "Join the fan club."],
   ],
 };

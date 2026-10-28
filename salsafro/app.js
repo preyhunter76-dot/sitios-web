@@ -36,12 +36,22 @@
   fill("gallery", D.gallery && D.gallery.map((g, i) => `<a class="tile shot" href="img/${g}.webp" download="prey-hunter-${g}.webp" aria-label="${T("Descargar foto", "Download photo")} ${i + 1}"><img src="img/${g}-480.webp" width="480" height="720" alt="" loading="lazy" decoding="async"><u>${T("Descargar", "Download")}</u></a>`).join(""));
   // Artistas del sello (tarjeta con monograma 3D; se reemplaza por foto cuando exista D.artistImg)
   fill("artists", D.artists && D.artists.map((n, i) => { const ini = n.split(/\s+/).map((w) => w[0]).join("").slice(0, 2).toUpperCase();
-    return `<article class="tile artist"><span class="artist-av" style="--h:${(i * 37) % 360}" aria-hidden="true"><i>${esc(ini)}</i></span><b>${esc(n)}</b><em>${esc(D.artistRole || T("Artista del sello", "Label artist"))}</em></article>`; }).join(""));
+    const ph = D.artistImg && D.artistImg[n];
+    return `<article class="tile artist">${ph ? `<span class="artist-av photo" aria-hidden="true"><img src="img/artistas/${ph}.webp" width="480" height="480" alt="" loading="lazy" decoding="async"></span>` : `<span class="artist-av" style="--h:${(i * 37) % 360}" aria-hidden="true"><i>${esc(ini)}</i></span>`}<b>${esc(n)}</b><em>${esc(D.artistRole || T("Artista del sello", "Label artist"))}</em></article>`; }).join(""));
   // Raíces, servicios y galería del personaje
   fill("roots", D.roots && D.roots.map(([n, t, d]) => `<article class="tile root"><span>${esc(n)}</span><b>${esc(t)}</b><p>${esc(d)}</p></article>`).join(""));
   fill("services", D.services && D.services.map(([t, d]) => `<article class="tile svc-c"><b>${esc(t)}</b><p>${esc(d)}</p></article>`).join(""));
   fill("delivery", D.delivery && D.delivery.map(([t, d]) => `<li><b>${esc(t)}</b><span>${esc(d)}</span></li>`).join(""));
   fill("chars", D.chars && D.chars.map(([src, alt, pos]) => `<figure class="tile char"><img src="${src}" alt="${esc(alt)}" loading="lazy" decoding="async" style="object-position:${pos || "50% 30%"}"></figure>`).join(""));
+  // Casos reales, servicios (sin precios) y beneficios del club
+  fill("cases", D.cases && D.cases.map((c) => `<article class="case" style="--c:${c.color}"><header><span class="case-tag">${esc(c.tag)}</span><h3>${esc(c.name)}</h3><p>${esc(c.lead)}</p></header>
+    <div class="case-kpis">${c.kpis.map(([n, l]) => `<div><b>${esc(n)}</b><span>${esc(l)}</span></div>`).join("")}</div>
+    <ul>${c.items.map((i) => `<li>${esc(i)}</li>`).join("")}</ul><a href="${c.href}" target="_blank" rel="noopener">${T("Ver el sitio oficial ↗", "Visit the official site ↗")}</a></article>`).join(""));
+  const tick = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+  fill("work", D.work && D.work.map(([t, sub, items]) => `<article class="plan work-c"><header><h3>${esc(t)}</h3><p>${esc(sub)}</p></header>
+    <ul>${items.map((i) => `<li>${tick}<span>${esc(i)}</span></li>`).join("")}</ul><a class="plan-btn wa-link" href="#" target="_blank" rel="noopener">${T("Quiero este servicio", "I want this service")}</a></article>`).join(""));
+  fill("perks", D.perks && D.perks.map(([t, d]) => `<li><b>${esc(t)}</b><span>${esc(d)}</span></li>`).join(""));
+  $$(".privacy-link").forEach((a) => (a.href = D.privacy || "#"));
   // Reseñas reales
   const revHTML = (D.reviews || []).map((r) => `<article class="rev"><div><div class="stars" role="img" aria-label="Comentario del público"><i></i><i></i><i></i><i></i><i></i></div><p>${esc(r.t)}</p></div>
     <footer><b>${esc(r.a)}</b><small>${esc(r.v)} · ${esc(r.d)}</small><a href="https://www.youtube.com/watch?v=${r.id}&lc=${r.c}" target="_blank" rel="noopener">Ver en YouTube</a></footer></article>`).join("");
@@ -52,14 +62,53 @@
   const mail = `mailto:${D.email}`;
   $("#fmail").textContent = D.email; $("#fmail").href = mail;
   if ($("#mailBtn")) $("#mailBtn").href = `${mail}?subject=${encodeURIComponent((D.mailSubject || "Booking") + " · " + D.brand)}`;
+  if ($("#demoMail")) $("#demoMail").href = `${mail}?subject=${encodeURIComponent("Demo · " + D.brand)}`;
   if ($("#pressMail")) $("#pressMail").href = `${mail}?subject=${encodeURIComponent("Press kit · " + D.brand)}`;
   const wa = `https://wa.me/${D.whatsapp}?text=${encodeURIComponent(T(D.waText || "Hola, quiero información.", D.waTextEn || "Hi, I'd like some information."))}`;
   $$("#waBtn, .wa-link").forEach((a) => (a.href = wa));
   $("#year").textContent = new Date().getFullYear();
 
+  /* ——— Club de fans (función «club» de Supabase; si falla, se envía por correo) ——— */
+  const form = $("#clubForm"), msg = $("#clubMsg");
+  if (form) form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const fd = new FormData(form);
+    if (fd.get("sitio_web")) return; // trampa para bots
+    const data = { tipo: fd.get("tipo"), nombre: (fd.get("nombre") || "").trim(), correo: (fd.get("correo") || "").trim(), whatsapp: (fd.get("whatsapp") || "").trim(),
+      ciudad: (fd.get("ciudad") || "").trim(), pais: (fd.get("pais") || "").trim(), intereses: fd.getAll("intereses"), acepto: !!fd.get("acepto") };
+    $$(".fld input", form).forEach((i) => i.classList.remove("bad"));
+    const bad = [];
+    if (data.nombre.length < 2) bad.push("nombre");
+    if (!/^[^s@]+@[^s@]+.[^s@]{2,}$/.test(data.correo)) bad.push("correo");
+    const say = (cls, es, en) => { msg.className = "form-msg " + cls; msg.textContent = T(es, en); };
+    if (bad.length) { bad.forEach((n) => form.elements[n].classList.add("bad")); say("err", "Revisa tu nombre y tu correo.", "Check your name and email."); form.elements[bad[0]].focus(); return; }
+    if (!data.acepto) { say("err", "Para unirte necesitas autorizar el tratamiento de datos.", "To join you need to accept the data policy."); return; }
+    const btn = $("button[type=submit]", form); btn.disabled = true; say("", "Enviando…", "Sending…");
+    try {
+      const r = await fetch(D.club, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...data, idioma: document.documentElement.lang === "en" ? "en" : "es", sitio_web: "" }) });
+      if (r.ok) { form.reset(); const n = data.nombre.split(" ")[0]; say("ok", `¡Listo, ${n}! Ya eres parte del club.`, `Done, ${n}! You are now part of the club.`); btn.disabled = false; return; }
+      if (r.status === 429) { say("err", "Recibimos varios intentos seguidos. Espera unos minutos e inténtalo de nuevo.", "Too many attempts. Please wait a few minutes and try again."); btn.disabled = false; return; }
+      if (r.status === 400) { say("err", "Revisa los datos.", "Please check your details."); btn.disabled = false; return; }
+    } catch { /* sin servicio: se envía por correo */ }
+    const body = `Quiero unirme al club de ${D.brand}.
+
+Como: ${data.tipo}
+Nombre: ${data.nombre}
+Correo: ${data.correo}
+WhatsApp: ${data.whatsapp || "-"}
+Ciudad: ${data.ciudad || "-"}
+País: ${data.pais || "-"}
+Me interesa: ${data.intereses.join(", ") || "-"}
+
+Autorizo el tratamiento de mis datos según la política de privacidad (Ley 1581 de 2012).`;
+    location.href = `mailto:${D.email}?subject=${encodeURIComponent("Club " + D.brand + " · " + data.tipo)}&body=${encodeURIComponent(body)}`;
+    say("ok", "Abrimos tu correo con tus datos: solo dale enviar para completar el registro.", "We opened your email with your details: just hit send to finish.");
+    btn.disabled = false;
+  });
+
   /* ——— Navegación ——— */
   const nav = $("#nav"), links = $("#links"), burger = $("#burger");
-  const lightSecs = $$(".rowsec:not(.dark), .ph-booking, .ph-bio, .reviews, .ph-split");
+  const lightSecs = $$(".rowsec:not(.dark), .ph-booking, .ph-bio, .reviews, .ph-split, .cases, .club");
   const secs = [...$$("#links a")].map((a) => a.getAttribute("href").slice(1)).map((id) => document.getElementById(id)).filter(Boolean);
   function navState() {
     nav.classList.toggle("solid", scrollY > 40);
@@ -176,10 +225,10 @@
   const E = "expo.out", P = "power3.out";
   if ($(".ph-hero-photo img")) gsap.from(".ph-hero-photo img", { scale: 1.08, opacity: 0, duration: 1.6, ease: E });
   gsap.from(".ph-hero-copy > *", { y: 40, opacity: 0, duration: 1.1, stagger: .09, ease: E, delay: .15 });
-  $$(".big-head, .ph-k").forEach((h) => gsap.from(h, { y: 40, opacity: 0, duration: 1.1, ease: E, scrollTrigger: { trigger: h, start: "top 88%" } }));
+  $$(".ph-k").forEach((h) => gsap.from(h, { y: 40, opacity: 0, duration: 1.1, ease: E, scrollTrigger: { trigger: h, start: "top 88%" } }));
   $$(".tiles").forEach((t) => gsap.from($$(".tile:not([aria-hidden])", t), { y: 50, opacity: 0, duration: 1, stagger: .06, ease: E, scrollTrigger: { trigger: t, start: "top 88%" } }));
-  $$(".num, .ph-show, .fmt, .ph-logos img, .deliv li").forEach((el) => gsap.from(el, { y: 30, opacity: 0, duration: .9, ease: P, scrollTrigger: { trigger: el, start: "top 92%" } }));
-  if ($(".ph-bio-art img")) gsap.fromTo(".ph-bio-art img", { y: 40, rotate: -3 }, { y: -20, rotate: 2, ease: "none", scrollTrigger: { trigger: ".ph-bio", start: "top bottom", end: "bottom top", scrub: true } });
+  $$(".num, .ph-show, .fmt, .ph-logos img, .deliv li, .case, .plan, .perks li, .club-form").forEach((el) => gsap.from(el, { y: 30, opacity: 0, duration: .9, ease: P, scrollTrigger: { trigger: el, start: "top 92%" } }));
+  if ($(".ph-bio-art img")) gsap.fromTo(".ph-bio-art img", { yPercent: -4, scale: 1.12 }, { yPercent: 4, scale: 1.02, ease: "none", scrollTrigger: { trigger: ".ph-bio", start: "top bottom", end: "bottom top", scrub: true } });
   if ($(".ph-booking-photo img")) gsap.fromTo(".ph-booking-photo img", { scale: 1.12 }, { scale: 1, ease: "none", scrollTrigger: { trigger: ".ph-booking", start: "top bottom", end: "bottom top", scrub: true } });
   const rail = $("#reviews");
   if (rail) { const revTw = gsap.to(rail, { x: () => -(rail.scrollWidth / 2), duration: 60, ease: "none", repeat: -1 });
