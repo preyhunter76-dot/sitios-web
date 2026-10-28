@@ -1,69 +1,188 @@
+// Prey Hunter · sitio oficial. Mismo sistema que diego-gasca.vercel.app: filas en movimiento, música, recorrido, tema e idioma.
 (() => {
   const D = window.PH;
-  const $ = (q) => document.querySelector(q);
+  const $ = (q, r = document) => r.querySelector(q);
+  const $$ = (q, r = document) => [...r.querySelectorAll(q)];
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
-  const nf = (n) => n.toLocaleString("es-CO");
+  const T = (es, en) => (document.documentElement.lang === "en" ? en : es);
+  const reduced = (matchMedia("(prefers-reduced-motion: reduce)").matches && !/[?&]motion=1\b/.test(location.search)) || /[?&]static=1\b/.test(location.search);
+  const hasGsap = !!(window.gsap && window.ScrollTrigger);
+  if (reduced || !hasGsap) document.documentElement.classList.add("reduced");
 
-  Solicitud.init({ brand: D.brand, email: D.email, whatsapp: D.whatsapp, label: "Solicitud de booking" });
+  if (window.Solicitud) Solicitud.init({ brand: D.brand, email: D.email, whatsapp: D.whatsapp, label: "Tu solicitud de booking" });
+  const drawer = document.getElementById("rqDrawer");
+  if (drawer) { const sync = () => (drawer.inert = drawer.getAttribute("aria-hidden") !== "false"); sync(); new MutationObserver(sync).observe(drawer, { attributes: true, attributeFilter: ["aria-hidden"] }); }
 
-  // Lanzamiento
-  $("#heroRelease").innerHTML = `<p class="mono">Nuevo · ${esc(D.latest.date)}</p><h3>${esc(D.latest.title)}</h3><p>${esc(D.latest.type)} · ${esc(D.latest.note)}</p>
-    <a class="btn btn-pink" href="${D.links[0][1]}" target="_blank" rel="noopener">Escuchar en Spotify</a>`;
-
-  // Cifras
-  $("#stats").innerHTML = D.stats.map(([v, l, s]) => `<div class="stat"><b data-count="${esc(v)}">${esc(v)}</b><span>${esc(l)}</span><small>${esc(s)}</small></div>`).join("");
-
-  // Top 5
-  const max = D.top[0][1];
-  $("#top5").innerHTML = D.top.map(([t, p]) => `<li><div><h3>${esc(t)}</h3><div class="bar"><i style="--w:${Math.max(4, (p / max) * 100)}%"></i></div></div><span class="plays">${nf(p)}<br>reproducciones</span></li>`).join("");
-  $("#platforms").innerHTML = D.links.slice(0, 5).map(([n, u]) => `<a href="${u}" target="_blank" rel="noopener">${n}</a>`).join("");
-  $("#playlistBtn").href = D.playlist;
-
-  // Tienda
-  const years = [...new Set(D.store.map((s) => s.y))];
-  $("#filters").innerHTML = `<button class="on" data-y="all">Todo</button>` + years.map((y) => `<button data-y="${y}">${y}</button>`).join("");
-  const renderStore = (y = "all") => {
-    $("#store").innerHTML = D.store.filter((s) => y === "all" || String(s.y) === y).map((s) => `
-      <article class="prod"><a class="cover" href="${s.url}" target="_blank" rel="noopener"><img src="${s.img}" alt="Portada de ${esc(s.t)}" loading="lazy">${s.tag ? `<span class="tag">${esc(s.tag)}</span>` : ""}</a>
-        <div class="meta"><h3>${esc(s.t)}</h3><small>${esc(s.a)} · ${s.y}</small>
-          <div class="buy"><span class="price">${s.p % 1 ? s.p.toFixed(2) : s.p}<em>USD</em></span><a href="${s.url}" target="_blank" rel="noopener">Comprar</a></div></div></article>`).join("");
-    if (window.gsap) gsap.from("#store .prod", { y: 30, opacity: 0, duration: .6, stagger: .04, ease: "power3.out" });
-  };
-  renderStore();
-  $("#filters").addEventListener("click", (e) => { const b = e.target.closest("[data-y]"); if (!b) return; document.querySelectorAll("#filters button").forEach((x) => x.classList.toggle("on", x === b)); renderStore(b.dataset.y); });
-
-  // Booking
-  $("#formats").innerHTML = D.booking.map((f) => `<button class="fmt" data-req-id="${f.id}" data-req-name="${esc(f.t)}" data-req-detail="Prey Hunter"><b>${esc(f.t)}</b><span>${esc(f.d)}</span><em>Agregar a la solicitud</em></button>`).join("");
-
-  // Shows, discografía, galería
-  $("#shows").innerHTML = D.shows.map(([c, n]) => `<div class="show"><b>${nf(n)}</b><span>${esc(c)}</span></div>`).join("");
-  $("#disco").innerHTML = D.discography.map(([t, y, k]) => `<li><b>${esc(t)}</b><span>${esc(k)} · ${y}</span></li>`).join("");
-  $("#gallery").innerHTML = D.gallery.map((g) => `<figure><img src="${g}" alt="Foto oficial de Prey Hunter" loading="lazy"></figure>`).join("");
-  $("#pressMail").href = `mailto:${D.email}?subject=${encodeURIComponent("Press kit · Prey Hunter")}`;
-
-  // Footer y ecosistema
-  $("#flinks").innerHTML = D.links.map(([n, u]) => `<a href="${u}" target="_blank" rel="noopener">${n}</a>`).join("");
-  $("#fmail").textContent = D.email; $("#fmail").href = `mailto:${D.email}`;
-  const ecoNames = { diego: "Diego Gasca", salsafro: "Salsafro", cartel: "Cartel Music" };
-  $("#feco").innerHTML = Object.entries(D.eco).filter(([, u]) => u).map(([k, u]) => `<a href="${u}" target="_blank" rel="noopener">${ecoNames[k]}</a>`).join("") || "Cartel Music · Salsafro · Diego Gasca";
-  document.querySelectorAll("[data-eco]").forEach((a) => { const u = D.eco[a.dataset.eco]; if (u) { a.href = u; a.target = "_blank"; a.rel = "noopener"; } });
+  /* ——— Contenido ——— */
+  $("#stats").innerHTML = D.stats.map(([v, l, s]) => `<div class="num"><b>${esc(v)}</b><span>${esc(l)}</span><small>${esc(s)}</small></div>`).join("");
+  // Lo más escuchado: carátula y disco dorado girando
+  $("#top").innerHTML = D.top.map(([n, u, t, d, c]) => { const img = `img/covers/${c}.webp`;
+    return `<article class="tile ach"><div class="hit-art" aria-hidden="true"><img class="hit-sleeve" src="${img}" width="360" height="360" alt="" loading="lazy" decoding="async"><span class="hit-disc"><span class="hit-grooves"><img src="${img}" width="360" height="360" alt="" loading="lazy" decoding="async"></span><i></i></span></div>
+      <div class="hit-txt"><b>${esc(n)}</b><small>${esc(u)}</small><span>${esc(t)}</span><em>${esc(d)}</em></div></article>`; }).join("");
+  $("#platforms").innerHTML = D.links.map(([n, u]) => `<a href="${u}" target="_blank" rel="noopener">${esc(n)} ↗</a>`).join("");
+  $("#flinks").innerHTML = D.links.map(([n, u]) => `<a href="${u}" target="_blank" rel="noopener">${esc(n)}</a>`).join("");
+  // Tienda (Bandcamp)
+  $("#store").innerHTML = D.store.map((s) => `<a class="tile prod" href="${s.url}" target="_blank" rel="noopener">
+    <img src="${s.img}" width="350" height="350" alt="" loading="lazy" decoding="async">${s.tag ? `<span class="prod-tag">${esc(s.tag)}</span>` : ""}
+    <span class="prod-in"><b>${esc(s.t)}</b><em>${esc(s.a)} · ${s.y}</em><u>${T("Comprar", "Buy")} · US$${s.p}</u></span></a>`).join("");
+  // Booking: formatos que se agregan a la solicitud
+  $("#formats").innerHTML = D.booking.map((f) => `<button type="button" class="fmt" data-req-id="${f.id}" data-req-name="${esc(f.t)}" data-req-detail="${esc(f.d)}"><b>${esc(f.t)}</b><span>${esc(f.d)}</span><i>+</i></button>`).join("");
+  $("#showsGrid").innerHTML = D.shows.map(([p, n]) => `<div class="ph-show"><b>${esc(n)}</b><span>${esc(p)}</span><small>${T("personas", "people")}</small></div>`).join("");
+  // Discografía con portadas
+  $("#disco").innerHTML = D.discography.map(([t, y, k, c]) => `<article class="tile rel"><img src="img/covers/${c}.webp" width="360" height="360" alt="" loading="lazy" decoding="async"><span class="rel-in"><b>${esc(t)}</b><em>${esc(k)} · ${y}</em></span></article>`).join("");
+  // Press kit
+  $("#gallery").innerHTML = D.gallery.map((g, i) => `<a class="tile shot" href="img/${g}.webp" download="prey-hunter-${g}.webp" aria-label="${T("Descargar foto", "Download photo")} ${i + 1}"><img src="img/${g}-480.webp" width="480" height="720" alt="" loading="lazy" decoding="async"><u>${T("Descargar", "Download")}</u></a>`).join("");
+  // Reseñas reales
+  const revHTML = D.reviews.map((r) => `<article class="rev"><div><div class="stars" role="img" aria-label="Comentario del público"><i></i><i></i><i></i><i></i><i></i></div><p>${esc(r.t)}</p></div>
+    <footer><b>${esc(r.a)}</b><small>${esc(r.v)} · ${esc(r.d)}</small><a href="https://www.youtube.com/watch?v=${r.id}&lc=${r.c}" target="_blank" rel="noopener">Ver en YouTube</a></footer></article>`).join("");
+  $("#reviews").innerHTML = revHTML + revHTML;
+  $$("#reviews .rev").forEach((el, i) => { if (i >= D.reviews.length) { el.setAttribute("aria-hidden", "true"); el.querySelector("a").tabIndex = -1; } });
+  // Enlaces del ecosistema, correo y WhatsApp
+  $$("[data-eco]").forEach((a) => { a.href = D.eco[a.dataset.eco]; a.target = "_blank"; a.rel = "noopener"; });
+  const mail = `mailto:${D.email}`;
+  $("#fmail").textContent = D.email; $("#fmail").href = mail;
+  $("#mailBtn").href = `${mail}?subject=${encodeURIComponent("Booking · Prey Hunter")}`;
+  $("#pressMail").href = `${mail}?subject=${encodeURIComponent("Press kit · Prey Hunter")}`;
+  const wa = `https://wa.me/${D.whatsapp}?text=${encodeURIComponent(T("Hola, quiero información de booking de Prey Hunter.", "Hi, I'd like booking information for Prey Hunter."))}`;
+  $$("#waBtn, .wa-link").forEach((a) => (a.href = wa));
   $("#year").textContent = new Date().getFullYear();
 
-  // Navegación
-  const nav = $("#nav"); const onScroll = () => nav.classList.toggle("solid", scrollY > 30);
-  addEventListener("scroll", onScroll, { passive: true }); onScroll();
-  $("#burger").onclick = () => $("#links").classList.toggle("on");
-  document.querySelectorAll("#links a").forEach((a) => a.addEventListener("click", () => $("#links").classList.remove("on")));
+  /* ——— Navegación ——— */
+  const nav = $("#nav"), links = $("#links"), burger = $("#burger");
+  const lightSecs = $$(".rowsec:not(.dark), .ph-booking, .ph-bio, .reviews");
+  const secs = ["musica", "tienda", "booking", "bio", "discografia", "prensa"].map((id) => document.getElementById(id)).filter(Boolean);
+  function navState() {
+    nav.classList.toggle("solid", scrollY > 40);
+    const y = nav.getBoundingClientRect().bottom - 2, light = document.documentElement.dataset.theme === "light";
+    nav.classList.toggle("dark", !(light && lightSecs.some((s) => { const r = s.getBoundingClientRect(); return r.top <= y && r.bottom > y; })));
+    let on = ""; secs.forEach((s) => { const r = s.getBoundingClientRect(); if (r.top < innerHeight * .45 && r.bottom > innerHeight * .45) on = s.id; });
+    $$("#links a").forEach((a) => a.classList.toggle("on", a.getAttribute("href") === "#" + on));
+  }
+  addEventListener("scroll", navState, { passive: true }); addEventListener("resize", navState); navState();
+  function menu(open) {
+    links.classList.toggle("on", open); nav.classList.toggle("menu", open);
+    burger.setAttribute("aria-expanded", String(open)); burger.setAttribute("aria-label", open ? T("Cerrar menú", "Close menu") : T("Abrir menú", "Open menu"));
+    document.body.style.overflow = open ? "hidden" : "";
+  }
+  burger.onclick = () => menu(!links.classList.contains("on"));
 
-  if (!window.gsap || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  let lenis = null;
+  if (!reduced && hasGsap && window.Lenis) {
+    lenis = new Lenis({ duration: 1.15, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: true });
+    lenis.on("scroll", ScrollTrigger.update); gsap.ticker.add((t) => lenis.raf(t * 1000)); gsap.ticker.lagSmoothing(0);
+  }
+  const goTo = (id, dur = 1.4) => { const el = document.getElementById(id); if (!el) return; const off = -nav.offsetHeight;
+    lenis ? lenis.scrollTo(el, { offset: off, duration: dur }) : scrollTo({ top: el.getBoundingClientRect().top + scrollY + off, behavior: reduced ? "auto" : "smooth" }); };
+  document.addEventListener("click", (e) => { const a = e.target.closest('a[href^="#"]'); if (!a) return; const id = a.getAttribute("href").slice(1); if (!id || !document.getElementById(id)) return; e.preventDefault(); menu(false); goTo(id); });
+
+  /* ——— Filas que se mueven solas y también a mano (igual que en diego-gasca) ——— */
+  $$(".tiles").forEach((row) => {
+    const items = [...row.children]; const n = items.length;
+    const step = () => { const t = row.children[1], f = row.children[0]; return t && f ? t.offsetLeft - f.offsetLeft : 300; };
+    let pos = 0, hover = false, focus = false, paused = 0, drag = null, moved = false;
+    $$(`[data-row="${row.id}"]`).forEach((b) => b.addEventListener("click", () => {
+      const dir = b.dataset.dir === "next" ? 1 : -1;
+      if (reduced) { row.scrollBy({ left: dir * step(), behavior: "auto" }); return; }
+      paused = Date.now() + 4000;
+      if (dir < 0 && row.scrollLeft < step()) row.scrollLeft += period();
+      pos = row.scrollLeft + dir * step(); row.scrollTo({ left: pos, behavior: "smooth" });
+    }));
+    const period = () => n * step();
+    if (reduced) return;
+    row.classList.add("loop");
+    const fill = () => { let g = 0; while (row.scrollWidth - row.clientWidth < period() + step() && g++ < 12)
+      items.forEach((el) => { const c = el.cloneNode(true); c.setAttribute("aria-hidden", "true"); c.tabIndex = -1; $$("a,button", c).forEach((x) => (x.tabIndex = -1)); row.appendChild(c); }); };
+    fill(); addEventListener("resize", fill);
+    const speed = 24;
+    row.addEventListener("mouseenter", () => (hover = true)); row.addEventListener("mouseleave", () => (hover = false));
+    row.addEventListener("focusin", () => (focus = true)); row.addEventListener("focusout", () => (focus = false));
+    row.addEventListener("touchstart", () => (paused = Date.now() + 3000), { passive: true });
+    row.addEventListener("wheel", (e) => { if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) paused = Date.now() + 2500; }, { passive: true });
+    row.addEventListener("pointerdown", (e) => { if (e.pointerType !== "mouse" || e.button) return; drag = { x: e.clientX, l: row.scrollLeft }; moved = false; row.classList.add("drag"); });
+    addEventListener("pointermove", (e) => { if (!drag) return; const dx = e.clientX - drag.x; if (Math.abs(dx) > 5) moved = true; if (drag.l - dx < 0) drag.l += period(); row.scrollLeft = drag.l - dx; pos = row.scrollLeft; });
+    addEventListener("pointerup", () => { if (!drag) return; drag = null; row.classList.remove("drag"); paused = Date.now() + 1500; });
+    row.addEventListener("click", (e) => { if (moved) { e.preventDefault(); e.stopPropagation(); moved = false; } }, true);
+    row.addEventListener("dragstart", (e) => e.preventDefault());
+    let vis = true; new IntersectionObserver(([e]) => (vis = e.isIntersecting)).observe(row);
+    let last = performance.now();
+    (function loop(now = performance.now()) {
+      const dt = Math.min(now - last, 100) / 1000; last = now;
+      if (vis && !hover && !focus && !drag && Date.now() > paused) { if (Math.abs(row.scrollLeft - pos) > 2) pos = row.scrollLeft; pos += speed * dt; row.scrollLeft = pos; }
+      else pos = row.scrollLeft;
+      if (pos >= period()) { pos -= period(); row.scrollLeft = pos; }
+      requestAnimationFrame(loop);
+    })();
+    row.addEventListener("scroll", () => { const per = period(); if (row.scrollLeft >= per) { row.scrollLeft -= per; pos = row.scrollLeft; } }, { passive: true });
+  });
+
+  /* ——— Música: reproductor oficial de Spotify con play y pausa ——— */
+  const sp = $("#spotify"), musicBtn = $("#musicBtn");
+  let spCtl = null, spLoading = false, wantPlay = false;
+  const setMusic = (on) => { musicBtn.classList.toggle("on", on); musicBtn.setAttribute("aria-pressed", String(on)); musicBtn.setAttribute("aria-label", on ? T("Pausar mi música", "Pause my music") : T("Escuchar mi música", "Play my music"));
+    $("#heroPlay").textContent = on ? T("Pausar", "Pause") : T("Escuchar ahora", "Listen now"); };
+  function loadSpotify() {
+    if (spCtl || spLoading) return; spLoading = true;
+    const holder = document.createElement("div"); sp.appendChild(holder);
+    window.onSpotifyIframeApiReady = (API) => API.createController(holder, { uri: `spotify:artist:${D.spotify}`, width: "100%", height: 152 }, (c) => {
+      spCtl = c; const f = sp.querySelector("iframe"); if (f) f.title = T("Escuchar en Spotify", "Listen on Spotify");
+      c.addListener("playback_update", (e) => setMusic(!e.data.isPaused));
+      c.addListener("ready", () => { if (wantPlay) { wantPlay = false; c.play(); } });
+    });
+    const s = document.createElement("script"); s.src = "https://open.spotify.com/embed/iframe-api/v1"; s.async = true;
+    s.onerror = () => { sp.innerHTML = `<a class="sp-fallback" href="https://open.spotify.com/artist/${D.spotify}" target="_blank" rel="noopener">${T("Escuchar en Spotify ↗", "Listen on Spotify ↗")}</a>`; };
+    document.head.appendChild(s);
+  }
+  new IntersectionObserver((es, o) => { if (es[0].isIntersecting) { loadSpotify(); o.disconnect(); } }, { rootMargin: "800px" }).observe(sp);
+  const toggleMusic = () => { if (spCtl) { spCtl.togglePlay(); return; } wantPlay = true; loadSpotify(); };
+  musicBtn.addEventListener("click", toggleMusic); $("#heroPlay").addEventListener("click", toggleMusic);
+
+  /* ——— Recorrido automático ——— */
+  const tourBtn = $("#tourBtn");
+  const STOPS = [
+    ["inicio", T("Prey Hunter: DJ y productor de Salsafro, desde Cali.", "Prey Hunter: Salsafro DJ and producer, from Cali.")],
+    ["musica", T("Lo más escuchado y mi música en Spotify.", "Most played and my music on Spotify.")],
+    ["tienda", T("Compra mi música en Bandcamp.", "Buy my music on Bandcamp.")],
+    ["booking", T("Lleva Prey Hunter a tu evento.", "Bring Prey Hunter to your event.")],
+    ["shows", T("Pistas llenas en Chile y Colombia.", "Packed floors in Chile and Colombia.")],
+    ["bio", T("De Cali para el mundo.", "From Cali to the world.")],
+    ["discografia", T("Mis lanzamientos.", "My releases.")],
+    ["prensa", T("Press kit con fotos oficiales.", "Press kit with official photos.")],
+    ["contacto", T("¿Hablamos? Escríbenos por WhatsApp.", "Let's talk: message us on WhatsApp.")],
+  ];
+  let tour = null;
+  const cap = document.createElement("div"); cap.className = "tour-cap"; cap.setAttribute("role", "status"); cap.setAttribute("aria-live", "polite"); cap.hidden = true;
+  cap.innerHTML = `<span class="tour-n"></span><p></p><button type="button">${T("Detener", "Stop")}</button>`; document.body.appendChild(cap);
+  function stopTour() { if (!tour) return; clearTimeout(tour.t); tour = null; cap.hidden = true; tourBtn.classList.remove("on"); }
+  function step(i) { if (!tour) return; if (i >= STOPS.length) return stopTour();
+    const [id, txt] = STOPS[i]; goTo(id, 1.6); cap.querySelector(".tour-n").textContent = `${i + 1}/${STOPS.length}`; cap.querySelector("p").textContent = txt; tour.t = setTimeout(() => step(i + 1), 5200); }
+  tourBtn.addEventListener("click", () => { if (tour) return stopTour(); tour = { t: 0 }; cap.hidden = false; tourBtn.classList.add("on"); step(0); });
+  cap.querySelector("button").addEventListener("click", stopTour);
+  ["wheel", "touchstart", "keydown"].forEach((ev) => addEventListener(ev, (e) => { if (tour && !(ev === "keydown" && e.target.closest(".tour-cap"))) stopTour(); }, { passive: true }));
+
+  /* ——— Tema (oscuro por defecto) ——— */
+  const themeBtn = $("#themeBtn");
+  const setTheme = (dark) => { document.documentElement.dataset.theme = dark ? "dark" : "light"; themeBtn.setAttribute("aria-pressed", String(dark));
+    themeBtn.setAttribute("aria-label", dark ? T("Modo claro", "Light mode") : T("Modo oscuro", "Dark mode")); try { localStorage.setItem("ph-theme", dark ? "dark" : "light"); } catch {} navState(); };
+  setTheme(document.documentElement.dataset.theme !== "light");
+  themeBtn.addEventListener("click", () => setTheme(document.documentElement.dataset.theme !== "dark"));
+
+  // Vercel Web Analytics (sin cookies): solo en el sitio publicado.
+  if (/\.vercel\.app$/.test(location.hostname)) { const s = document.createElement("script"); s.defer = true; s.src = "/_vercel/insights/script.js"; document.head.appendChild(s); }
+
+  /* ——— Animación ——— */
+  if (reduced || !hasGsap) return;
   gsap.registerPlugin(ScrollTrigger);
-  gsap.to(".hero-media img", { scale: 1, duration: 2.8, ease: "power2.out" });
-  gsap.to(".hero-media img", { yPercent: 14, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
-  gsap.from(".hero .reveal", { y: 60, opacity: 0, duration: 1.2, stagger: .12, ease: "power4.out", delay: .15 });
-  gsap.from(".stat", { y: 40, opacity: 0, duration: .9, stagger: .1, scrollTrigger: { trigger: "#stats", start: "top 85%" } });
-  gsap.from(".top .bar i", { scaleX: 0, duration: 1.4, stagger: .1, ease: "power3.out", scrollTrigger: { trigger: "#top5", start: "top 80%" } });
-  document.querySelectorAll(".sec-head, .booking-copy, .bio-copy").forEach((el) => gsap.from(el, { y: 50, opacity: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 85%" } }));
-  gsap.from(".show", { y: 40, opacity: 0, duration: .8, stagger: .08, scrollTrigger: { trigger: "#shows", start: "top 85%" } });
-  gsap.from(".gallery figure", { y: 60, opacity: 0, duration: .9, stagger: .06, scrollTrigger: { trigger: "#gallery", start: "top 85%" } });
-  gsap.fromTo(".bio-art img", { y: 80, rotate: -4 }, { y: -20, rotate: 0, ease: "none", scrollTrigger: { trigger: ".bio", scrub: true } });
+  const E = "expo.out", P = "power3.out";
+  gsap.from(".ph-hero-photo img", { scale: 1.08, opacity: 0, duration: 1.6, ease: E });
+  gsap.from(".ph-hero-copy > *", { y: 40, opacity: 0, duration: 1.1, stagger: .09, ease: E, delay: .15 });
+  $$(".big-head, .ph-k").forEach((h) => gsap.from(h, { y: 40, opacity: 0, duration: 1.1, ease: E, scrollTrigger: { trigger: h, start: "top 88%" } }));
+  $$(".tiles").forEach((t) => gsap.from($$(".tile:not([aria-hidden])", t), { y: 50, opacity: 0, duration: 1, stagger: .06, ease: E, scrollTrigger: { trigger: t, start: "top 88%" } }));
+  $$(".num, .ph-show, .fmt, .ph-logos img").forEach((el) => gsap.from(el, { y: 30, opacity: 0, duration: .9, ease: P, scrollTrigger: { trigger: el, start: "top 92%" } }));
+  gsap.fromTo(".ph-bio-art img", { y: 40, rotate: -3 }, { y: -20, rotate: 2, ease: "none", scrollTrigger: { trigger: ".ph-bio", start: "top bottom", end: "bottom top", scrub: true } });
+  gsap.fromTo(".ph-booking-photo img", { scale: 1.12 }, { scale: 1, ease: "none", scrollTrigger: { trigger: ".ph-booking", start: "top bottom", end: "bottom top", scrub: true } });
+  const rail = $("#reviews");
+  const revTw = gsap.to(rail, { x: () => -(rail.scrollWidth / 2), duration: 60, ease: "none", repeat: -1 });
+  rail.addEventListener("mouseenter", () => revTw.pause()); rail.addEventListener("mouseleave", () => revTw.resume());
+  rail.addEventListener("focusin", () => revTw.pause()); rail.addEventListener("focusout", () => revTw.resume());
+  addEventListener("load", () => { ScrollTrigger.refresh(); navState(); });
 })();

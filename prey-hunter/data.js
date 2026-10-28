@@ -1,11 +1,12 @@
-// Prey Hunter · sitio oficial y tienda. Datos del Cerebro Central (módulos 03, 06, 15) y de salsafro.bandcamp.com.
+// Prey Hunter · sitio oficial y tienda. Datos del Cerebro Central (módulos 03, 04, 06, 12, 15, 16) y de salsafro.bandcamp.com.
 // Regla del Cerebro: solo cifras verificadas; las tarifas de booking no se publican (se cotizan por evento).
 const BC = "https://salsafro.bandcamp.com/track/";
 window.PH = {
   brand: "Prey Hunter",
   email: "prey-hunter-oficial@hotmail.com",
-  whatsapp: "", // solo dígitos con indicativo; vacío = las solicitudes se envían por correo
-  eco: { diego: "https://diego-gasca.vercel.app", salsafro: "https://salsafro.vercel.app", cartel: "https://cartel-music.vercel.app" }, // enlaces a los otros sitios del ecosistema (se llenan al publicar)
+  whatsapp: "573163136529", // WhatsApp de booking y preguntas (Cerebro, módulo 12)
+  spotify: "7HWCje6tPWnHnBHxXiwrsM",
+  eco: { diego: "https://diego-gasca.vercel.app", salsafro: "https://salsafro.vercel.app", cartel: "https://cartel-music.vercel.app" },
 
   links: [
     ["Spotify", "https://open.spotify.com/artist/7HWCje6tPWnHnBHxXiwrsM"],
@@ -17,8 +18,8 @@ window.PH = {
     ["TikTok", "https://www.tiktok.com/@prey_hunter_oficial"],
     ["Bandcamp", "https://salsafro.bandcamp.com"],
   ],
-  playlist: "https://open.spotify.com/playlist/37i9dQZF1DZ06evO4z6IAt",
 
+  // [valor, etiqueta, fuente]
   stats: [
     ["410.117", "Oyentes mensuales en Spotify", "Viberate · oct 2026"],
     ["62,2 M", "Reproducciones verificadas", "MUSO.AI · todas las plataformas"],
@@ -26,10 +27,13 @@ window.PH = {
     ["292.921", "Shazams", "Histórico"],
   ],
 
-  latest: { title: "Modelo de Gym", date: "16 oct 2026", type: "Single", note: "El lanzamiento más reciente de Prey Hunter." },
-
+  // Lo más escuchado (mismas cifras que el sitio de Diego Gasca). [cifra, unidad, canción, detalle, carátula]
   top: [
-    ["I Like It", 49436256], ["Vacaciones Con Pablo", 3051785], ["Antava", 2260645], ["Karely", 2184415], ["Lele", 1235791],
+    ["+17 M", "reproducciones en Spotify", "I Like It", "Felipe Vasquez Dj, Prey Hunter, Disoft · 2022", "i-like-it"],
+    ["+3 M", "reproducciones", "Vacaciones Con Pablo", "Prey Hunter · 2025", "vacaciones-con-pablo"],
+    ["+2,2 M", "reproducciones", "Antava", "Disoft feat. Prey Hunter · 2023", "antava"],
+    ["+2,1 M", "reproducciones", "Karely", "Cartel Music · 2023", "karely"],
+    ["+1,2 M", "reproducciones", "Lele", "Felipe Vasquez Dj feat. Disoft, Prey Hunter · 2023", "lele"],
   ],
 
   // Tienda: canciones a la venta en Bandcamp (precio mínimo en USD, puedes pagar más)
@@ -53,21 +57,37 @@ window.PH = {
   ].map((s) => ({ ...s, url: BC + s.id, img: `img/bc/${s.id}.jpg` })),
 
   booking: [
-    { id: "ph-60", t: "DJ set · 60 min", d: "Afro House, House y Tech House para club o festival." },
+    { id: "ph-60", t: "DJ set · 60 min", d: "Salsafro para club o festival." },
     { id: "ph-90", t: "DJ set · 90 min", d: "El formato más pedido para noches de club." },
-    { id: "ph-120", t: "DJ set extendido · 120 min", d: "Viaje completo de warm-up a cierre." },
-    { id: "ph-pampara", t: "Set temático «La Pampara»", d: "La firma de Prey Hunter: energía de club con raíz colombiana." },
+    { id: "ph-120", t: "DJ set extendido · 120 min", d: "Viaje completo, del warm-up al cierre." },
+    { id: "ph-salsafro", t: "Salsafro con percusión en vivo", d: "DJ set con percusionista del Pacífico en tarima." },
   ],
 
-  shows: [["Chile", 10000], ["Colombia", 5000], ["Cali", 3000], ["Legendary", 1000], ["Pradera", 300], ["Rozo", 200]],
+  // Asistencia declarada por el artista en sus shows destacados.
+  shows: [["Chile", "10.000"], ["Colombia", "8.000"]],
 
+  // Lanzamientos con portada oficial (Deezer). [título, año, tipo, carátula]
   discography: [
-    ["Modelo de Gym", "2026", "Single"], ["Mamaxxxita", "2026", "Single"], ["No la Bese", "2026", "Single"], ["Las P", "2026", "Single"],
-    ["Miedo", "2026", "Single"], ["Mañana", "2026", "Single"], ["Afrochavate", "2026", "Single"], ["Golden Boy", "2026", "Álbum · 17 temas"],
-    ["Serenno", "2026", "Álbum · 11 temas"], ["Gózalo", "2026", "Single"], ["Pájaro Amarillo", "2026", "Single"], ["Origen de los Tambores", "2025", "EP · 5 temas"],
-    ["La Pampara de Colombia", "2025", "Álbum"], ["Vacaciones Con Pablo", "2025", "Single"], ["ASHO BABY", "2024", "Single"], ["Hey Mambo", "2024", "Single"],
-    ["Antava", "2023", "Single"], ["Lele", "2023", "Single"], ["Karely", "2023", "Single"], ["I Like It", "2022", "Single"],
+    ["Golden Boy", "2026", "Álbum · 17 temas", "golden-boy"], ["Serenno", "2026", "Álbum · 11 temas", "serenno"],
+    ["AFROVICHIS", "2026", "Single", "afrovichis"], ["La Fuga", "2026", "Single", "la-fuga"],
+    ["Origen de los Tambores", "2025", "EP · 5 temas", "origen-de-los-tambores"], ["La Pampara de Colombia", "2025", "Álbum debut", "la-pampara-de-colombia"],
+    ["Prende Ese Fili", "2025", "Single", "prende-ese-fili"], ["Una Noche", "2025", "Single", "una-noche"], ["UKI-U", "2025", "Single", "uki-u"],
+    ["Vacaciones Con Pablo", "2025", "Single", "vacaciones-con-pablo"], ["Hey Mambo", "2024", "Single", "hey-mambo"], ["Ah Che Che", "2024", "Single", "ah-che-che"],
+    ["Afro Killer", "2024", "Single", "afro-killer"], ["Antava", "2023", "Single", "antava"], ["Lele", "2023", "Single", "lele"],
+    ["Karely", "2023", "Single", "karely"], ["I Like It", "2022", "Single", "i-like-it"], ["Show Look At Me Now", "2021", "Single", "show-look-at-me-now"],
   ],
 
-  gallery: ["img/press-15.webp", "img/press-06.webp", "img/live-03.webp", "img/press-16.webp", "img/press-09.webp", "img/live-05.webp", "img/press-17.webp", "img/press-04.webp"],
+  // Press kit: fotos oficiales (la versión de 480 px se usa en la fila; la original se descarga).
+  gallery: ["press-17", "press-15", "press-04", "press-16", "live-03", "press-06", "live-05", "press-09"],
+
+  // Comentarios reales del público en YouTube (canal oficial).
+  reviews: [
+    { a: "@eliotmarileo-r5x", t: "Me tele transporte a otra dimensión con esta musica uuff placer amis oídos", v: "Afro House & Salsafro · Live Set 2026", id: "2kk2d5GUxXE", c: "UgxPN9Yh33P-6dGRr5d4AaABAg", d: "sep 2026" },
+    { a: "@DJ5IMER", t: "El rey del tambor el q comanda el mero viaje, un agrado conocerlo y escuchar su buena música manito puro éxito y bendiciones para usted", v: "Scarface · Visualizer", id: "YUVgJx4vkDI", c: "UgyanT1hLowvpU9KP394AaABAg", d: "may 2026" },
+    { a: "@SAMUEL_CALERO_DJ_PD", t: "Salsafro lo mejor que pudieron haber hecho en esta vida", v: "Capaz · ft Felix CR", id: "0mAJgAFQ6ts", c: "UgzsIIb8T_VV3H5YBJJ4AaABAg", d: "ago 2025" },
+    { a: "@pdctmas", t: "El Mejor Sin Duda Alguna.", v: "Live Set", id: "zjkkn_6GbDI", c: "UgwM2jxb1k2PwK0qMNJ4AaABAg", d: "jul 2025" },
+    { a: "@TashiandAngel", t: "I heard 10 seconds of this song on a youtube commercial and was on the search for this song! Love it! It reminds me of the 80's and 90's club music. Much love from USA", v: "Relaxxx", id: "uwXf-HbBuZc", c: "UgxtcbnpsbT704Sawvt4AaABAg", d: "ago 2025" },
+    { a: "@joeespinoza09", t: "Me encanta correr con esta canción", v: "Scarface · Visualizer", id: "YUVgJx4vkDI", c: "UgyYw0F9E2_a4EGG32N4AaABAg", d: "oct 2026" },
+    { a: "@el_pollocl6803", t: "Temazoooo espero escucharlo en vivo", v: "Dentro De Mi", id: "lhEn-nzkxMQ", c: "UgwKNwuJk-YGnQOgz314AaABAg", d: "abr 2026" },
+  ],
 };
