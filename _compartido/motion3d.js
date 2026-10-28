@@ -41,7 +41,7 @@
       el.classList.add("m3d-tilt");
     });
     /* Botones magnéticos solo en la portada (uno o dos puntos focales) */
-    $$("[data-3d] .btn").forEach((b) => {
+    $$("[data-hero] .btn").forEach((b) => {
       const x = gsap.quickTo(b, "x", { duration: .6, ease: "elastic.out(1,0.4)" }), y = gsap.quickTo(b, "y", { duration: .6, ease: "elastic.out(1,0.4)" });
       b.addEventListener("pointermove", (ev) => { const r = b.getBoundingClientRect(); x((ev.clientX - r.left - r.width / 2) * .3); y((ev.clientY - r.top - r.height / 2) * .3); });
       b.addEventListener("pointerleave", () => { x(0); y(0); });
@@ -49,8 +49,8 @@
   }
 
   /* Profundidad: la foto de portada se aleja al bajar */
-  $$("[data-3d] .ph-hero-photo img").forEach((img) =>
-    gsap.to(img, { yPercent: 8, scale: 1.06, ease: "none", scrollTrigger: { trigger: img.closest("[data-3d]"), start: "top top", end: "bottom top", scrub: true } }));
+  $$("[data-hero] .ph-hero-photo img").forEach((img) =>
+    gsap.to(img, { yPercent: 8, scale: 1.06, ease: "none", scrollTrigger: { trigger: img.closest("[data-hero]"), start: "top top", end: "bottom top", scrub: true } }));
 
   /* ——— Escena 3D de la portada ——— */
   const hero = document.querySelector("[data-3d]");
