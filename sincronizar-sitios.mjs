@@ -52,7 +52,7 @@ try {
   if (!VERCEL) { log(`falta la herramienta de Vercel (.herramientas): no se publicó ${cambiados.join(", ")}`); process.exit(1); }
   for (const s of cambiados) {
     try {
-      const out = execFileSync(process.execPath, [VERCEL, "deploy", path.join(root, s), "--prod", "--yes"], { cwd: root, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"], timeout: 300000 });
+      const out = execFileSync(process.execPath, [VERCEL, "deploy", "./" + s, "--prod", "--yes"], { cwd: root, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"], timeout: 300000 });
       state[s] = head; fs.writeFileSync(STATE, JSON.stringify(state, null, 1));
       log(`publicado ${s} → ${(out.match(/https:\/\/[^\s"]+\.vercel\.app/g) || []).pop() || "ok"}`);
     } catch (e) { console.error(`[sitios ${stamp}] no se pudo publicar ${s}: ${(e.stderr || e.message || "").toString().slice(0, 300)}`); }
