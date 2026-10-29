@@ -1,11 +1,12 @@
 // Función «club» de Supabase: guarda los registros del club de diego-gasca.vercel.app.
 // Usa la llave de servicio que Supabase inyecta en el entorno de la función (no hay claves en el sitio).
+// v6 (29/10/2026): suma los cinco sitios nuevos (sample pack, ghost, trading, GTA VI LAB y tiendas).
 // v5 (28/10/2026): también recibe el club de prey-hunter, cartel-music y salsafro (la columna origen dice de qué sitio viene).
 // v4 (26/10/2026): v3 + correo de bienvenida opcional. v3: exige Origin y limita a 5 envíos cada 10 minutos por huella de IP.
 // El límite se guarda en la tabla club_rate con un hash SHA-256 de la IP (nunca la IP) y se borra a las 24 h.
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 
-const BRANDS: Record<string, string> = { "https://diego-gasca.vercel.app": "Diego Gasca", "https://prey-hunter.vercel.app": "Prey Hunter", "https://cartel-music.vercel.app": "Cartel Music", "https://salsafro.vercel.app": "Salsafro", "http://localhost:5510": "Diego Gasca" };
+const BRANDS: Record<string, string> = { "https://diego-gasca.vercel.app": "Diego Gasca", "https://prey-hunter.vercel.app": "Prey Hunter", "https://cartel-music.vercel.app": "Cartel Music", "https://salsafro.vercel.app": "Salsafro", "https://salsafro-sample-pack.vercel.app": "Salsafro Sample Pack", "https://salsafro-ghost-producer.vercel.app": "Salsafro Ghost Producer", "https://cartel-trading.vercel.app": "Cartel Trading", "https://gta-vi-lab.vercel.app": "GTA VI LAB", "https://tiendas-diego-gasca.vercel.app": "Tiendas Diego Gasca", "http://localhost:5510": "Diego Gasca" };
 const ORIGINS = Object.keys(BRANDS);
 const TIPOS = ["Fan", "Cliente", "Prensa o aliado"];
 const LIMIT = 5, WINDOW_MIN = 10;

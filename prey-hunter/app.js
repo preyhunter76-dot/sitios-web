@@ -43,6 +43,10 @@
   fill("services", D.services && D.services.map(([t, d]) => `<article class="tile svc-c"><b>${esc(t)}</b><p>${esc(d)}</p></article>`).join(""));
   fill("delivery", D.delivery && D.delivery.map(([t, d]) => `<li><b>${esc(t)}</b><span>${esc(d)}</span></li>`).join(""));
   fill("chars", D.chars && D.chars.map(([src, alt, pos]) => `<figure class="tile char"><img src="${src}" alt="${esc(alt)}" loading="lazy" decoding="async" style="object-position:${pos || "50% 30%"}"></figure>`).join(""));
+  // Tiendas del ecosistema: tarjeta con foto, estado y enlace
+  fill("shops", D.shops && D.shops.map((x) => `<a class="tile prod shop" href="${x.url}" target="_blank" rel="noopener">
+    <img src="${x.img}" width="350" height="350" alt="" loading="lazy" decoding="async"><span class="prod-tag">${esc(x.tag)}</span>
+    <span class="prod-in"><b>${esc(x.t)}</b><em>${esc(x.d)}</em><u>${T("Visitar", "Visit")} ↗</u></span></a>`).join(""));
   // Casos reales, servicios (sin precios) y beneficios del club
   fill("cases", D.cases && D.cases.map((c) => `<article class="case" style="--c:${c.color}"><header><span class="case-tag">${esc(c.tag)}</span><h3>${esc(c.name)}</h3><p>${esc(c.lead)}</p></header>
     <div class="case-kpis">${c.kpis.map(([n, l]) => `<div><b>${esc(n)}</b><span>${esc(l)}</span></div>`).join("")}</div>

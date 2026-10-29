@@ -4,3 +4,5 @@ _capturas/
 node_modules/
 .env*
 *.log
+.herramientas/
+.ultimo-despliegue.json
