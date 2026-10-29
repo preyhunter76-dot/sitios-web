@@ -38,6 +38,9 @@ function sitio(c) {
   fs.mkdirSync(path.join(dir, "img"), { recursive: true });
   for (const f of COMUNES) fs.copyFileSync(path.join(BASE, f), path.join(dir, f));
   fs.copyFileSync(path.join(R, "prey-hunter/img/clover.webp"), path.join(dir, "img/clover.webp"));
+  // Archivos propios del sitio (por ejemplo, el sistema de Cartel Trading): _plantilla/<carpeta>/ se copia tal cual
+  const own = path.join(R, "_plantilla", c.folder);
+  if (fs.existsSync(own)) fs.cpSync(own, dir, { recursive: true });
   for (const [dest, src] of Object.entries(c.images)) {
     const from = src.startsWith("cerebro:") ? path.join(CEREBRO, src.slice(8)) : path.join(R, src);
     fs.mkdirSync(path.dirname(path.join(dir, "img", dest)), { recursive: true });
@@ -62,6 +65,13 @@ function sitio(c) {
   const kEN = (k) => { const nn = String(n).padStart(2, "0"); EN[`${nn} · ${k[0]}`] = `${nn} · ${k[1]}`; };
   const arrows = (row) => `<div class="row-arrows"><button type="button" data-row="${row}" data-dir="prev" aria-label="Anterior">←</button><button type="button" data-row="${row}" data-dir="next" aria-label="Siguiente">→</button></div>`;
   const S = {
+    raw: (s) => { const k = kick(s.k); kEN(s.k); return `<section class="${s.cls || "rowsec"}" id="${s.id}">
+  <div class="row-head">
+    <div><p class="ph-k">${k}</p><h2 class="big-head light">${L(s.t)}</h2></div>
+    ${s.p ? `<p>${L(s.p)}</p>` : ""}
+  </div>
+  ${s.html}
+</section>`; },
     tiles: (s) => { const k = kick(s.k); kEN(s.k); return `<section class="rowsec${s.dark ? " dark" : ""}" id="${s.id}">
   <div class="row-head">
     <div><p class="ph-k">${k}</p><h2 class="big-head${s.dark ? " light" : ""}">${L(s.t)}</h2></div>
@@ -136,7 +146,8 @@ ${s.chips.map((ch, i) => `      <label><input type="checkbox" name="intereses" v
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Inter+Tight:wght@600;700;800;900&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="img/${h.img}">
 <link rel="stylesheet" href="solicitud.css">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css">${(c.css || []).map((f) => `
+<link rel="stylesheet" href="${f}">`).join("")}
 <style>.ph{--pink:${c.color};--m3d:${c.color}}.ph-note{margin-top:clamp(28px,3vw,44px);max-width:70ch;font-size:13px;line-height:1.6;color:var(--steel)}.shop .prod-tag{background:var(--pink);color:#0b0b0b}.ph-brand-txt{font:900 clamp(18px,1.6vw,22px)/1 var(--display);letter-spacing:-.03em;text-transform:uppercase}.ph-brand-txt em{font-style:normal;color:var(--pink)}</style>
 </head>
 <body class="ph">
@@ -151,8 +162,8 @@ ${s.chips.map((ch, i) => `      <label><input type="checkbox" name="intereses" v
     <button type="button" class="tgl" id="tourBtn" aria-label="Recorrido por la página">${ICON.tour}</button>
     <button type="button" class="tgl" id="musicBtn" aria-label="Escuchar mi música" aria-pressed="false">${ICON.music}</button>
     <a class="tgl wa" id="waBtn" href="#" target="_blank" rel="noopener" aria-label="Preguntas por WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11 11 0 0 0 3.2 17.1L2 22l5-1.3A11 11 0 0 0 20.5 3.5zM12 20a8.9 8.9 0 0 1-4.6-1.3l-.3-.2-3 .8.8-2.9-.2-.3A9 9 0 1 1 12 20z" fill="currentColor" stroke="none"/></svg><span>Preguntas</span></a>
-    <button type="button" class="tgl" id="langBtn" aria-label="Ver en inglés" translate="no">EN</button>
-    <button type="button" class="tgl" id="themeBtn" aria-label="Modo claro" aria-pressed="true">${ICON.theme}</button>
+${c.noLang ? "" : `    <button type="button" class="tgl" id="langBtn" aria-label="Ver en inglés" translate="no">EN</button>
+`}    <button type="button" class="tgl" id="themeBtn" aria-label="Modo claro" aria-pressed="true">${ICON.theme}</button>
     <a href="${c.navCta[0] === "wa" ? "#" : c.navCta[0]}" class="nav-cta${c.navCta[0] === "wa" ? " wa-link" : ""}"${c.navCta[0] === "wa" ? ' target="_blank" rel="noopener"' : ""}>${L(c.navCta[1])}</a>
     <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false"><span></span><span></span></button>
   </div>
@@ -212,7 +223,8 @@ ${body}
 <script src="i18n-dict.js"></script>
 <script src="i18n.js"></script>
 <script src="app.js"></script>
-<script src="motion3d.js"></script>
+<script src="motion3d.js"></script>${(c.scripts || []).map((f) => `
+<script src="${f}"></script>`).join("")}
 </body>
 </html>
 `;
