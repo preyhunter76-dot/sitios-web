@@ -23,7 +23,7 @@ const COMUNES = { "_plantilla/": ["salsafro-sample-pack", "salsafro-ghost-produc
 const SECRET = /(AIza[0-9A-Za-z_-]{30,}|sk-(ant-)?[A-Za-z0-9_-]{20,}|gsk_[A-Za-z0-9]{30,}|ghp_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{30,}|xox[abp]-[0-9A-Za-z-]{20,}|shpat_[a-f0-9]{20,}|[rs]k_live_[A-Za-z0-9]{20,}|-----BEGIN [A-Z ]*PRIVATE KEY-----)/;
 const FORBIDDEN = /(^|\/)(\.env(\..*)?|vault\.key|integrations\.json|brain-state\.json)$/;
 const STATE = path.join(root, ".ultimo-despliegue.json");
-const VERCEL = [path.join(root, ".herramientas/node_modules/vercel/dist/index.js")].find((p) => fs.existsSync(p));
+const VERCEL = [path.join(root, ".herramientas/node_modules/vercel/dist/index.js"), "C:/Users/Prey Hunter/AppData/Local/Temp/claude/G--SALSAFRO/0f1a12a6-9831-4637-ba32-503f7af79f9c/scratchpad/vc/node_modules/vercel/dist/index.js"].find((p) => fs.existsSync(p));
 
 try {
   // 1) Guardar
