@@ -90,7 +90,7 @@ export const SITIOS = [
 
   // ——— Cartel Trading ———
   {
-    folder: "cartel-trading", key: "ct", brand: "Cartel Trading", color: "#E8C872", logo: "Cartel <em>Trading</em>", noLang: true, css: ["trading.css"], scripts: ["intel.js", "trading.js"],
+    folder: "cartel-trading", key: "ct", brand: "Cartel Trading", color: "#E8C872", logo: "Cartel <em>Trading</em>", noLang: true, css: ["trading.css"], scripts: ["intel.js", "riesgo.js", "trading.js"],
     title: ["Cartel Trading · El proyecto de trading de Diego Gasca", "Cartel Trading · Diego Gasca's trading project"],
     desc: ["Cartel Trading, el proyecto de trading de Diego Gasca: método, disciplina, journal y gestión del riesgo. Contenido educativo, no asesoría financiera.", "Cartel Trading, Diego Gasca's trading project: method, discipline, journal and risk management. Educational content, not financial advice."],
     wa: WA("Hola, quiero información de Cartel Trading.", "Hi, I'd like information about Cartel Trading."),

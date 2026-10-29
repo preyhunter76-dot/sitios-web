@@ -101,3 +101,30 @@ ol.ct-list li::before{counter-increment:n;content:counter(n);width:auto;height:a
 [data-theme="light"] .ct-facts b,[data-theme="light"] .ct-card h4,[data-theme="light"] .ct-table th,[data-theme="light"] .ct-events time{color:#9a7414}
 @media (max-width:1000px){.ct-grid{grid-template-columns:1fr 1fr}.ct-card.wide{grid-column:1/-1}}
 @media (max-width:640px){.ct-grid,.ct-cols{grid-template-columns:1fr}.ct-bars li{grid-template-columns:1fr 60px auto}.ct-asset dl{grid-template-columns:1fr 1fr}.ct-table{font-size:12px}}
+/* Plan de riesgo */
+.rk-form{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.rk-f{display:grid;gap:6px;font-size:13px;font-weight:600}
+.rk-f input,.rk-f select{background:#0e0e0e;border:1px solid rgba(255,255,255,.16);color:#fff;border-radius:8px;padding:11px 12px;font:600 15px var(--sans,Inter);width:100%}
+.rk-f input:focus,.rk-f select:focus{outline:2px solid var(--pink);outline-offset:1px}
+.rk-f small{font-weight:400;font-size:12px;color:#8f8d88}
+.rk-c{grid-column:span 3;display:flex;gap:10px;align-items:center;font-size:13.5px}
+.rk-c input{width:18px;height:18px;accent-color:var(--pink)}
+.rk-actions{grid-column:span 3;display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+.rk-kv{display:grid;gap:10px}
+.rk-kv div{display:grid;gap:2px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.07)}
+.rk-kv dt{font-size:12px;color:#8f8d88}.rk-kv dd{font:800 18px var(--display)}
+.rk-warn{list-style:none;display:grid;gap:6px;margin-top:12px}
+.rk-warn li{font-size:13px;color:#ffb3b3;border-left:2px solid #ff6b6b;padding-left:10px}
+.rk-ok{margin-top:12px;color:#3ddc97!important;font-weight:700}
+.rk-calc{grid-template-columns:repeat(3,1fr)}
+.rk-size{margin-top:14px;padding:14px;border-radius:8px;background:rgba(232,200,114,.08)}
+.rk-size b{display:block;font:900 26px var(--display);color:var(--pink)}
+.rk-size span{display:block;font-size:13.5px;color:#cfcdc8;margin-top:4px}
+.rk-streak{list-style:none;display:grid;gap:8px}
+.rk-streak li{display:grid;grid-template-columns:1fr auto;gap:4px 10px;font-size:13.5px}
+.rk-streak i{grid-column:1/-1;display:block;height:6px;border-radius:3px;background:rgba(255,255,255,.06);position:relative;overflow:hidden}
+.rk-streak i::after{content:"";position:absolute;inset:0;width:var(--w);background:var(--pink)}
+[data-theme="light"] .rk-f input,[data-theme="light"] .rk-f select{background:#fff;color:#111;border-color:rgba(0,0,0,.2)}
+[data-theme="light"] .rk-size span{color:#3a3936}
+@media (max-width:900px){.rk-form,.rk-calc{grid-template-columns:1fr 1fr}.rk-c,.rk-actions{grid-column:1/-1}}
+@media (max-width:560px){.rk-form,.rk-calc{grid-template-columns:1fr}}

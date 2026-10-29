@@ -40,7 +40,7 @@
       ${card("Plataformas revisadas", `<ul class="ct-plat">${T.platforms.map((p) => `<li data-risk="${esc(p.risk)}"><b>${esc(p.name)}</b><span>${esc(p.use)}</span><p>${esc(p.note)}</p></li>`).join("")}</ul>`, "wide")}
       ${card("Lo que hay que saber", facts(T.facts) + `<p class="ct-src">${T.sourcesUrl.map((s) => `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.label)} ↗</a>`).join(" · ")}</p>`)}
       ${card("Mercados de interés", chips(T.interests))}
-      ${card("Reglas personales (por definir)", list(T.rules) + `<p class="ct-src">Estado: ${esc(T.status)}.</p>`)}
+      ${card("Reglas personales", list(T.rules) + `<p class="ct-src">Estado: ${esc(T.status)}.</p><p><button type="button" class="btn btn-light" data-ct-tab="riesgo">Armar mi plan de riesgo</button></p>`)}
     </div>`;
   }
 
@@ -121,13 +121,13 @@
   function log() {
     return `<div class="ct-grid">
       ${card("Journal de operaciones", `<p class="ct-empty">Sin operaciones registradas todavía.</p><p>Cada operación se anota en el journal con fecha, activo, setup, entrada, stop, objetivo, resultado y aprendizaje. Los resultados se publican aquí solo cuando estén verificados en Myfxbook.</p>`, "wide")}
-      ${card("Reglas que faltan antes de operar", list(T.rules))}
+      ${card("Reglas antes de operar", list(T.rules) + '<p><button type="button" class="btn btn-light" data-ct-tab="riesgo">Armar mi plan de riesgo</button></p>')}
       ${card("Bot de trading · en diseño", `<p>El siguiente paso es automatizar el método: leer datos, aplicar las reglas y avisar cuando se cumplan las condiciones. Primero se prueban las reglas en FX Replay; sin reglas probadas, no hay bot.</p><p class="ct-note">El bot será una herramienta de estudio y alertas. Ofrecer gestión de dinero o recomendaciones a terceros en Colombia requiere autorización de la Superintendencia Financiera.</p>`)}
     </div>`;
   }
 
   /* ——— Pestañas ——— */
-  const TABS = [["desk", "Mesa de trading", desk], ["thesis", "Tesis temática", thesis], ["universe", "Universo de activos", () => universe("Temática")], ["crypto", "Cripto y dinero digital", crypto], ["portfolios", "Carteras modelo", portfolios], ["method", "Alertas y método", method], ["log", "Registro", log]];
+  const TABS = [["desk", "Mesa de trading", desk], ["riesgo", "Plan de riesgo", () => (window.CT_RIESGO ? CT_RIESGO.html() : "")], ["thesis", "Tesis temática", thesis], ["universe", "Universo de activos", () => universe("Temática")], ["crypto", "Cripto y dinero digital", crypto], ["portfolios", "Carteras modelo", portfolios], ["method", "Alertas y método", method], ["log", "Registro", log]];
   let current = (() => { try { return localStorage.getItem("ct-tab") || "desk"; } catch { return "desk"; } })();
   if (!TABS.some((t) => t[0] === current)) current = "desk";
   root.innerHTML = `<nav class="ct-tabs" role="tablist" aria-label="Secciones del sistema">${TABS.map(([id, label]) => `<button role="tab" data-tab="${id}" aria-selected="false">${label}</button>`).join("")}</nav><div class="ct-panel" role="tabpanel"></div>
@@ -157,9 +157,11 @@
       panel.querySelectorAll(".ct-filter button").forEach((x) => x.toggleAttribute("data-on", x === b));
       panel.querySelectorAll(".ct-asset").forEach((a) => (a.hidden = b.dataset.f !== "all" && a.dataset.theme !== b.dataset.f));
     }));
+    if (id === "riesgo" && window.CT_RIESGO) CT_RIESGO.bind(panel);
     paintLive(); paintCal();
   }
+  root.addEventListener("rk-reset", () => show("riesgo"));
   root.querySelector(".ct-tabs").addEventListener("click", (e) => { const b = e.target.closest("button[data-tab]"); if (b) show(b.dataset.tab); });
-  document.querySelectorAll("[data-ct-tab]").forEach((a) => a.addEventListener("click", () => show(a.dataset.ctTab)));
+  document.addEventListener("click", (e) => { const a = e.target.closest("[data-ct-tab]"); if (a) { show(a.dataset.ctTab); root.scrollIntoView({ behavior: "smooth" }); } });
   show(current);
 })();
