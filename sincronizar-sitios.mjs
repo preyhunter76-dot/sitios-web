@@ -16,11 +16,14 @@ const log = (m) => console.log(`[sitios ${stamp}] ${m}`);
 
 // Sitios que se publican (carpeta = proyecto de Vercel)
 const SITIOS = ["diego-gasca", "prey-hunter", "cartel-music", "salsafro", "coffee-blue",
-  "salsafro-sample-pack", "salsafro-ghost-producer", "cartel-trading", "gta-vi-lab", "tiendas-diego-gasca"];
+  "salsafro-sample-pack", "salsafro-ghost-producer", "cartel-trading", "gta-vi-lab", "tiendas-diego-gasca",
+  // Tiendas de «Otros negocios» (misma tienda del Cerebro, _plantilla/crear-tiendas.mjs)
+  "la-pampara-shop", "volta-tienda", "lume-tienda", "norte-tienda", "casa-ambar-tienda", "pulso-tienda", "huella-tienda", "ruta-tienda",
+  "sarten-co-tienda", "cerebro-apps", "cerebro-labs", "academia-cerebro", "plantillas-pro-tienda", "casa-gm-tienda", "visor-gafas"];
 // Cambios en estas carpetas afectan a todos los sitios generados o compartidos
 const COMUNES = { "_plantilla/": ["salsafro-sample-pack", "salsafro-ghost-producer", "cartel-trading", "gta-vi-lab", "tiendas-diego-gasca"] };
 
-const SECRET = /(AIza[0-9A-Za-z_-]{30,}|sk-(ant-)?[A-Za-z0-9_-]{20,}|gsk_[A-Za-z0-9]{30,}|ghp_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{30,}|xox[abp]-[0-9A-Za-z-]{20,}|shpat_[a-f0-9]{20,}|[rs]k_live_[A-Za-z0-9]{20,}|-----BEGIN [A-Z ]*PRIVATE KEY-----)/;
+const SECRET = /(AIza[0-9A-Za-z_-]{30,}|(?<![A-Za-z0-9])sk-(ant-)?[A-Za-z0-9_-]{20,}|gsk_[A-Za-z0-9]{30,}|ghp_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{30,}|xox[abp]-[0-9A-Za-z-]{20,}|shpat_[a-f0-9]{20,}|[rs]k_live_[A-Za-z0-9]{20,}|-----BEGIN [A-Z ]*PRIVATE KEY-----)/;
 const FORBIDDEN = /(^|\/)(\.env(\..*)?|vault\.key|integrations\.json|brain-state\.json)$/;
 const STATE = path.join(root, ".ultimo-despliegue.json");
 const VERCEL = [path.join(root, ".herramientas/node_modules/vercel/dist/index.js"), "C:/Users/Prey Hunter/AppData/Local/Temp/claude/G--SALSAFRO/0f1a12a6-9831-4637-ba32-503f7af79f9c/scratchpad/vc/node_modules/vercel/dist/index.js"].find((p) => fs.existsSync(p));
@@ -30,6 +33,12 @@ const CEREBRO = path.resolve(root, "../cerebro"), TSX = path.join(CEREBRO, "node
 if (fs.existsSync(TSX)) {
   try { execFileSync(process.execPath, [TSX, "scripts/exportar-trading.mts"], { cwd: CEREBRO, stdio: "ignore", timeout: 120000 }); }
   catch { console.error(`[sitios ${stamp}] no se pudo exportar Cartel Trading (se publica la última versión)`); }
+  // Tiendas: se recompilan desde el Cerebro (src/stores). Si nada cambió, los archivos quedan idénticos y no se publica nada.
+  const VITE = path.join(CEREBRO, "node_modules/vite/bin/vite.js");
+  try {
+    execFileSync(process.execPath, [VITE, "build", "--config", "vite.tiendas.config.ts", "--logLevel", "error"], { cwd: CEREBRO, stdio: "ignore", timeout: 300000 });
+    execFileSync(process.execPath, [path.join(root, "_plantilla/crear-tiendas.mjs")], { cwd: root, stdio: "ignore", timeout: 120000 });
+  } catch { console.error(`[sitios ${stamp}] no se pudieron recompilar las tiendas (se publica la última versión)`); }
 }
 
 try {
