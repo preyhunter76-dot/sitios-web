@@ -135,6 +135,11 @@ window.PH = {
    "Cartel Trading: focus, plan and execution."
   ],
   [
+   "sistema",
+   "El sistema completo, con precios en vivo.",
+   "The full system, with live prices."
+  ],
+  [
    "metodo",
    "El método, paso a paso.",
    "The method, step by step."

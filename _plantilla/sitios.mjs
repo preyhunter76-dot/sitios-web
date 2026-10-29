@@ -90,16 +90,16 @@ export const SITIOS = [
 
   // ——— Cartel Trading ———
   {
-    folder: "cartel-trading", key: "ct", brand: "Cartel Trading", color: "#E8C872", logo: "Cartel <em>Trading</em>",
+    folder: "cartel-trading", key: "ct", brand: "Cartel Trading", color: "#E8C872", logo: "Cartel <em>Trading</em>", noLang: true, css: ["trading.css"], scripts: ["intel.js", "trading.js"],
     title: ["Cartel Trading · El proyecto de trading de Diego Gasca", "Cartel Trading · Diego Gasca's trading project"],
     desc: ["Cartel Trading, el proyecto de trading de Diego Gasca: método, disciplina, journal y gestión del riesgo. Contenido educativo, no asesoría financiera.", "Cartel Trading, Diego Gasca's trading project: method, discipline, journal and risk management. Educational content, not financial advice."],
     wa: WA("Hola, quiero información de Cartel Trading.", "Hi, I'd like information about Cartel Trading."),
-    nav: [["metodo", "Método", "Method"], ["mercados", "Mercados", "Markets"], ["riesgo", "Riesgo", "Risk"]],
-    navCta: ["#metodo", ["El método", "The method"]],
+    nav: [["sistema", "Sistema", "System"], ["metodo", "Método", "Method"], ["mercados", "Mercados", "Markets"], ["riesgo", "Riesgo", "Risk"]],
+    navCta: ["#sistema", ["Abrir el sistema", "Open the system"]],
     hero: { img: "hero.webp", alt: ["Escritorio de trading con monitores y gráficos frente a la ciudad de noche", "Trading desk with monitors and charts overlooking the city at night"], pos: "50% 50%", kicker: ["Cartel Trading · Proyecto de Diego Gasca", "Cartel Trading · A Diego Gasca project"], title: "Cartel Trading",
       hook: [["Enfoque. Plan.", "Focus. Plan."], ["Ejecución. Repetir.", "Execute. Repeat."]],
       lead: ["El proyecto de trading de Diego Gasca: un proceso con disciplina, journal y gestión del riesgo. Compartimos el método, no señales ni promesas de ganancias.", "Diego Gasca's trading project: a process built on discipline, a journal and risk management. We share the method, not signals or promises of profit."],
-      cta1: ["#metodo", ["Ver el método", "See the method"]], cta2: ["#riesgo", ["Antes de operar", "Before you trade"]] },
+      cta1: ["#sistema", ["Abrir el sistema", "Open the system"]], cta2: ["#riesgo", ["Antes de operar", "Before you trade"]] },
     stats: [[["7", "7"], ["Herramientas del sistema", "Tools in the system"], ["Una app por tarea", "One app per task"]],
       [["4", "4"], ["Cadenas de mercado que estudiamos", "Market chains we study"], ["IA, materiales, seguridad y dinero digital", "AI, materials, security and digital money"]],
       [["74–89 %", "74–89%"], ["Cuentas minoristas de CFD que pierden dinero", "Retail CFD accounts that lose money"], ["ESMA", "ESMA"]],
@@ -121,6 +121,7 @@ export const SITIOS = [
       [["CFD", "CFDs"], ["Entre el 74 % y el 89 % de las cuentas minoristas pierden dinero (ESMA)", "Between 74% and 89% of retail accounts lose money (ESMA)"]]],
     chars: [["city.webp", ["Rascacielos iluminados de noche", "Skyscrapers lit up at night"], "50% 50%"], ["gold.webp", ["Lingotes de oro", "Gold bars"], "50% 50%"], ["desk.webp", ["Escritorio de trading con varios monitores", "Trading desk with several monitors"], "50% 50%"]],
     sections: [
+      { type: "raw", id: "sistema", cls: "ct-app", k: ["Sistema", "System"], t: ["El sistema Cartel Trading.", "The Cartel Trading system."], p: ["Todo el módulo de trading del Cerebro: mesa con precios en vivo, tesis, universo de activos, cripto, carteras modelo, alertas, método y registro.", "The whole Cerebro trading module."], html: '<div id="ctApp" class="ct-root"><p class="ct-src">Cargando el sistema…</p></div>' },
       { type: "tiles", id: "metodo", row: "roots", k: ["Método", "Method"], t: ["Una app por tarea.", "One app per task."], p: ["Siete pasos que se repiten en cada operación.", "Seven steps repeated on every trade."] },
       { type: "tiles", id: "mercados", row: "services", dark: true, k: ["Mercados", "Markets"], t: ["Lo que estudiamos.", "What we study."], p: ["Cuatro cadenas que conectan la tecnología con la economía real.", "Four chains linking technology to the real economy."] },
       { type: "tiles", id: "riesgo", row: "chars", k: ["Riesgo", "Risk"], t: ["Antes de operar.", "Before you trade."], p: ["Lo primero en Cartel Trading es proteger el capital.", "The first rule at Cartel Trading is protecting capital."], list: ["Lo que debes saber", "What you should know"],
@@ -129,7 +130,7 @@ export const SITIOS = [
     final: { k: ["Método · Disciplina · Riesgo", "Method · Discipline · Risk"], t1: ["Opera con", "Trade with"], t2: ["un plan", "a plan"], badge: ["Proyecto en construcción", "Project in progress"], mail: ["Correo", "Email"], img: "final.webp", alt: ["Lingotes de oro", "Gold bars"] },
     tag: ["El proyecto de trading de Diego Gasca · Cali, Colombia", "Diego Gasca's trading project · Cali, Colombia"],
     legal: ["No es asesoría financiera.", "Not financial advice."],
-    tour: [["inicio", "Cartel Trading: enfoque, plan y ejecución.", "Cartel Trading: focus, plan and execution."], ["metodo", "El método, paso a paso.", "The method, step by step."], ["mercados", "Los mercados que estudiamos.", "The markets we study."], ["riesgo", "Lo que debes saber antes de operar.", "What to know before you trade."]],
+    tour: [["inicio", "Cartel Trading: enfoque, plan y ejecución.", "Cartel Trading: focus, plan and execution."], ["sistema", "El sistema completo, con precios en vivo.", "The full system, with live prices."], ["metodo", "El método, paso a paso.", "The method, step by step."], ["mercados", "Los mercados que estudiamos.", "The markets we study."], ["riesgo", "Lo que debes saber antes de operar.", "What to know before you trade."]],
     images: { "hero.webp": "cerebro:brand/trading/desk.webp", "city.webp": "cerebro:brand/trading/city.webp", "gold.webp": "cerebro:brand/trading/gold.webp", "desk.webp": "cerebro:brand/trading/desk.webp", "final.webp": "cerebro:brand/trading/gold.webp" },
   },
 

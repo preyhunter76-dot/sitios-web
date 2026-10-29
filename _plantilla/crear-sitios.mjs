@@ -34,7 +34,8 @@ function sitio(c) {
   const L = ([es, en]) => { if (en && es !== en) EN[es.trim()] = en; return esc(es); };
   const A = ([es, en]) => { if (en) EN["@" + es] = en; return esc(es); }; // atributos (alt, aria-label)
   const dir = path.join(R, c.folder);
-  fs.rmSync(dir, { recursive: true, force: true });
+  // Se borra todo menos .vercel (el enlace con el proyecto de Vercel)
+  if (fs.existsSync(dir)) for (const f of fs.readdirSync(dir)) if (f !== ".vercel") fs.rmSync(path.join(dir, f), { recursive: true, force: true });
   fs.mkdirSync(path.join(dir, "img"), { recursive: true });
   for (const f of COMUNES) fs.copyFileSync(path.join(BASE, f), path.join(dir, f));
   fs.copyFileSync(path.join(R, "prey-hunter/img/clover.webp"), path.join(dir, "img/clover.webp"));

@@ -25,6 +25,13 @@ const FORBIDDEN = /(^|\/)(\.env(\..*)?|vault\.key|integrations\.json|brain-state
 const STATE = path.join(root, ".ultimo-despliegue.json");
 const VERCEL = [path.join(root, ".herramientas/node_modules/vercel/dist/index.js"), "C:/Users/Prey Hunter/AppData/Local/Temp/claude/G--SALSAFRO/0f1a12a6-9831-4637-ba32-503f7af79f9c/scratchpad/vc/node_modules/vercel/dist/index.js"].find((p) => fs.existsSync(p));
 
+// 0) Cartel Trading toma sus datos del módulo 36 del Cerebro: se exportan antes de guardar.
+const CEREBRO = path.resolve(root, "../cerebro"), TSX = path.join(CEREBRO, "node_modules/tsx/dist/cli.mjs");
+if (fs.existsSync(TSX)) {
+  try { execFileSync(process.execPath, [TSX, "scripts/exportar-trading.mts"], { cwd: CEREBRO, stdio: "ignore", timeout: 120000 }); }
+  catch { console.error(`[sitios ${stamp}] no se pudo exportar Cartel Trading (se publica la última versión)`); }
+}
+
 try {
   // 1) Guardar
   git("add", "-A");
