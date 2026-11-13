@@ -2,156 +2,241 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Salsafro Sample Pack · Sonidos de Salsafro por Prey Hunter</title>
-<meta name="description" content="Loops, one-shots y MIDI de Salsafro creados por Prey Hunter: guaracha, afro house, salsa y Pacífico colombiano. Lista de espera abierta.">
-<meta name="theme-color" content="#0b0b0b">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Salsafro Sample Pack · Elements Vol. 1 · Prey Hunter</title>
+<meta name="description" content="Salsafro Sample Pack Elements Vol. 1 de Prey Hunter: loops, one-shots y MIDI de Salsafro, Afro House y House. Escucha el sonido Salsafro y únete a la lista de espera.">
+<meta name="theme-color" content="#0a0605">
 <link rel="canonical" href="https://salsafro-sample-pack.vercel.app/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_CO">
 <meta property="og:site_name" content="Salsafro Sample Pack">
-<meta property="og:title" content="Salsafro Sample Pack · Sonidos de Salsafro por Prey Hunter">
-<meta property="og:description" content="Loops, one-shots y MIDI de Salsafro creados por Prey Hunter: guaracha, afro house, salsa y Pacífico colombiano. Lista de espera abierta.">
+<meta property="og:title" content="Salsafro Sample Pack · Elements Vol. 1">
+<meta property="og:description" content="Loops, one-shots y MIDI de Salsafro por Prey Hunter. Lista de espera abierta.">
 <meta property="og:url" content="https://salsafro-sample-pack.vercel.app/">
-<meta property="og:image" content="https://salsafro-sample-pack.vercel.app/img/hero.webp">
+<meta property="og:image" content="https://salsafro-sample-pack.vercel.app/img/box-wide-1672.webp">
 <meta name="twitter:card" content="summary_large_image">
-<script>try{document.documentElement.dataset.theme=localStorage.getItem("ss-theme")==="light"?"light":"dark";if(localStorage.getItem("ss-lang")==="en")document.documentElement.lang="en"}catch(e){}</script>
-<link rel="icon" href="img/clover.webp">
+<script>try{if(localStorage.getItem("ss-lang")==="en")document.documentElement.lang="en"}catch(e){}</script>
+<link rel="icon" href="img/logo-salsafro-mono.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Inter+Tight:wght@600;700;800;900&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="img/hero.webp">
-<link rel="stylesheet" href="solicitud.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,600;0,800;0,900;1,800;1,900&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/box-wide-1672.webp" imagesrcset="img/box-wide-1000.webp 1000w, img/box-wide-1672.webp 1672w" imagesizes="100vw">
 <link rel="stylesheet" href="style.css">
-<style>.ph{--pink:#FF6D29;--m3d:#FF6D29}.ph-note{margin-top:clamp(28px,3vw,44px);max-width:70ch;font-size:13px;line-height:1.6;color:var(--steel)}.shop .prod-tag{background:var(--pink);color:#0b0b0b}.ph-brand-txt{font:900 clamp(18px,1.6vw,22px)/1 var(--display);letter-spacing:-.03em;text-transform:uppercase}.ph-brand-txt em{font-style:normal;color:var(--pink)}</style>
 </head>
-<body class="ph">
-<a class="skip" href="#contenido">Saltar al contenido</a>
+<body>
+<a class="skip" href="#contenido" data-en="Skip to content">Saltar al contenido</a>
 
-<header class="nav dark" id="nav">
-  <nav class="links" id="links" aria-label="Secciones">
-    <a href="#sonidos">Sonidos</a><a href="#formato">Formato</a><a href="#club">Lista de espera</a>
+<div class="loader" id="loader" aria-hidden="true">
+  <svg class="crown" viewBox="0 0 64 44"><path d="M4 40 L8 8 L22 24 L32 4 L42 24 L56 8 L60 40 Z" /></svg>
+  <div class="loader-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+</div>
+
+<div class="cursor-glow" id="glow" aria-hidden="true"></div>
+<canvas class="embers" id="embers" aria-hidden="true"></canvas>
+
+<header class="nav" id="nav">
+  <a href="#inicio" class="brand" aria-label="Prey Hunter · inicio">
+    <svg class="crown" viewBox="0 0 64 44" aria-hidden="true"><path d="M4 40 L8 8 L22 24 L32 4 L42 24 L56 8 L60 40 Z" /></svg>
+    <span translate="no">Prey Hunter</span>
+  </a>
+  <nav class="links" aria-label="Secciones">
+    <a href="#escucha" data-en="Listen">Escucha</a>
+    <a href="#pack" data-en="The pack">El pack</a>
+    <a href="#formato" data-en="Format">Formato</a>
+    <a href="#club" data-en="Waitlist">Lista de espera</a>
   </nav>
-  <a href="#inicio" class="brand ph-brand-txt" translate="no">Salsafro <em>Samples</em></a>
   <div class="nav-end">
-    <button type="button" class="tgl" id="tourBtn" aria-label="Recorrido por la página"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8.5l5 3.5-5 3.5z" fill="currentColor"/></svg></button>
-    <button type="button" class="tgl" id="musicBtn" aria-label="Escuchar mi música" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="ic-play" d="M9 18V6l10-2v12"/><circle class="ic-play" cx="6.5" cy="18" r="2.5"/><circle class="ic-play" cx="16.5" cy="16" r="2.5"/><path class="ic-pause" d="M9 6v12M15 6v12"/></svg></button>
-    <a class="tgl wa" id="waBtn" href="#" target="_blank" rel="noopener" aria-label="Preguntas por WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11 11 0 0 0 3.2 17.1L2 22l5-1.3A11 11 0 0 0 20.5 3.5zM12 20a8.9 8.9 0 0 1-4.6-1.3l-.3-.2-3 .8.8-2.9-.2-.3A9 9 0 1 1 12 20z" fill="currentColor" stroke="none"/></svg><span>Preguntas</span></a>
-    <button type="button" class="tgl" id="langBtn" aria-label="Ver en inglés" translate="no">EN</button>
-    <button type="button" class="tgl" id="themeBtn" aria-label="Modo claro" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="moon" d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/><g class="sun"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg></button>
-    <a href="#club" class="nav-cta">Lista de espera</a>
-    <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false"><span></span><span></span></button>
+    <button type="button" class="lang" id="langBtn" aria-label="Change language to English">EN</button>
+    <a class="btn btn-sm magnetic" href="#club"><span data-en="Join">Unirme</span></a>
   </div>
 </header>
 
 <main id="contenido">
-<section class="ph-hero" id="inicio" data-hero>
-  <div class="ph-hero-photo"><img src="img/hero.webp" width="1200" height="1200" fetchpriority="high" alt="El mono de Salsafro sentado en su estudio de grabación" style="object-position:50% 30%"></div>
-  <div class="ph-hero-copy">
-    <p class="kicker">Salsafro · Sample packs</p>
-    <h1 class="ph-title">Sample Pack</h1>
-    <p class="hero-hook">Los sonidos de Salsafro, <em>en tus manos.</em></p>
-    <p class="hero-lead">Loops, one-shots y MIDI creados por Prey Hunter para producir guaracha, afro house, salsa y sonidos del Pacífico colombiano. Muy pronto.</p>
-    <div class="cta">
-      <a class="btn btn-light" href="#club">Quiero estar en la lista</a>
-      <a class="btn btn-line" href="#sonidos">Ver los sonidos</a>
+
+<!-- ═════ PORTADA ═════ -->
+<section class="hero" id="inicio">
+  <picture class="hero-bg">
+    <source media="(max-width: 760px)" srcset="img/box-800.webp">
+    <img src="img/box-wide-1672.webp" srcset="img/box-wide-1000.webp 1000w, img/box-wide-1672.webp 1672w" sizes="100vw" alt="Caja del Salsafro Sample Pack Elements Vol. 1 con el mono de Prey Hunter, iluminada en naranja" width="1672" height="941" fetchpriority="high">
+  </picture>
+  <div class="hero-fog" aria-hidden="true"></div>
+  <div class="hero-copy">
+    <p class="pill reveal-up"><span class="pill-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span> Sample pack</p>
+    <h1 class="hero-title" aria-label="Salsafro" translate="no">
+      <span class="split" aria-hidden="true">SALSA</span><span class="split accent" aria-hidden="true">FRO</span>
+    </h1>
+    <p class="hero-sub reveal-up"><span class="tracked">Sample pack</span> <span class="vol">Elements <b>Vol. 1</b></span></p>
+    <p class="hero-lead reveal-up" data-en="Sounds that make your music dance. Salsafro, Afro House and House from Cali, by Prey Hunter.">Sonidos que hacen bailar tu música. Salsafro, Afro House y House desde Cali, por Prey Hunter.</p>
+    <ul class="hero-feats reveal-up">
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h2M7 8v8M11 5v14M15 8v8M19 10v4M21 12h0"/></svg><span data-en="WAV + MIDI">WAV + MIDI</span></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12l4 6-10 12L2 9z"/><path d="M2 9h20M9 3l3 18 3-18"/></svg><span data-en="Exclusive library">Librería exclusiva</span></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="2" y="14" width="5" height="7" rx="2"/><rect x="17" y="14" width="5" height="7" rx="2"/></svg><span>Salsafro · Afro House · House</span></li>
+    </ul>
+    <div class="hero-cta reveal-up">
+      <a class="btn magnetic" href="#club"><span data-en="Join the waitlist">Unirme a la lista de espera</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="btn btn-ghost magnetic" href="#escucha"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg><span data-en="Listen to Salsafro">Escuchar Salsafro</span></a>
     </div>
   </div>
+  <a class="scroll-hint" href="#escucha" aria-label="Bajar a Escucha"><span></span></a>
 </section>
 
-<section class="ph-stats" id="cifras" aria-label="Cifras"><div class="num-grid" id="stats"></div></section>
-
-<section class="rowsec" id="sonidos">
-  <div class="row-head">
-    <div><p class="ph-k">01 · Sonidos</p><h2 class="big-head">Lo que trae el pack.</h2></div>
-    <p>Las cuatro raíces de Salsafro, listas para tu próxima producción.</p>
-    <div class="row-arrows"><button type="button" data-row="roots" data-dir="prev" aria-label="Anterior">←</button><button type="button" data-row="roots" data-dir="next" aria-label="Siguiente">→</button></div>
+<!-- ═════ CINTA ═════ -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>Salsafro</span><b>✦</b><span>Afro House</span><b>✦</b><span>House</span><b>✦</b><span>Pacífico</span><b>✦</b><span>Guaracha</span><b>✦</b><span>Salsa</span><b>✦</b><span>Elements Vol. 1</span><b>✦</b>
+    <span>Salsafro</span><b>✦</b><span>Afro House</span><b>✦</b><span>House</span><b>✦</b><span>Pacífico</span><b>✦</b><span>Guaracha</span><b>✦</b><span>Salsa</span><b>✦</b><span>Elements Vol. 1</span><b>✦</b>
   </div>
-  <div class="tiles" id="roots" tabindex="0" role="region" aria-label="Lo que trae el pack."></div>
+</div>
+
+<!-- ═════ ESCUCHA ═════ -->
+<section class="listen" id="escucha">
+  <div class="sec-head">
+    <p class="kicker">01 · <span data-en="Listen">Escucha</span></p>
+    <h2 class="sec-title" data-en="This is how Salsafro sounds.">Así suena Salsafro.</h2>
+    <p class="sec-lead" data-en="My own songs, the same sound you'll find in the pack. Pick a track and press play.">Mis canciones, el mismo sonido que vas a encontrar en el pack. Elige un track y dale play.</p>
+  </div>
+
+  <div class="deck">
+    <div class="deck-now">
+      <div class="vinyl-wrap">
+        <div class="vinyl" id="vinyl"><img id="nowCover" src="img/afrovichis.jpg" alt="" width="300" height="300"></div>
+        <img class="phones" src="img/phones.webp" alt="" width="340" height="400" loading="lazy">
+      </div>
+      <div class="now-meta">
+        <p class="now-k" data-en="Now selected">Seleccionado</p>
+        <h3 id="nowTitle">Afrovichis</h3>
+        <p id="nowArtist">Prey Hunter · 2026</p>
+        <div class="eq" id="eq" aria-hidden="true"></div>
+      </div>
+      <div class="player">
+        <iframe id="bcPlayer" title="Reproductor de Bandcamp: Afrovichis" src="https://bandcamp.com/EmbeddedPlayer/track=3785425024/size=large/bgcol=111111/linkcol=ff6d29/tracklist=false/artwork=none/transparent=true/" loading="lazy" allow="autoplay" seamless></iframe>
+      </div>
+      <div class="now-links">
+        <a id="nowBuy" class="btn btn-sm" href="https://salsafro.bandcamp.com/track/afrovichis" target="_blank" rel="noopener"><span data-en="Buy on Bandcamp">Comprar en Bandcamp</span></a>
+        <a class="btn btn-sm btn-ghost" href="https://open.spotify.com/artist/7HWCje6tPWnHnBHxXiwrsM" target="_blank" rel="noopener"><span data-en="Follow on Spotify">Seguir en Spotify</span></a>
+      </div>
+    </div>
+    <ol class="tracks" id="tracks" aria-label="Canciones de Salsafro"></ol>
+  </div>
 </section>
 
-<section class="rowsec dark" id="formato">
-  <div class="row-head">
-    <div><p class="ph-k">02 · Formato</p><h2 class="big-head light">Hecho para producir.</h2></div>
-    <p>Sonidos limpios y ordenados para arrastrar directo a tu proyecto.</p>
-    <div class="row-arrows"><button type="button" data-row="chars" data-dir="prev" aria-label="Anterior">←</button><button type="button" data-row="chars" data-dir="next" aria-label="Siguiente">→</button></div>
+<!-- ═════ EL PACK ═════ -->
+<section class="pack" id="pack">
+  <img class="pack-mono" src="img/mono-point.webp" alt="El mono de Prey Hunter señalando el contenido del pack" width="440" height="888" loading="lazy">
+  <div class="sec-head">
+    <p class="kicker">02 · <span data-en="The pack">El pack</span></p>
+    <h2 class="sec-title" data-en="What Elements Vol. 1 brings.">Lo que trae Elements Vol. 1.</h2>
+    <p class="sec-lead" data-en="Folders by type, with BPM and key in every name. Previews of each folder will be released here before launch.">Carpetas por tipo, con BPM y tonalidad en cada nombre. Las muestras de cada carpeta se estrenan aquí antes del lanzamiento.</p>
   </div>
-  <div class="tiles" id="chars" tabindex="0" role="region" aria-label="Hecho para producir."></div>
-  <div class="deliv-wrap">
-    <h3>Cómo viene</h3>
-    <ul class="deliv" id="delivery"></ul>
+  <div class="cats" id="cats"></div>
+</section>
+
+<!-- ═════ VITRINA ═════ -->
+<section class="show" id="vitrina">
+  <div class="show-media">
+    <figure class="tilt"><picture><source media="(prefers-reduced-motion: reduce)" srcset="img/box-wide-1000.webp"><img src="img/box-studio.gif" alt="La caja de Elements Vol. 1 girando en un estudio con luces naranjas" width="508" height="335" loading="lazy"></picture></figure>
+    <picture><source media="(prefers-reduced-motion: reduce)" srcset="img/mono-stand.webp"><img class="show-mono" src="img/mono-box.gif" alt="El mono de Prey Hunter con los brazos cruzados junto a la caja del pack" width="512" height="340" loading="lazy"></picture>
+  </div>
+  <div class="show-copy">
+    <p class="kicker">03 · Elements Vol. 1</p>
+    <h2 class="sec-title"><span data-en="Take your music to the">Lleva tu música al</span> <em data-en="next level">siguiente nivel</em></h2>
+    <p class="sec-lead" data-en="A library made for producers who want the drum of the Pacific, the party groove of guaracha and the warmth of Afro House in a single drop.">Una librería pensada para productores que quieren el tambor del Pacífico, el golpe de fiesta de la guaracha y el calor del Afro House en un mismo drop.</p>
+    <ul class="genres"><li>Salsafro</li><li>Afro House</li><li>House</li></ul>
+    <p class="years">2026 – 2027</p>
   </div>
 </section>
 
+<!-- ═════ GALERÍA HORIZONTAL ═════ -->
+<section class="gallery" id="galeria" aria-label="Piezas gráficas del pack">
+  <div class="gallery-track">
+    <div class="gallery-intro">
+      <p class="kicker">04 · <span data-en="The universe">El universo</span></p>
+      <h2 class="sec-title" data-en="The mono, the box and the Cali sunset.">El mono, la caja y el atardecer de Cali.</h2>
+    </div>
+    <figure class="g-card wide"><img src="img/mono-banner-1000.webp" srcset="img/mono-banner-1000.webp 1000w, img/mono-banner-1983.webp 1983w" sizes="(max-width: 760px) 90vw, 60vw" alt="Banner del pack con el mono sentado junto a la caja y los parlantes" width="1983" height="793" loading="lazy"></figure>
+    <figure class="g-card square"><img src="img/box-800.webp" alt="Caja de Elements Vol. 1 en primer plano" width="800" height="800" loading="lazy"></figure>
+    <figure class="g-card cut"><picture><source media="(prefers-reduced-motion: reduce)" srcset="img/box-800.webp"><img src="img/box-spin.gif" alt="La caja del pack girando" width="512" height="340" loading="lazy"></picture></figure>
+    <figure class="g-card wide"><img src="img/hero-banner-1100.webp" srcset="img/hero-banner-1100.webp 1100w, img/hero-banner-2000.webp 2000w" sizes="(max-width: 760px) 90vw, 60vw" alt="Banner horizontal de Salsafro Sample Pack Elements Vol. 1" width="2000" height="750" loading="lazy"></figure>
+    <figure class="g-card cut"><img src="img/mono-stand.webp" alt="El mono de Prey Hunter de pie con hoodie negro y cadena dorada" width="420" height="880" loading="lazy"></figure>
+  </div>
+</section>
+
+<!-- ═════ FORMATO ═════ -->
+<section class="format" id="formato">
+  <div class="sec-head">
+    <p class="kicker">05 · <span data-en="Format">Formato</span></p>
+    <h2 class="sec-title" data-en="How each sound comes.">Cómo viene cada sonido.</h2>
+  </div>
+  <dl class="deliv" id="deliv"></dl>
+</section>
+
+<!-- ═════ CLUB ═════ -->
 <section class="club" id="club">
   <div class="club-copy">
-    <p class="ph-k">03 · Club</p>
-    <h2 class="big-head">Únete al club.</h2>
-    <p class="club-lead">Deja tus datos y te avisamos primero cuando salga el Salsafro Sample Pack.</p>
+    <p class="kicker">06 · <span data-en="Waitlist">Lista de espera</span></p>
+    <h2 class="sec-title" data-en="Be the first to have it.">Sé el primero en tenerlo.</h2>
+    <p class="sec-lead" data-en="Leave your details and we'll let you know before anyone else when Elements Vol. 1 comes out.">Deja tus datos y te avisamos antes que a nadie cuando salga Elements Vol. 1.</p>
     <ul class="perks" id="perks"></ul>
   </div>
   <form class="club-form" id="clubForm" novalidate>
     <div class="seg" role="radiogroup" aria-label="Me uno como">
-      <label><input type="radio" name="tipo" value="Fan" checked><span>Fan</span></label>
-      <label><input type="radio" name="tipo" value="Cliente"><span>Artista o cliente</span></label>
-      <label><input type="radio" name="tipo" value="Prensa o aliado"><span>Prensa o aliado</span></label>
+      <label><input type="radio" name="tipo" value="Productor" checked><span data-en="Producer">Productor</span></label>
+      <label><input type="radio" name="tipo" value="Fan"><span>Fan</span></label>
+      <label><input type="radio" name="tipo" value="Prensa o aliado"><span data-en="Press or partner">Prensa o aliado</span></label>
     </div>
-    <label class="fld">Nombre<input name="nombre" required autocomplete="name" maxlength="80"></label>
+    <label class="fld"><span data-en="Name">Nombre</span><input name="nombre" required autocomplete="name" maxlength="80"></label>
     <div class="two">
-      <label class="fld">Correo<input name="correo" type="email" required autocomplete="email" maxlength="120"></label>
-      <label class="fld">WhatsApp (opcional)<input name="whatsapp" type="tel" autocomplete="tel" maxlength="30"></label>
+      <label class="fld"><span data-en="Email">Correo</span><input name="correo" type="email" required autocomplete="email" maxlength="120" spellcheck="false"></label>
+      <label class="fld"><span data-en="WhatsApp (optional)">WhatsApp (opcional)</span><input name="whatsapp" type="tel" autocomplete="tel" maxlength="30"></label>
     </div>
     <div class="two">
-      <label class="fld">Ciudad<input name="ciudad" autocomplete="address-level2" maxlength="60"></label>
-      <label class="fld">País<input name="pais" autocomplete="country-name" maxlength="60"></label>
+      <label class="fld"><span data-en="City">Ciudad</span><input name="ciudad" autocomplete="address-level2" maxlength="60"></label>
+      <label class="fld"><span data-en="Country">País</span><input name="pais" autocomplete="country-name" maxlength="60"></label>
     </div>
-    <fieldset class="chips"><legend>Me interesa</legend>
+    <fieldset class="chips"><legend data-en="I'm interested in">Me interesa</legend>
       <label><input type="checkbox" name="intereses" value="Sample packs" checked><span>Sample packs</span></label>
-      <label><input type="checkbox" name="intereses" value="Lanzamientos"><span>Lanzamientos</span></label>
-      <label><input type="checkbox" name="intereses" value="Convocatorias de demos"><span>Convocatorias de demos</span></label>
+      <label><input type="checkbox" name="intereses" value="Lanzamientos"><span data-en="Releases">Lanzamientos</span></label>
+      <label><input type="checkbox" name="intereses" value="Convocatorias de demos"><span data-en="Demo calls">Convocatorias de demos</span></label>
     </fieldset>
     <input class="hp" name="sitio_web" tabindex="-1" autocomplete="off" aria-hidden="true">
-    <label class="consent"><input type="checkbox" name="acepto" required><span>Autorizo el tratamiento de mis datos para recibir noticias y beneficios, según la <a class="privacy-link" href="https://diego-gasca.vercel.app/privacidad.html" target="_blank" rel="noopener">política de privacidad</a> (Ley 1581 de 2012). Puedo darme de baja cuando quiera.</span></label>
-    <button class="btn btn-dark" type="submit">Unirme</button>
+    <label class="consent"><input type="checkbox" name="acepto" required><span data-en-html="I authorize the processing of my data to receive news and benefits, under the &lt;a href=&quot;https://diego-gasca.vercel.app/privacidad.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;privacy policy&lt;/a&gt; (Colombian Law 1581 of 2012). I can unsubscribe anytime.">Autorizo el tratamiento de mis datos para recibir noticias y beneficios, según la <a href="https://diego-gasca.vercel.app/privacidad.html" target="_blank" rel="noopener">política de privacidad</a> (Ley 1581 de 2012). Puedo darme de baja cuando quiera.</span></label>
+    <button class="btn magnetic" type="submit"><span data-en="Join the waitlist">Unirme a la lista</span></button>
     <p class="form-msg" id="clubMsg" role="status" aria-live="polite"></p>
   </form>
 </section>
 
-<section class="oferta ph-final" id="contacto">
-  <div class="oferta-frame">
-    <div class="oferta-copy">
-      <p class="oferta-k">Sample packs · Salsafro</p>
-      <h2 class="oferta-t"><span>Produce</span><em>Salsafro</em></h2>
-      <span class="oferta-badge">Lista de espera abierta</span>
-      <p class="oferta-div"><span>Escríbenos</span></p>
-      <div class="oferta-cta"><a class="btn btn-light wa-link" href="#" target="_blank" rel="noopener">WhatsApp</a><a class="btn btn-line" id="mailBtn">Correo</a></div>
+<!-- ═════ CIERRE ═════ -->
+<section class="final">
+  <img class="final-bg" src="img/hero-banner-1100.webp" srcset="img/hero-banner-1100.webp 1100w, img/hero-banner-2000.webp 2000w" sizes="100vw" alt="" width="2000" height="750" loading="lazy">
+  <div class="final-copy">
+    <h2 class="final-title"><span data-en="Produce">Produce</span> <em translate="no">Salsafro</em></h2>
+    <p data-en="Questions about the pack? Write to me.">¿Preguntas sobre el pack? Escríbeme.</p>
+    <div class="hero-cta">
+      <a class="btn magnetic" id="waBtn" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 0 1-11.8 7L4 20l1.1-4A8 8 0 1 1 20 12z"/></svg><span>WhatsApp</span></a>
+      <a class="btn btn-ghost magnetic" href="mailto:prey-hunter-oficial@hotmail.com?subject=Salsafro%20Sample%20Pack"><span data-en="Email">Correo</span></a>
     </div>
-    <div class="ph-final-art"><img src="img/final.webp" width="900" height="900" alt="El mono de Salsafro con sudadera negra y tenis" loading="lazy"></div>
   </div>
 </section>
 </main>
 
-<footer class="footer">
-  <div class="f-top">
-    <a href="#inicio" class="f-brand ph-brand-txt" translate="no">Salsafro <em>Samples</em></a>
-    <p class="f-tag">Sonidos de Salsafro creados por Prey Hunter · Cali, Colombia</p>
-  </div>
-  <div class="f-cols">
-    <div><p>Sitio</p><a href="#sonidos">Sonidos</a><a href="#formato">Formato</a><a href="#club">Lista de espera</a></div>
-    <div><p>Ecosistema</p><a data-eco="diego">Diego Gasca</a><a data-eco="prey">Prey Hunter</a><a data-eco="cartel">Cartel Music</a><a data-eco="salsafro">Salsafro</a></div>
-    <div><p>Contacto</p><a id="fmail"></a><a class="wa-link" href="#" target="_blank" rel="noopener">WhatsApp</a></div>
-  </div>
-  <div class="f-bottom"><span>Salsafro Sample Pack · Diego Gasca</span><span>Solo sonidos propios: no incluye samples de terceros.</span><span>© <span id="year"></span></span></div>
+<footer class="foot">
+  <a href="#inicio" class="brand"><svg class="crown" viewBox="0 0 64 44" aria-hidden="true"><path d="M4 40 L8 8 L22 24 L32 4 L42 24 L56 8 L60 40 Z" /></svg><span translate="no">Prey Hunter</span></a>
+  <nav class="foot-links" aria-label="Ecosistema">
+    <a href="https://salsafro.vercel.app" target="_blank" rel="noopener">Salsafro</a>
+    <a href="https://salsafro.bandcamp.com" target="_blank" rel="noopener">Bandcamp</a>
+    <a href="https://open.spotify.com/artist/7HWCje6tPWnHnBHxXiwrsM" target="_blank" rel="noopener">Spotify</a>
+    <a href="https://prey-hunter.vercel.app" target="_blank" rel="noopener">Prey Hunter</a>
+    <a href="https://cartel-music.vercel.app" target="_blank" rel="noopener">Cartel Music</a>
+    <a href="https://diego-gasca.vercel.app/privacidad.html" target="_blank" rel="noopener" data-en="Privacy">Privacidad</a>
+  </nav>
+  <p class="foot-tags">Salsafro · Afro House · House</p>
+  <p class="foot-copy">© <span id="year">2026</span> Prey Hunter · Salsafro</p>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-<script src="solicitud.js"></script>
 <script src="data.js"></script>
-<script src="i18n-dict.js"></script>
-<script src="i18n.js"></script>
 <script src="app.js"></script>
-<script src="motion3d.js"></script>
 </body>
 </html>
