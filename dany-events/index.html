@@ -12,8 +12,9 @@
 <meta property="og:title" content="Dany Events · Event Manager & Booking">
 <meta property="og:description" content="Booking de artistas, manejo de artistas, promoción de eventos y alianzas. Dany Ruiz · @dany.eventss">
 <meta property="og:url" content="https://dany-events.vercel.app/">
-<meta property="og:image" content="https://dany-events.vercel.app/img/dany-negro.jpg">
-<link rel="preload" as="image" href="img/dany-negro.jpg">
+<meta property="og:image" content="https://dany-events.vercel.app/img/portada-negro-1280.jpg">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="714">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -39,8 +40,8 @@
 <main id="contenido">
   <!-- Portada -->
   <section class="hero" id="inicio">
-    <div class="hero__glow" aria-hidden="true"></div>
-    <div class="hero__grid" aria-hidden="true"></div>
+    <img class="hero__bg" src="img/portada-negro-1920.jpg" srcset="img/portada-negro-1280.jpg 1280w, img/portada-negro-1920.jpg 1920w" sizes="100vw" width="1920" height="1072" alt="Dany Ruiz con vestido negro" fetchpriority="high">
+    <div class="hero__shade" aria-hidden="true"></div>
     <div class="hero__inner">
       <p class="kicker reveal">Event Manager · Booking · Artist Manager</p>
       <h1 class="hero__title reveal">Dany<br><span>Events</span></h1>
@@ -53,14 +54,11 @@
         <li>Booking de DJs</li><li>Producción de eventos</li><li>Embajadora de marca</li><li>Alianzas</li>
       </ul>
     </div>
-    <figure class="hero__photo reveal">
-      <img src="img/dany-negro.jpg" width="461" height="608" alt="Dany Ruiz con vestido negro" fetchpriority="high">
-      <figcaption class="hero__pass" aria-hidden="true">
-        <span class="ticket__k">Event Manager</span>
-        <b>Dany Ruiz</b>
-        <span class="ticket__code">@dany.eventss</span>
-      </figcaption>
-    </figure>
+    <div class="hero__pass reveal" aria-hidden="true">
+      <span class="ticket__k">Event Manager</span>
+      <b>Dany Ruiz</b>
+      <span class="ticket__code">@dany.eventss</span>
+    </div>
   </section>
 
   <!-- Cifras -->
@@ -72,10 +70,9 @@
   </section>
 
   <!-- Sobre Dany -->
-  <section class="section about" id="sobre">
-    <figure class="about__photo reveal">
-      <img src="img/dany-noche.jpg" width="450" height="520" alt="Dany Ruiz lista para una noche de evento" loading="lazy">
-    </figure>
+  <section class="about" id="sobre">
+    <img class="about__bg" src="img/portada-noche-1920.jpg" srcset="img/portada-noche-1280.jpg 1280w, img/portada-noche-1920.jpg 1920w" sizes="100vw" width="1920" height="1072" alt="Dany Ruiz lista para una noche de evento" loading="lazy">
+    <div class="about__shade" aria-hidden="true"></div>
     <div class="about__text reveal">
       <p class="kicker">Sobre Dany</p>
       <h2>La que hace que la noche pase.</h2>
