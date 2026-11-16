@@ -12,6 +12,8 @@
 <meta property="og:title" content="Dany Events · Event Manager & Booking">
 <meta property="og:description" content="Booking de artistas, manejo de artistas, promoción de eventos y alianzas. Dany Ruiz · @dany.eventss">
 <meta property="og:url" content="https://dany-events.vercel.app/">
+<meta property="og:image" content="https://dany-events.vercel.app/img/dany-negro.jpg">
+<link rel="preload" as="image" href="img/dany-negro.jpg">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,6 +27,7 @@
 <header class="nav" id="nav">
   <a class="brand" href="#inicio" aria-label="Dany Events, inicio"><span class="bow" aria-hidden="true">🎀</span>Dany<em>Events</em></a>
   <nav aria-label="Secciones">
+    <a href="#sobre">Sobre Dany</a>
     <a href="#servicios">Servicios</a>
     <a href="#proceso">Cómo trabajo</a>
     <a href="#escena">Escena</a>
@@ -50,13 +53,14 @@
         <li>Booking de DJs</li><li>Producción de eventos</li><li>Embajadora de marca</li><li>Alianzas</li>
       </ul>
     </div>
-    <div class="hero__ticket reveal" aria-hidden="true">
-      <span class="ticket__k">Próxima noche</span>
-      <b>Tu evento</b>
-      <span class="ticket__line"></span>
-      <span class="ticket__meta">Line-up · Promo · Producción</span>
-      <span class="ticket__code">DE-2026</span>
-    </div>
+    <figure class="hero__photo reveal">
+      <img src="img/dany-negro.jpg" width="461" height="608" alt="Dany Ruiz con vestido negro" fetchpriority="high">
+      <figcaption class="hero__pass" aria-hidden="true">
+        <span class="ticket__k">Event Manager</span>
+        <b>Dany Ruiz</b>
+        <span class="ticket__code">@dany.eventss</span>
+      </figcaption>
+    </figure>
   </section>
 
   <!-- Cifras -->
@@ -65,6 +69,23 @@
     <div class="stat reveal"><b data-count="542">542</b><span>publicaciones de eventos y escena</span></div>
     <div class="stat reveal"><b data-count="3200" data-prefix="+">3.200</b><span>reproducciones del último reel en vivo</span></div>
     <div class="stat reveal"><b>2024</b><span>activa en la escena desde</span></div>
+  </section>
+
+  <!-- Sobre Dany -->
+  <section class="section about" id="sobre">
+    <figure class="about__photo reveal">
+      <img src="img/dany-noche.jpg" width="450" height="520" alt="Dany Ruiz lista para una noche de evento" loading="lazy">
+    </figure>
+    <div class="about__text reveal">
+      <p class="kicker">Sobre Dany</p>
+      <h2>La que hace que la noche pase.</h2>
+      <p>Dany Ruiz vive la escena desde adentro: está en la cabina, en la puerta y en las redes. Como event manager y encargada de booking conecta DJs, venues y marcas, y como promotora y embajadora lleva público a cada fecha.</p>
+      <ul class="about__list">
+        <li><b>Escena</b><span>Música electrónica y fiestas en Chile</span></li>
+        <li><b>Rol</b><span>Event manager, booking y artist manager</span></li>
+        <li><b>Contacto</b><span>Mensaje directo en Instagram</span></li>
+      </ul>
+    </div>
   </section>
 
   <!-- Servicios -->
