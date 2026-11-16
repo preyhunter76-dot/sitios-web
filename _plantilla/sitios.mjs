@@ -201,7 +201,7 @@ export const SITIOS = [
       { t: ["Salsafro Sample Pack", "Salsafro Sample Pack"], d: ["Loops, one-shots y MIDI de Salsafro", "Salsafro loops, one-shots and MIDI"], tag: ["Lista de espera", "Waitlist"], url: "https://salsafro-sample-pack.vercel.app", img: "s-samples.webp" },
       { t: ["Salsafro Ghost Producer", "Salsafro Ghost Producer"], d: ["Tracks para firmar con tu nombre", "Tracks to release under your name"], tag: ["Catálogo privado", "Private catalog"], url: "https://salsafro-ghost-producer.vercel.app", img: "s-ghost.webp" },
       { t: ["La Pampara Shop", "La Pampara Shop"], d: ["Gorras en Chile · 94 modelos", "Caps in Chile · 94 models"], tag: ["Próximamente", "Coming soon"], url: "https://wa.me/573163136529?text=Hola%2C%20quiero%20informaci%C3%B3n%20de%20La%20Pampara%20Shop.", img: "s-pampara.webp" },
-      { t: ["Coffee Blue", "Coffee Blue"], d: ["Cafetería en Cali · café de origen", "Coffee shop in Cali · single-origin coffee"], tag: ["Sitio web", "Website"], url: "https://coffee-blue.vercel.app", img: "s-coffee.jpg" },
+      { t: ["Coffee Blue", "Coffee Blue"], d: ["Cafetería en Cali · café de origen", "Coffee shop in Cali · single-origin coffee"], tag: ["Sitio web", "Website"], url: "https://coffee-blue-eosin.vercel.app", img: "s-coffee.jpg" },
       { t: ["VISOR", "VISOR"], d: ["Gafas · ocho modelos", "Eyewear · eight models"], tag: ["Próximamente", "Coming soon"], url: "https://wa.me/573163136529?text=Hola%2C%20quiero%20informaci%C3%B3n%20de%20VISOR.", img: "s-visor.webp" },
     ],
     services: [

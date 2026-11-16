@@ -139,7 +139,7 @@ window.PH = {
    "t": "Coffee Blue",
    "d": "Cafetería en Cali · café de origen",
    "tag": "Sitio web",
-   "url": "https://coffee-blue.vercel.app",
+   "url": "https://coffee-blue-eosin.vercel.app",
    "img": "img/s-coffee.jpg"
   },
   {

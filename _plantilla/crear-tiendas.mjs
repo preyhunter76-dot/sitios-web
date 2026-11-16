@@ -51,7 +51,9 @@ for (const [folder, view, title, desc] of TIENDAS) {
   fs.cpSync(path.join(APP, "assets"), path.join(dir, "assets"), { recursive: true });
   fs.copyFileSync(path.join(R, "prey-hunter/img/clover.webp"), path.join(dir, "clover.webp"));
   if (view === "shop-la-pampara") fs.cpSync(path.join(CEREBRO, "stores/simon-rendon"), path.join(dir, "stores/simon-rendon"), { recursive: true });
-  const url = `https://${folder}.vercel.app/`;
+  // Algunos proyectos de Vercel no obtuvieron su nombre exacto (estaba ocupado por otra cuenta): usar su dominio real.
+  const DOMINIO = { "lume-tienda": "lume-tienda-mu", "cerebro-apps": "cerebro-apps-three", "norte-tienda": "norte-tienda-lyart", "huella-tienda": "huella-tienda-two" };
+  const url = `https://${DOMINIO[folder] || folder}.vercel.app/`;
   const html = base
     .replace("<title>Tienda</title>", `<title>${esc(title)}</title>
   <meta name="description" content="${esc(desc)}">
