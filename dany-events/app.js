@@ -1,5 +1,11 @@
 // Dany Events · interacciones del sitio (sin cookies, sin analítica, sin guardar datos).
+window.DANY_WA = "56936205747";
+window.waLink = (text) => `https://wa.me/${window.DANY_WA}${text ? "?text=" + encodeURIComponent(text) : ""}`;
+
 (() => {
+  // Cada enlace con data-wa abre WhatsApp con el mensaje ya escrito.
+  document.querySelectorAll("[data-wa]").forEach((a) => { a.href = window.waLink(a.dataset.wa); });
+
   const nav = document.getElementById("nav");
   const onScroll = () => nav.classList.toggle("is-solid", window.scrollY > 40);
   onScroll();
@@ -34,18 +40,16 @@
     io.observe(el);
   });
 
-  // Solicitud: arma el mensaje, lo copia y abre el chat de Instagram.
+  // Solicitud: arma el mensaje y abre WhatsApp con el texto listo.
   const form = document.getElementById("solicitud");
   const ok = document.getElementById("ok");
-  form.addEventListener("submit", async (ev) => {
+  form.addEventListener("submit", (ev) => {
     ev.preventDefault();
     const d = Object.fromEntries(new FormData(form));
     if (!String(d.nombre || "").trim()) { ok.textContent = "Escribe tu nombre para armar el mensaje."; form.nombre.focus(); return; }
     const fecha = d.fecha ? new Date(d.fecha + "T12:00:00").toLocaleDateString("es-CL", { day: "numeric", month: "long", year: "numeric" }) : "por definir";
-    const msg = `Hola Dany, soy ${d.nombre.trim()}. Me interesa: ${d.servicio}.\nFecha: ${fecha}\nLugar: ${d.lugar || "por definir"}\n${d.idea ? "Idea: " + d.idea.trim() : ""}`.trim();
-    let copied = false;
-    try { await navigator.clipboard.writeText(msg); copied = true; } catch { /* sin permiso de portapapeles */ }
-    ok.textContent = copied ? "Mensaje copiado. Pégalo en el chat de Instagram que se abrió." : "Copia este mensaje y envíalo por Instagram: " + msg;
-    window.open("https://ig.me/m/dany.eventss", "_blank", "noopener");
+    const msg = [`Hola Dany, soy ${d.nombre.trim()}. Me interesa: ${d.servicio}.`, `Fecha: ${fecha}`, `Lugar: ${d.lugar || "por definir"}`, d.idea ? `Idea: ${d.idea.trim()}` : ""].filter(Boolean).join("\n");
+    ok.textContent = "Abriendo WhatsApp con tu mensaje…";
+    window.open(window.waLink(msg), "_blank", "noopener");
   });
 })();
