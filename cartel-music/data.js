@@ -18,9 +18,9 @@ window.PH = {
 
   // Obras del sello en el top (fuente ONErpm y DistroKid, Cerebro módulo 06). [cifra, unidad, canción, detalle, carátula]
   top: [
-    ["+3 M", "reproducciones", "Vacaciones Con Pablo", "Prey Hunter · 2025", "vacaciones-con-pablo"],
-    ["+2,2 M", "reproducciones", "Antava", "Disoft feat. Prey Hunter · 2023", "antava"],
-    ["+2,1 M", "reproducciones", "Karely", "Cartel Music · 2023", "karely"],
+    ["+3,6 M", "reproducciones", "Vacaciones Con Pablo", "Prey Hunter · 2025", "vacaciones-con-pablo"],
+    ["+2,3 M", "reproducciones", "Antava", "Disoft feat. Prey Hunter · 2023", "antava"],
+    ["+2,2 M", "reproducciones", "Karely", "Cartel Music · 2023", "karely"],
     ["+1,2 M", "reproducciones", "Lele", "Felipe Vasquez Dj feat. Disoft, Prey Hunter · 2023", "lele"],
     ["+717 mil", "reproducciones", "Hey Mambo", "Prey Hunter feat. Cartel Music · 2024", "hey-mambo"],
   ],

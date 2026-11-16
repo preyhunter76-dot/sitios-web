@@ -19,7 +19,9 @@ const SITIOS = ["diego-gasca", "prey-hunter", "cartel-music", "salsafro", "coffe
   "salsafro-sample-pack", "salsafro-ghost-producer", "cartel-trading", "gta-vi-lab", "tiendas-diego-gasca",
   // Tiendas de «Otros negocios» (misma tienda del Cerebro, _plantilla/crear-tiendas.mjs)
   "la-pampara-shop", "volta-tienda", "lume-tienda", "norte-tienda", "casa-ambar-tienda", "pulso-tienda", "huella-tienda", "ruta-tienda",
-  "sarten-co-tienda", "cerebro-apps", "cerebro-labs", "academia-cerebro", "plantillas-pro-tienda", "casa-gm-tienda", "visor-gafas"];
+  "sarten-co-tienda", "cerebro-apps", "cerebro-labs", "academia-cerebro", "plantillas-pro-tienda", "casa-gm-tienda", "visor-gafas",
+  // Perfiles profesionales de terceros (módulo 112)
+  "dany-events"];
 // Cambios en estas carpetas afectan a todos los sitios generados o compartidos
 const COMUNES = { "_plantilla/": ["salsafro-sample-pack", "salsafro-ghost-producer", "cartel-trading", "gta-vi-lab", "tiendas-diego-gasca"] };
 

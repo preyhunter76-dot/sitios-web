@@ -18,17 +18,17 @@ window.PH = {
  "privacy": "https://diego-gasca.vercel.app/privacidad.html",
  "stats": [
   [
-   "142",
+   "146",
    "Grabaciones publicadas",
    "Catálogo de Prey Hunter con ISRC"
   ],
   [
-   "148",
+   "168",
    "Créditos de compositor",
    "MUSO.AI"
   ],
   [
-   "+410 mil",
+   "+478 mil",
    "Oyentes mensuales de Prey Hunter",
    "Spotify"
   ],
@@ -75,7 +75,7 @@ window.PH = {
   ],
   [
    "Composición y topline",
-   "Melodías y letras con 148 créditos de experiencia."
+   "Melodías y letras con 168 créditos de experiencia."
   ]
  ],
  "delivery": [

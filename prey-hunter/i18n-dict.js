@@ -4,9 +4,9 @@ window.I18N_DESC = "Prey Hunter, Salsafro DJ and producer from Cali, Colombia. M
 window.I18N_EN = {
     "Saltar al contenido": "Skip to content", "Música": "Music", "Tienda": "Store", "Discografía": "Discography", "Prensa": "Press", "Preguntas": "Questions", "Detener": "Stop",
     "Prey Hunter · Cali, Colombia · Desde 2014": "Prey Hunter · Cali, Colombia · Since 2014", "DJ y productor de": "DJ and producer of",
-    "Afro House con salsa y percusión del Pacífico, hecho en Cali. Más de 410 mil oyentes cada mes en Spotify.": "Afro House with salsa and Pacific percussion, made in Cali. Over 410K monthly listeners on Spotify.",
+    "Afro House con salsa y percusión del Pacífico, hecho en Cali. Más de 478 mil oyentes cada mes en Spotify.": "Afro House with salsa and Pacific percussion, made in Cali. Over 478K monthly listeners on Spotify.",
     "Escuchar ahora": "Listen now", "Pausar": "Pause", "Oyentes mensuales en Spotify": "Monthly listeners on Spotify", "Reproducciones verificadas": "Verified streams", "MUSO.AI · todas las plataformas": "MUSO.AI · all platforms",
-    "Ranking global de artistas": "Global artist ranking", "Posición 114.994": "Position 114,994", "Histórico": "All time",
+    "Ranking global de artistas": "Global artist ranking", "Posición 98.292": "Position 98,292", "Histórico": "All time",
     "01 · Música": "01 · Music", "Lo más escuchado.": "Most played.", "reproducciones en Spotify": "streams on Spotify", "reproducciones": "streams", "Escucha mi música": "Listen to my music", "Abrir en Spotify ↗": "Open in Spotify ↗",
     "02 · Tienda oficial": "02 · Official store", "Compra la música.": "Buy the music.", "Descargas en alta calidad en Bandcamp. Precio mínimo en dólares: puedes pagar más si quieres apoyar.": "High-quality downloads on Bandcamp. Minimum price in US dollars: pay more if you want to support.",
     "03 · Booking": "03 · Booking", "Lleva Prey Hunter a tu evento.": "Bring Prey Hunter to your event.",

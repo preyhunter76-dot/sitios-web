@@ -36,18 +36,18 @@ window.PH = {
 
   // [valor, etiqueta, fuente]
   stats: [
-    ["410.117", "Oyentes mensuales en Spotify", "Viberate · oct 2026"],
-    ["62,2 M", "Reproducciones verificadas", "MUSO.AI · todas las plataformas"],
-    ["Top 2%", "Ranking global de artistas", "Posición 114.994"],
-    ["292.921", "Shazams", "Histórico"],
+    ["478.300", "Oyentes mensuales en Spotify", "Chartmasters · nov 2026"],
+    ["66,1 M", "Reproducciones verificadas", "MUSO.AI · todas las plataformas"],
+    ["Top 2%", "Ranking global de artistas", "Posición 98.292"],
+    ["301.197", "Shazams", "Histórico"],
   ],
 
   // Lo más escuchado (mismas cifras que el sitio de Diego Gasca). [cifra, unidad, canción, detalle, carátula]
   top: [
-    ["+17 M", "reproducciones en Spotify", "I Like It", "Felipe Vasquez Dj, Prey Hunter, Disoft · 2022", "i-like-it"],
-    ["+3 M", "reproducciones", "Vacaciones Con Pablo", "Prey Hunter · 2025", "vacaciones-con-pablo"],
-    ["+2,2 M", "reproducciones", "Antava", "Disoft feat. Prey Hunter · 2023", "antava"],
-    ["+2,1 M", "reproducciones", "Karely", "Cartel Music · 2023", "karely"],
+    ["+20 M", "reproducciones en Spotify", "I Like It", "Felipe Vasquez Dj, Prey Hunter, Disoft · 2022", "i-like-it"],
+    ["+3,6 M", "reproducciones", "Vacaciones Con Pablo", "Prey Hunter · 2025", "vacaciones-con-pablo"],
+    ["+2,3 M", "reproducciones", "Antava", "Disoft feat. Prey Hunter · 2023", "antava"],
+    ["+2,2 M", "reproducciones", "Karely", "Cartel Music · 2023", "karely"],
     ["+1,2 M", "reproducciones", "Lele", "Felipe Vasquez Dj feat. Disoft, Prey Hunter · 2023", "lele"],
   ],
 

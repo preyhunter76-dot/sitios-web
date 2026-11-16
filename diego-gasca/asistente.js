@@ -29,7 +29,7 @@ window.Asistente = (() => {
     { k: ["consultoria", "asesoria", "mentoria", "diagnostico", "crear sello", "mi sello", "crear mi sello", "distribucion", "catalogo", "derechos", "marca personal", "crecer"],
       a: "Para empezar está el Diagnóstico: una sesión 1:1 de 90 minutos que revisa tu marca, distribución, metadatos y derechos, con plan escrito en 72 horas. Si vas a fundar un sello, «Crea tu sello» te acompaña 6 semanas; para crecer, el acompañamiento mensual. Todo en la sección Servicios." },
     { k: ["productor", "produccion", "musica", "canciones", "temas", "spotify", "escuchar", "compositor", "composicion"],
-      a: "Diego es productor musical desde hace más de una década y compositor con 148 créditos registrados en MUSO.AI. El catálogo de Cartel Music suma 142 grabaciones con ISRC. Puedes escucharlo en la sección «Escucha mi música»." },
+      a: "Diego es productor musical desde hace más de una década y compositor con 168 créditos registrados en MUSO.AI. El catálogo de Prey Hunter y Cartel Music suma 146 grabaciones con ISRC. Puedes escucharlo en la sección «Escucha mi música»." },
     { k: ["modelo", "modelaje", "campana", "marca de ropa", "foto", "fotografo", "fotografia", "sesion de fotos"],
       a: "Diego trabaja como modelo en campañas de moda y de marca, con contrato de uso de imagen. Para tu propia marca puedes pedir una sesión de fotos de marca en la sección Servicios." },
     { k: ["contacto", "correo", "email", "mail", "escribir", "whatsapp", "telefono", "numero", "llamar", "redes", "instagram"],

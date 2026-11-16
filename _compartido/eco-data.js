@@ -15,7 +15,7 @@
       items: ["Distribución propia por ONErpm y DistroKid", "Catálogo con metadatos y códigos ISRC completos", "Colaboradores acreditados de Cali hacia Europa"] },
     { name: "Prey Hunter", tag: "Marca artística", href: "https://prey-hunter.vercel.app", color: "#FF2D87",
       lead: "El proyecto artístico de Diego: una marca construida lanzamiento a lanzamiento desde 2014.",
-      kpis: [["+410 mil", "oyentes mensuales en Spotify"], ["Top 2 %", "ranking global de artistas"], ["148", "créditos de compositor"]],
+      kpis: [["+478 mil", "oyentes mensuales en Spotify"], ["Top 2 %", "ranking global de artistas"], ["168", "créditos de compositor"]],
       items: ["35 lanzamientos verificados entre 2021 y 2026", "Perfiles en Apple Music, Deezer, Spotify, Bandcamp y SoundCloud", "Género propio: Salsafro"] },
     { name: "Salsafro", tag: "Género propio", href: "https://salsafro.vercel.app", color: "#FF6D29",
       lead: "El género creado en Cali: guaracha, afro house, salsa y sonidos del Pacífico colombiano.",

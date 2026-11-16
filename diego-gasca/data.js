@@ -18,7 +18,7 @@ window.DG = {
       items: ["Distribución propia por ONErpm y DistroKid", "Catálogo con metadatos y códigos ISRC completos", "Seis colaboradores acreditados, de Cali hacia Europa"] },
     { name: "Prey Hunter", tag: "Crecimiento", href: "https://prey-hunter.vercel.app", color: "#FF2D87",
       lead: "Su proyecto artístico: una marca construida lanzamiento a lanzamiento desde 2014.",
-      kpis: [["+410 mil", "oyentes mensuales en Spotify"], ["Top 2 %", "ranking global de artistas"], ["148", "créditos de compositor"]],
+      kpis: [["+478 mil", "oyentes mensuales en Spotify"], ["Top 2 %", "ranking global de artistas"], ["168", "créditos de compositor"]],
       items: ["35 lanzamientos verificados entre 2021 y 2026", "Perfiles en Apple Music, Deezer, Spotify, Bandcamp y SoundCloud", "Género propio: Salsafro"] },
     { name: "Salsafro", tag: "Marca y género propio", href: "https://salsafro.vercel.app", color: "#FF6D29",
       lead: "El género que Diego creó en Cali: Afro House con ritmos afrocolombianos, salsa y percusión del Pacífico.",
@@ -43,7 +43,7 @@ window.DG = {
     ["Spotify", "Top 2 % del ranking global de artistas", "https://open.spotify.com/artist/7HWCje6tPWnHnBHxXiwrsM"],
     ["YouTube", "I Like It: +11 M de vistas en el video oficial", "https://www.youtube.com/watch?v=GWoGXxP9xGM"],
     ["Deezer", "Perfil biográfico verificado", "https://www.deezer.com/artist/14723513"],
-    ["MUSO.AI", "148 créditos de composición verificados", ""],
+    ["MUSO.AI", "168 créditos de composición verificados", ""],
   ], // perfil oficial de artista (Cerebro, módulo de medios)
   eco: { prey: "https://prey-hunter.vercel.app", cartel: "https://cartel-music.vercel.app", salsafro: "https://salsafro.vercel.app" },
 
@@ -60,7 +60,7 @@ window.DG = {
     ["Empresario", "brief", "Fundador del sello independiente Cartel Music y creador del género Salsafro. Dirige su operación con datos desde su propio sistema.", "img/portrait-diego.webp"],
     ["DJ", "head", "Sets de Salsafro, Afro House, House, Tech House y Deep House en clubes y festivales.", "img/facet-dj.webp"],
     ["Productor musical", "wave", "Más de una década creando música; el catálogo de su sello suma 142 grabaciones con ISRC.", "img/press-14.webp"],
-    ["Compositor", "pen", "Composición y topline con 148 créditos registrados en MUSO.AI y código IPI de compositor activo.", "img/press-18.webp"],
+    ["Compositor", "pen", "Composición y topline con 168 créditos registrados en MUSO.AI y código IPI de compositor activo.", "img/press-18.webp"],
     ["Modelo", "star", "Campañas de moda y de marca, con contrato de uso de imagen en cada sesión.", "img/press-07.webp"],
   ],
 
@@ -94,10 +94,10 @@ window.DG = {
 
   // Logros de canciones (Cerebro: módulo 16 Logros y módulo 06 Catálogo). [cifra, unidad, canción, detalle, carátula]
   hits: [
-    ["+17 M", "reproducciones en Spotify", "I Like It", "Felipe Vasquez Dj, Prey Hunter, Disoft · 2022", "i-like-it"],
-    ["+3 M", "reproducciones", "Vacaciones Con Pablo", "Prey Hunter · 2025", "vacaciones-con-pablo"],
-    ["+2,2 M", "reproducciones", "Antava", "Disoft feat. Prey Hunter · 2023", "antava"],
-    ["+2,1 M", "reproducciones", "Karely", "Cartel Music · 2023", "karely"],
+    ["+20 M", "reproducciones en Spotify", "I Like It", "Felipe Vasquez Dj, Prey Hunter, Disoft · 2022", "i-like-it"],
+    ["+3,6 M", "reproducciones", "Vacaciones Con Pablo", "Prey Hunter · 2025", "vacaciones-con-pablo"],
+    ["+2,3 M", "reproducciones", "Antava", "Disoft feat. Prey Hunter · 2023", "antava"],
+    ["+2,2 M", "reproducciones", "Karely", "Cartel Music · 2023", "karely"],
     ["+1,2 M", "reproducciones", "Lele", "Felipe Vasquez Dj feat. Disoft, Prey Hunter · 2023", "lele"],
   ],
 
