@@ -29,13 +29,13 @@ window.PH = {
   ],
   [
    "19 nov",
-   "Lanzamiento",
-   "2026"
+   "Ya disponible",
+   "PS5 y Xbox Series X|S · 2026"
   ],
   [
    "0",
    "Videos publicados",
-   "El primero llega con el lanzamiento"
+   "El primero está en revisión"
   ]
  ],
  "roots": [
@@ -57,12 +57,17 @@ window.PH = {
   [
    "04",
    "Música latina en Leonida",
-   "La radio Cocoteo FM."
+   "La radio Cocoteo FM, con Bad Bunny como El Martillo."
   ],
   [
    "05",
    "El mito de los actores de voz",
-   "Lo que se dijo y lo que se sabe."
+   "Lo que se dijo, lo que se sabe y lo que falta confirmar."
+  ],
+  [
+   "06",
+   "¿99 en Metacritic?",
+   "Qué dicen las reseñas y la queja que más se repite."
   ]
  ],
  "services": [
@@ -101,8 +106,8 @@ window.PH = {
    "Propón retos y experimentos para el canal."
   ],
   [
-   "Lanzamiento",
-   "Te avisamos el 19 de noviembre con el primer video."
+   "Estreno",
+   "Te avisamos en cuanto salga el primer video."
   ]
  ],
  "chars": [
