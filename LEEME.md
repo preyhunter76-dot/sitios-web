@@ -13,6 +13,7 @@ Todos están dentro del Cerebro Central: «Páginas web» (módulos 67–70) y �
 | `coffee-blue/` | Coffee Blue · cafetería | 64 | https://coffee-blue-eosin.vercel.app |
 | `jennifer-gasca/` | Jennifer Gasca · tienda de libros (10 libros reales de Amazon) | 65 | https://jennifer-gasca.vercel.app |
 | `nail-studio/` | Nácar · estudio de manicure y pedicure | 66 | https://nail-studio-pied-chi.vercel.app |
+| `clips-virales-gm/` | Clips Virales GM · estudio de clips con IA (app local en C:\Users\Prey Hunter\PreyCut) | — | https://clips-virales-gm.vercel.app |
 
 **Política de privacidad** (la usan las apps de Meta de los agentes de mensajes):
 https://diego-gasca.vercel.app/privacidad.html · eliminación de datos: https://diego-gasca.vercel.app/privacidad.html#eliminar

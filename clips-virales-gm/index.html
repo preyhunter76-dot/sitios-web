@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clips Virales GM · Estudio de clips con IA</title>
+<meta name="description" content="Clips Virales GM: estudio de clips con IA que funciona en tu PC. Clips verticales, subtítulos en cualquier idioma, doblaje con voz IA, editor profesional, efectos y sonidos sin copyright, descargador y estrategia de publicación.">
+<meta name="theme-color" content="#060608">
+<link rel="icon" href="img/icono.png" type="image/png">
+<meta property="og:title" content="Clips Virales GM">
+<meta property="og:description" content="Estudio de clips con IA 100% local: genera, traduce, dobla, edita y publica.">
+<meta property="og:image" content="img/generador.jpg">
+<style>
+@font-face{font-family:Inter;src:url(img/inter-400.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:Inter;src:url(img/inter-600.woff2) format("woff2");font-weight:600 800;font-display:swap}
+@font-face{font-family:"Instrument Serif";src:url(img/serif-400.woff2) format("woff2");font-display:swap}
+@font-face{font-family:"Instrument Serif";src:url(img/serif-400i.woff2) format("woff2");font-style:italic;font-display:swap}
+:root{--bg:#060608;--panel:#101014;--line:rgba(255,255,255,.08);--text:#ededf0;--muted:#8b8b95;--acc:#ff3d3d;--acc2:#ff8a3d}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font:16px/1.6 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+nav{position:sticky;top:0;z-index:5;background:rgba(6,6,8,.9);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;gap:14px;height:64px}
+nav img{width:34px;height:34px;border-radius:9px}
+nav b{font:400 22px "Instrument Serif",serif}nav b em{color:var(--acc)}
+nav .sp{flex:1}nav a.l{color:var(--muted);text-decoration:none;font-size:14px;margin-left:18px}nav a.l:hover{color:#fff}
+.hero{padding:90px 0 60px;text-align:center}
+.eyebrow{font:12px ui-monospace,Consolas,monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+h1{font:400 clamp(48px,8vw,96px)/1 "Instrument Serif",serif;letter-spacing:-.02em;margin:18px 0}
+h1 em,h2 em{color:var(--acc)}
+.lead{max-width:720px;margin:0 auto;color:#c5c5cd;font-size:18px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:28px 0 0}
+.chip{border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:13px;color:#d0d0d6}
+.shot{margin:50px auto 0;max-width:1060px;border-radius:18px;overflow:hidden;border:1px solid var(--line);box-shadow:0 40px 100px -30px rgba(255,61,61,.35)}
+.shot img{display:block;width:100%;height:auto}
+section{padding:70px 0;border-top:1px solid var(--line)}
+h2{font:400 clamp(34px,5vw,54px)/1.05 "Instrument Serif",serif;margin:12px 0 30px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:24px}
+.card h3{font-size:17px;margin-bottom:8px}.card p{color:var(--muted);font-size:14.5px}
+.num{font:400 44px/1 "Instrument Serif",serif;color:var(--acc)}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:center}
+.duo img{width:100%;border-radius:16px;border:1px solid var(--line)}
+ul.check{list-style:none}ul.check li{padding:8px 0 8px 28px;position:relative;color:#d0d0d6;border-bottom:1px solid var(--line)}
+ul.check li::before{content:"";position:absolute;left:4px;top:15px;width:10px;height:10px;border-radius:50%;background:var(--acc)}
+.steps{counter-reset:s}.steps li{list-style:none;counter-increment:s;padding:14px 0 14px 52px;position:relative;border-bottom:1px solid var(--line)}
+.steps li::before{content:counter(s);position:absolute;left:0;top:12px;width:34px;height:34px;border-radius:10px;background:var(--panel);border:1px solid var(--line);display:grid;place-items:center;font-weight:600;color:var(--acc)}
+code{font:13px ui-monospace,Consolas,monospace;background:#16161b;padding:2px 7px;border-radius:6px}
+.note{color:var(--muted);font-size:13.5px;margin-top:18px}
+footer{padding:40px 0 60px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+@media(max-width:860px){.grid{grid-template-columns:1fr}.duo{grid-template-columns:1fr}nav a.l{display:none}}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><img src="img/icono.png" alt=""><b>Clips Virales <em>GM</em></b><div class="sp"></div>
+  <a class="l" href="#funciones">Funciones</a><a class="l" href="#editor">Editor</a><a class="l" href="#instalar">Cómo usarla</a><a class="l" href="#legal">Legal</a></div></nav>
+
+<header class="hero"><div class="wrap">
+  <div class="eyebrow">Estudio de clips con IA · 100% local · gratis</div>
+  <h1>Clips Virales <em>GM</em></h1>
+  <p class="lead">Convierte videos largos en clips verticales listos para TikTok, Reels y Shorts. Subtítulos en cualquier idioma, doblaje con voz IA,
+    editor profesional, efectos y sonidos sin copyright, descargador en máxima calidad y estrategia de publicación para cada red. Todo en tu propio PC.</p>
+  <div class="chips"><span class="chip">Whisper local</span><span class="chip">IA local (Ollama)</span><span class="chip">318 voces · 75 idiomas</span>
+    <span class="chip">18 efectos de video</span><span class="chip">43 sonidos sin copyright</span><span class="chip">13 fuentes</span><span class="chip">1.700+ sitios para descargar</span></div>
+  <div class="shot"><img src="img/generador.jpg" alt="Generador de clips de Clips Virales GM con el panel Estilo y marca" width="1440" height="900"></div>
+</div></header>
+
+<section id="funciones"><div class="wrap">
+  <div class="eyebrow">Funciones</div><h2>Todo lo que un clip <em>viral</em> necesita</h2>
+  <div class="grid">
+    <div class="card"><h3>Generador de clips con IA</h3><p>Transcribe, encuentra los momentos con más gancho, encuadra las caras en 9:16 y añade subtítulos animados palabra por palabra.</p></div>
+    <div class="card"><h3>Subtítulos en cualquier idioma</h3><p>La IA local traduce subtítulos y ganchos. 13 fuentes libres, color del texto y del resaltado.</p></div>
+    <div class="card"><h3>Traducir y doblar</h3><p>Dobla el video completo a otro idioma con voces neuronales sincronizadas con los tiempos originales.</p></div>
+    <div class="card"><h3>Cambiar la voz</h3><p>Efectos sobre la voz original (grave, robot, radio, eco…) o un narrador con voz IA.</p></div>
+    <div class="card"><h3>Tu marca en cada clip</h3><p>Logo PNG con posición, tamaño y opacidad, 16 looks de color y barra de tiempo que avanza con el video.</p></div>
+    <div class="card"><h3>Clips en vivo</h3><p>Graba tu directo, pantalla o cámara y guarda los últimos 15, 30 o 60 segundos con una tecla.</p></div>
+    <div class="card"><h3>Descargar videos</h3><p>Pega el link y descarga en la mejor calidad disponible, en 1080p, en MP4 compatible o solo audio.</p></div>
+    <div class="card"><h3>Estrategia de publicación</h3><p>Analiza el video, detecta el nicho y crea título, texto, hashtags, CTA y horarios para cada red.</p></div>
+    <div class="card"><h3>Publicar y diagnóstico</h3><p>Sube a YouTube Shorts, TikTok, Reels y Facebook, y revisa con un clic qué funciona en la app.</p></div>
+  </div>
+</div></section>
+
+<section id="editor"><div class="wrap duo">
+  <div><div class="eyebrow">Editor profesional</div><h2>Edita como en <em>CapCut</em> o Premiere</h2>
+    <ul class="check">
+      <li>6 pistas: títulos, efectos, video, subtítulos, sonidos y música</li>
+      <li>18 efectos de motion graphics: zoom de impacto, temblor, flash, glitch, VHS, fuga de luz…</li>
+      <li>9 plantillas animadas: suscríbete, rótulo, cuenta atrás, última hora…</li>
+      <li>43 efectos de sonido libres de derechos (Pixabay License y CC0)</li>
+      <li>Marcadores, formas de onda reales, color por clip y 12 transiciones</li>
+      <li>Atajos de teclado profesionales y exportación en alta calidad</li>
+    </ul></div>
+  <img src="img/editor.jpg" alt="Editor multipista de Clips Virales GM" width="1440" height="900" loading="lazy">
+</div></section>
+
+<section><div class="wrap duo">
+  <img src="img/color.jpg" alt="Panel de color, logo y barra de tiempo" width="1440" height="900" loading="lazy">
+  <div><div class="eyebrow">Estilo y marca</div><h2>Un look <em>propio</em> en segundos</h2>
+    <p class="lead" style="margin:0">Elige entre 16 estilos de color o ajusta brillo, contraste, saturación, tono y temperatura. Añade tu logo y una barra de progreso.
+      La configuración se recuerda para el siguiente video.</p></div>
+</div></section>
+
+<section id="instalar"><div class="wrap">
+  <div class="eyebrow">Cómo usarla</div><h2>Funciona en <em>tu computador</em></h2>
+  <ol class="steps">
+    <li>Abre <b>Clips Virales GM</b> desde el escritorio o el menú Inicio de Windows.</li>
+    <li>Acepta los términos de uso la primera vez.</li>
+    <li>Sube un video, pega un link o conecta tu directo, elige tu estilo y pulsa <b>Generar clips</b>.</li>
+    <li>Ajusta en el editor, pulsa <b>Descargar video</b> o analiza la estrategia y publica.</li>
+  </ol>
+  <p class="note">Es una aplicación de escritorio de uso personal: los videos se procesan en el PC y no se suben a ningún servidor. Necesita internet solo para voces IA, descargas y publicar.</p>
+</div></section>
+
+<section id="legal"><div class="wrap">
+  <div class="eyebrow">Legal</div><h2>Uso <em>responsable</em></h2>
+  <div class="grid">
+    <div class="card"><h3>Derechos de autor</h3><p>Usa solo contenido propio, con licencia o con permiso. Cambiar colores, voz o idioma no elimina los derechos de un video ajeno.</p></div>
+    <div class="card"><h3>Voces IA</h3><p>No se deben usar para suplantar a personas reales. Marca el contenido generado con IA cuando la plataforma lo pida.</p></div>
+    <div class="card"><h3>Privacidad</h3><p>Sin analítica ni rastreo. Videos, tokens y ajustes se quedan en el computador del usuario.</p></div>
+  </div>
+  <p class="note">Sonidos: Pixabay Content License y CC0. Fuentes: SIL Open Font License y Apache 2.0. Software: FFmpeg, faster-whisper, Ollama, OpenCV, yt-dlp, edge-tts y FastAPI.
+    Política de privacidad del ecosistema: <a href="https://diego-gasca.vercel.app/privacidad.html">diego-gasca.vercel.app/privacidad.html</a></p>
+</div></section>
+
+<footer><div class="wrap">Clips Virales GM · una herramienta de Diego Gasca (Prey Hunter · Cartel Music) · Cali, Colombia</div></footer>
+</body>
+</html>
