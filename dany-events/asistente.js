@@ -27,6 +27,8 @@
       a: () => `WhatsApp directo: +56 9 3620 5747\nInstagram: @dany.eventss\n${WA_LINE("Hola Dany, vi tu página y quiero hablar contigo.")}` },
     { id: "tiempo", chip: "¿Con cuánta anticipación?", keys: ["anticip", "cuando", "tiempo", "urgente", "esta semana", "disponib", "fecha"],
       a: () => `Mientras antes escribas, más artistas y fechas hay disponibles. Para algo urgente, escríbele directo y te dice si alcanza:\n${WA_LINE("Hola Dany, tengo un evento para la fecha … ¿estás disponible?")}` },
+    { id: "comunidad", chip: "Quiero unirme a la comunidad", keys: ["comunidad", "unirme", "grupo", "novedades", "enterarme", "avisos", "lista de difusion"],
+      a: () => `¡Bienvenid@! 💜 Escríbele «COMUNIDAD» a Dany por WhatsApp o por mensaje directo en Instagram y te avisa primero de las fechas, line-ups y novedades de los eventos. Sales cuando quieras escribiendo «BAJA».\n${WA_LINE("Hola Dany! Quiero unirme a la Comunidad Dany Events 💜 COMUNIDAD")}` },
     { id: "pago", chip: "¿Cómo se paga?", keys: ["pago", "pagar", "anticipo", "abono", "transferencia", "factura", "contrato"],
       a: () => `Las condiciones de pago y el contrato se acuerdan por escrito con Dany antes del evento, junto con el artista y el venue. Pregúntale los detalles:\n${WA_LINE("Hola Dany, ¿cómo son las condiciones de pago y contrato?")}` },
   ];
@@ -58,7 +60,7 @@
     setTimeout(() => add(answer(q), "bot"), 280);
   };
 
-  KB.slice(0, 7).forEach((item) => {
+  KB.filter((item) => item.id !== "pago" && item.id !== "tiempo").forEach((item) => {
     const b = document.createElement("button");
     b.type = "button"; b.textContent = item.chip;
     b.addEventListener("click", () => ask(item.chip));
